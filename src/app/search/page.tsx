@@ -29,6 +29,7 @@ type Props = {
     impurityType?: string;
     parentId?: string;
     dosageForm?: string;
+    region?: string;
     molecularFormula?: string;
     pharmaVersion?: string;
     efficacy?: string;
@@ -55,6 +56,7 @@ export default async function SearchPage({ searchParams }: Props) {
     impurityType: (searchParams.impurityType || "") as ImpurityType | "",
     parentId: searchParams.parentId || "",
     dosageForm: searchParams.dosageForm || "",
+    region: searchParams.region || "",
     molecularFormula: searchParams.molecularFormula || "",
     pharmaVersion: searchParams.pharmaVersion || "",
     efficacy: searchParams.efficacy || "",
@@ -157,6 +159,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
       {hits.length > 0 ||
       result.facets.dosageForm.length > 0 ||
+      (result.facets.region || []).length > 0 ||
       result.facets.parentDrug.length > 0 ? (
         <Suspense fallback={null}>
           <SearchFacetBar facets={result.facets} />

@@ -16,7 +16,9 @@
     "import:unii": "node scripts/import-open-substances.mjs",
     "import:drugs": "node scripts/import-open-drug-products.mjs",
     "expand:ndc-substances": "node scripts/expand-substances-from-ndc.mjs",
-    "seed:open": "node scripts/generate-open-seed.mjs"
+    "seed:open": "node scripts/generate-open-seed.mjs",
+    "seed:global-drugs": "node scripts/generate-global-drug-seed.mjs",
+    "import:drugs:full": "node scripts/import-open-drug-products.mjs"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",

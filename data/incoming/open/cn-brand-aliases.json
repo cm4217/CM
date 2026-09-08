@@ -1,0 +1,2513 @@
+{
+  "generatedAt": "2026-09-08T00:00:00.000Z",
+  "count": 358,
+  "note": "Curated open Chinese brand/trade ↔ INN/UNII synonym map (identity only)",
+  "aliases": [
+    {
+      "cnBrand": "达菲",
+      "inn": "oseltamivir",
+      "enBrand": "Tamiflu",
+      "unii": "20O93X2F9N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "立普妥",
+      "inn": "atorvastatin",
+      "enBrand": "Lipitor",
+      "unii": "A0JWA85V8F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "格华止",
+      "inn": "metformin",
+      "enBrand": "Glucophage",
+      "unii": "9100L32L2N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "络活喜",
+      "inn": "amlodipine",
+      "enBrand": "Norvasc",
+      "unii": "1J444QC288",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "波立维",
+      "inn": "clopidogrel",
+      "enBrand": "Plavix",
+      "unii": "A74586SNO7",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜阿司匹灵",
+      "inn": "aspirin",
+      "enBrand": "Aspirin",
+      "unii": "R16CO5Y76E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "百忧解",
+      "inn": "fluoxetine",
+      "enBrand": "Prozac",
+      "unii": "01K63SUP8D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "百优解",
+      "inn": "fluoxetine",
+      "enBrand": "Prozac",
+      "unii": "01K63SUP8D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "优甲乐",
+      "inn": "levothyroxine",
+      "enBrand": "Euthyrox",
+      "unii": "Q51BO43MG4",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "贺普丁",
+      "inn": "lamivudine",
+      "enBrand": "Epivir",
+      "unii": "2T8Q726O95",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "韦瑞德",
+      "inn": "tenofovir disoproxil",
+      "enBrand": "Viread",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "舒利迭",
+      "inn": "salmeterol fluticasone",
+      "enBrand": "Seretide",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "信必可",
+      "inn": "budesonide formoterol",
+      "enBrand": "Symbicort",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "开瑞坦",
+      "inn": "loratadine",
+      "enBrand": "Claritin",
+      "unii": "7AJO3BO7QN",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "仙特明",
+      "inn": "cetirizine",
+      "enBrand": "Zyrtec",
+      "unii": "YO7261ME24",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "沐舒坦",
+      "inn": "ambroxol",
+      "enBrand": "Mucosolvan",
+      "unii": "200168S0CL",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "芬必得",
+      "inn": "ibuprofen",
+      "enBrand": "Fenbid",
+      "unii": "WK2XYI10QM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰诺",
+      "inn": "paracetamol",
+      "enBrand": "Tylenol",
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "必理通",
+      "inn": "paracetamol",
+      "enBrand": "Panadol",
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "感康",
+      "inn": "paracetamol",
+      "enBrand": null,
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "快克",
+      "inn": "paracetamol",
+      "enBrand": null,
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "白加黑",
+      "inn": "paracetamol",
+      "enBrand": null,
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "洛赛克",
+      "inn": "omeprazole",
+      "enBrand": "Losec",
+      "unii": "KG60484QX9",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "耐信",
+      "inn": "esomeprazole",
+      "enBrand": "Nexium",
+      "unii": "N3PAIN7O5H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达克普隆",
+      "inn": "lansoprazole",
+      "enBrand": "Takepron",
+      "unii": "0K5C5T2QPG",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "波利特",
+      "inn": "rabeprazole",
+      "enBrand": "Pariet",
+      "unii": "32828355LL",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "吗丁啉",
+      "inn": "domperidone",
+      "enBrand": "Motilium",
+      "unii": "5587267Z69",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "思密达",
+      "inn": "diosmectite",
+      "enBrand": "Smecta",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "易蒙停",
+      "inn": "loperamide",
+      "enBrand": "Imodium",
+      "unii": "6X9OC3H4II",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "杜密克",
+      "inn": "lactulose",
+      "enBrand": "Duphalac",
+      "unii": "9U7D5QH5AE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "福松",
+      "inn": "macrogol",
+      "enBrand": "Forlax",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿莫仙",
+      "inn": "amoxicillin",
+      "enBrand": "Amoxil",
+      "unii": "9EM05410Q9",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安灭菌",
+      "inn": "amoxicillin clavulanate",
+      "enBrand": "Augmentin",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可乐必妥",
+      "inn": "levofloxacin",
+      "enBrand": "Cravit",
+      "unii": "XO9W6M8WWE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜复乐",
+      "inn": "moxifloxacin",
+      "enBrand": "Avelox",
+      "unii": "U188XYD42P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "西普乐",
+      "inn": "ciprofloxacin",
+      "enBrand": "Ciproxin",
+      "unii": "5E8K9I0O4U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "希舒美",
+      "inn": "azithromycin",
+      "enBrand": "Zithromax",
+      "unii": "J2VE07JNLC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "罗氏芬",
+      "inn": "ceftriaxone",
+      "enBrand": "Rocephin",
+      "unii": "75J73V1629",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美平",
+      "inn": "meropenem",
+      "enBrand": "Merrem",
+      "unii": "FV9V4M52L3",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰能",
+      "inn": "imipenem cilastatin",
+      "enBrand": "Tienam",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "稳可信",
+      "inn": "vancomycin",
+      "enBrand": "Vancocin",
+      "unii": "6Q205EH1VU",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "斯沃",
+      "inn": "linezolid",
+      "enBrand": "Zyvox",
+      "unii": "ISQ9I6J12J",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "大扶康",
+      "inn": "fluconazole",
+      "enBrand": "Diflucan",
+      "unii": "8VZV102JHK",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "斯皮仁诺",
+      "inn": "itraconazole",
+      "enBrand": "Sporanox",
+      "unii": "304NUG5GF4",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "伏立康唑",
+      "inn": "voriconazole",
+      "enBrand": "Vfend",
+      "unii": "JFU09I87TR",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "科赛斯",
+      "inn": "caspofungin",
+      "enBrand": "Cancidas",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "格列卫",
+      "inn": "imatinib",
+      "enBrand": "Glivec",
+      "unii": "BKJ8M8G5HI",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "易瑞沙",
+      "inn": "gefitinib",
+      "enBrand": "Iressa",
+      "unii": "S65743JHBS",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "特罗凯",
+      "inn": "erlotinib",
+      "enBrand": "Tarceva",
+      "unii": "J4RVF12Y0Z",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "赫赛汀",
+      "inn": "trastuzumab",
+      "enBrand": "Herceptin",
+      "unii": "P188ANX8CK",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美罗华",
+      "inn": "rituximab",
+      "enBrand": "MabThera",
+      "unii": "4F4X42SYQ6",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安维汀",
+      "inn": "bevacizumab",
+      "enBrand": "Avastin",
+      "unii": "2S9ZZM9Q9V",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "修美乐",
+      "inn": "adalimumab",
+      "enBrand": "Humira",
+      "unii": "FYS6T7F842",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "恩利",
+      "inn": "etanercept",
+      "enBrand": "Enbrel",
+      "unii": "OP401G7OJC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "类克",
+      "inn": "infliximab",
+      "enBrand": "Remicade",
+      "unii": "B72HH48FLU",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰素",
+      "inn": "paclitaxel",
+      "enBrand": "Taxol",
+      "unii": "P88XT4IS4D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾素",
+      "inn": "docetaxel",
+      "enBrand": "Taxotere",
+      "unii": "15H5577CQD",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "健择",
+      "inn": "gemcitabine",
+      "enBrand": "Gemzar",
+      "unii": "B76N6SBZ8R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "希罗达",
+      "inn": "capecitabine",
+      "enBrand": "Xeloda",
+      "unii": "6804DJ8Z9U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "乐沙定",
+      "inn": "oxaliplatin",
+      "enBrand": "Eloxatin",
+      "unii": "04ZR2BJ61H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "开普拓",
+      "inn": "irinotecan",
+      "enBrand": "Campto",
+      "unii": "7673326042",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺维本",
+      "inn": "vinorelbine",
+      "enBrand": "Navelbine",
+      "unii": "Q6C979R91Y",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "索坦",
+      "inn": "sunitinib",
+      "enBrand": "Sutent",
+      "unii": "V99T50803M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "多吉美",
+      "inn": "sorafenib",
+      "enBrand": "Nexavar",
+      "unii": "9ZOQ3TZI87",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可瑞达",
+      "inn": "pembrolizumab",
+      "enBrand": "Keytruda",
+      "unii": "DPT0O3T46P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "欧狄沃",
+      "inn": "nivolumab",
+      "enBrand": "Opdivo",
+      "unii": "31YO63LBSN",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "福善美",
+      "inn": "alendronate",
+      "enBrand": "Fosamax",
+      "unii": "X1J18R4W8P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "密固达",
+      "inn": "zoledronic acid",
+      "enBrand": "Aclasta",
+      "unii": "70HZ18PH24",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "邦罗力",
+      "inn": "ibandronate",
+      "enBrand": "Bonviva",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "罗盖全",
+      "inn": "calcitriol",
+      "enBrand": "Rocaltrol",
+      "unii": "FXC9231JVH",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达美康",
+      "inn": "gliclazide",
+      "enBrand": "Diamicron",
+      "unii": "G4PX8C4HKV",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "亚莫利",
+      "inn": "glimepiride",
+      "enBrand": "Amaryl",
+      "unii": "6KY687524F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜唐苹",
+      "inn": "acarbose",
+      "enBrand": "Glucobay",
+      "unii": "T58MSI464G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "捷诺维",
+      "inn": "sitagliptin",
+      "enBrand": "Januvia",
+      "unii": "QFP0P1DV7Z",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "欧唐静",
+      "inn": "empagliflozin",
+      "enBrand": "Jardiance",
+      "unii": "HDC1R2M35U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安达唐",
+      "inn": "dapagliflozin",
+      "enBrand": "Forxiga",
+      "unii": "1ULL0QJ8UC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺和力",
+      "inn": "liraglutide",
+      "enBrand": "Victoza",
+      "unii": "839I73S42A",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺和泰",
+      "inn": "semaglutide",
+      "enBrand": "Ozempic",
+      "unii": "53AXN4NNHX",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "司美格鲁肽",
+      "inn": "semaglutide",
+      "enBrand": "Ozempic",
+      "unii": "53AXN4NNHX",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "来得时",
+      "inn": "insulin glargine",
+      "enBrand": "Lantus",
+      "unii": "2ZM8CX04RZ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺和锐",
+      "inn": "insulin aspart",
+      "enBrand": "NovoRapid",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺和灵",
+      "inn": "insulin human",
+      "enBrand": "Novolin",
+      "unii": "1Y17CTI5WQ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "优泌乐",
+      "inn": "insulin lispro",
+      "enBrand": "Humalog",
+      "unii": "GFX7QIS1II",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可定",
+      "inn": "rosuvastatin",
+      "enBrand": "Crestor",
+      "unii": "83MVU38M7Q",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "舒降之",
+      "inn": "simvastatin",
+      "enBrand": "Zocor",
+      "unii": "AGG2FN16EV",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美百乐镇",
+      "inn": "pravastatin",
+      "enBrand": "Mevalotin",
+      "unii": "KXO2KT9N0G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿乐",
+      "inn": "atorvastatin",
+      "enBrand": null,
+      "unii": "A0JWA85V8F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "益适纯",
+      "inn": "ezetimibe",
+      "enBrand": "Ezetrol",
+      "unii": "EOR26LQQ24",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "力平之",
+      "inn": "fenofibrate",
+      "enBrand": "Lipanthyl",
+      "unii": "U202363U8B",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安内真",
+      "inn": "amlodipine",
+      "enBrand": null,
+      "unii": "1J444QC288",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "压氏达",
+      "inn": "amlodipine",
+      "enBrand": null,
+      "unii": "1J444QC288",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜新同",
+      "inn": "nifedipine",
+      "enBrand": "Adalat",
+      "unii": "I9ZF7L6G2L",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "合心爽",
+      "inn": "diltiazem",
+      "enBrand": "Herbesser",
+      "unii": "EE92BBP03H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "异搏定",
+      "inn": "verapamil",
+      "enBrand": "Isoptin",
+      "unii": "CJ0O37KU29",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "倍他乐克",
+      "inn": "metoprolol",
+      "enBrand": "Betaloc",
+      "unii": "GEB06NHM23",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "康忻",
+      "inn": "bisoprolol",
+      "enBrand": "Concor",
+      "unii": "Y41JS2NL6U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "络德",
+      "inn": "carvedilol",
+      "enBrand": "Dilatrend",
+      "unii": "0K47UL67F2",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "悦宁定",
+      "inn": "enalapril",
+      "enBrand": "Renitec",
+      "unii": "69K7K8K2WL",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "开博通",
+      "inn": "captopril",
+      "enBrand": "Capoten",
+      "unii": "9G64SC2038",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "雅施达",
+      "inn": "perindopril",
+      "enBrand": "Coversyl",
+      "unii": "L8S48U07XP",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "洛汀新",
+      "inn": "benazepril",
+      "enBrand": "Lotensin",
+      "unii": "X1QE1L0OI6",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "蒙诺",
+      "inn": "fosinopril",
+      "enBrand": "Monopril",
+      "unii": "R8WQ107P2G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "科素亚",
+      "inn": "losartan",
+      "enBrand": "Cozaar",
+      "unii": "JMS50MPO89",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "海捷亚",
+      "inn": "losartan hydrochlorothiazide",
+      "enBrand": "Hyzaar",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "代文",
+      "inn": "valsartan",
+      "enBrand": "Diovan",
+      "unii": "80M03YXJ7I",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美卡素",
+      "inn": "telmisartan",
+      "enBrand": "Micardis",
+      "unii": "U5SYW473RQ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安博维",
+      "inn": "irbesartan",
+      "enBrand": "Aprovel",
+      "unii": "J0E2756Z7N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "必洛斯",
+      "inn": "candesartan",
+      "enBrand": "Blopress",
+      "unii": "S8Q36MD2XX",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "傲坦",
+      "inn": "olmesartan",
+      "enBrand": "Olmetec",
+      "unii": "8L641QZQHD",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "波依定",
+      "inn": "felodipine",
+      "enBrand": "Plendil",
+      "unii": "OL961RQC3F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "尼膜同",
+      "inn": "nimodipine",
+      "enBrand": "Nimotop",
+      "unii": "57WA9QZ5WH",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "异乐定",
+      "inn": "isosorbide mononitrate",
+      "enBrand": "Elantan",
+      "unii": "LX1OH63030",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "消心痛",
+      "inn": "isosorbide dinitrate",
+      "enBrand": null,
+      "unii": "IA7306519N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "万艾可",
+      "inn": "sildenafil",
+      "enBrand": "Viagra",
+      "unii": "V9MO539ZOA",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "希爱力",
+      "inn": "tadalafil",
+      "enBrand": "Cialis",
+      "unii": "742SXX0ICT",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾力达",
+      "inn": "vardenafil",
+      "enBrand": "Levitra",
+      "unii": "U5J02140JV",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "金戈",
+      "inn": "sildenafil",
+      "enBrand": null,
+      "unii": "V9MO539ZOA",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "保列治",
+      "inn": "finasteride",
+      "enBrand": "Proscar",
+      "unii": "57GNO57U7G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "哈乐",
+      "inn": "tamsulosin",
+      "enBrand": "Harnal",
+      "unii": "11P2JDE17M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "高特灵",
+      "inn": "terazosin",
+      "enBrand": "Hytrin",
+      "unii": "8L5014XET7",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜阿司匹林",
+      "inn": "aspirin",
+      "enBrand": "Aspirin",
+      "unii": "R16CO5Y76E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "巴米尔",
+      "inn": "aspirin",
+      "enBrand": "Bamyl",
+      "unii": "R16CO5Y76E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美林",
+      "inn": "ibuprofen",
+      "enBrand": "Motrin",
+      "unii": "WK2XYI10QM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰诺林",
+      "inn": "paracetamol",
+      "enBrand": "Tylenol",
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "散利痛",
+      "inn": "paracetamol",
+      "enBrand": "Saridon",
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "扶他林",
+      "inn": "diclofenac",
+      "enBrand": "Voltaren",
+      "unii": "144O8QL0L1",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "西乐葆",
+      "inn": "celecoxib",
+      "enBrand": "Celebrex",
+      "unii": "JCX84Q7J1L",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "莫比可",
+      "inn": "meloxicam",
+      "enBrand": "Mobic",
+      "unii": "711VUL1N73",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "乐松",
+      "inn": "loxoprofen",
+      "enBrand": "Loxonin",
+      "unii": "358F4011OY",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "奇曼丁",
+      "inn": "tramadol",
+      "enBrand": "Tramal",
+      "unii": "39J1LGJ38S",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美施康定",
+      "inn": "morphine",
+      "enBrand": "MST Continus",
+      "unii": "76I7G6D29C",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "奥施康定",
+      "inn": "oxycodone",
+      "enBrand": "OxyContin",
+      "unii": "CD35PMG570",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "多瑞吉",
+      "inn": "fentanyl",
+      "enBrand": "Durogesic",
+      "unii": "UF599785JZ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "力月西",
+      "inn": "midazolam",
+      "enBrand": "Dormicum",
+      "unii": "R60L0SM5BC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安定",
+      "inn": "diazepam",
+      "enBrand": "Valium",
+      "unii": "Q3JTX2Q7TU",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "思诺思",
+      "inn": "zolpidem",
+      "enBrand": "Stilnox",
+      "unii": "7K383OQI23",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "忆梦返",
+      "inn": "zopiclone",
+      "enBrand": "Imovane",
+      "unii": "03A5OZ7L32",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "怡诺思",
+      "inn": "venlafaxine",
+      "enBrand": "Effexor",
+      "unii": "GRZ5RCB1QG",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "赛乐特",
+      "inn": "paroxetine",
+      "enBrand": "Seroxat",
+      "unii": "41VRH5220H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "左洛复",
+      "inn": "sertraline",
+      "enBrand": "Zoloft",
+      "unii": "QUC7NX6WMB",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "喜普妙",
+      "inn": "citalopram",
+      "enBrand": "Cipramil",
+      "unii": "0DHU5B8D6V",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "来士普",
+      "inn": "escitalopram",
+      "enBrand": "Lexapro",
+      "unii": "4O4S742ANY",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "欣百达",
+      "inn": "duloxetine",
+      "enBrand": "Cymbalta",
+      "unii": "O5TNM5N07U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞美隆",
+      "inn": "mirtazapine",
+      "enBrand": "Remeron",
+      "unii": "A051Q2099Q",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "思瑞康",
+      "inn": "quetiapine",
+      "enBrand": "Seroquel",
+      "unii": "2S3PL1B6UJ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "再普乐",
+      "inn": "olanzapine",
+      "enBrand": "Zyprexa",
+      "unii": "N7U69T4SZR",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "维思通",
+      "inn": "risperidone",
+      "enBrand": "Risperdal",
+      "unii": "L6UH7ZF8HC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安律凡",
+      "inn": "aripiprazole",
+      "enBrand": "Abilify",
+      "unii": "82VFR53I78",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "德巴金",
+      "inn": "valproate",
+      "enBrand": "Depakine",
+      "unii": "5VOM6GYJ0D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "得理多",
+      "inn": "carbamazepine",
+      "enBrand": "Tegretol",
+      "unii": "33CM23913M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "曲莱",
+      "inn": "oxcarbazepine",
+      "enBrand": "Trileptal",
+      "unii": "VZI5B1W380",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "利必通",
+      "inn": "lamotrigine",
+      "enBrand": "Lamictal",
+      "unii": "U3H27498KS",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "开浦兰",
+      "inn": "levetiracetam",
+      "enBrand": "Keppra",
+      "unii": "44YRR34555",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "妥泰",
+      "inn": "topiramate",
+      "enBrand": "Topamax",
+      "unii": "0H73WJJ391",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "迭力",
+      "inn": "gabapentin",
+      "enBrand": "Neurontin",
+      "unii": "6CW7F3GXoM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "乐瑞卡",
+      "inn": "pregabalin",
+      "enBrand": "Lyrica",
+      "unii": "55JG375S6M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安理申",
+      "inn": "donepezil",
+      "enBrand": "Aricept",
+      "unii": "8SSC91326P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾斯能",
+      "inn": "rivastigmine",
+      "enBrand": "Exelon",
+      "unii": "HFD406WA24",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "易倍申",
+      "inn": "memantine",
+      "enBrand": "Ebixa",
+      "unii": "W8O17SJH6X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美多芭",
+      "inn": "levodopa benserazide",
+      "enBrand": "Madopar",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "息宁",
+      "inn": "levodopa carbidopa",
+      "enBrand": "Sinemet",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "森福罗",
+      "inn": "pramipexole",
+      "enBrand": "Sifrol",
+      "unii": "83619PEU5T",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "顺尔宁",
+      "inn": "montelukast",
+      "enBrand": "Singulair",
+      "unii": "MHM278SD3E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "万托林",
+      "inn": "salbutamol",
+      "enBrand": "Ventolin",
+      "unii": "QF8SV8JR1R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "喘乐宁",
+      "inn": "salbutamol",
+      "enBrand": "Ventolin",
+      "unii": "QF8SV8JR1R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "思力华",
+      "inn": "tiotropium",
+      "enBrand": "Spiriva",
+      "unii": "0EB439235F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "爱全乐",
+      "inn": "ipratropium",
+      "enBrand": "Atrovent",
+      "unii": "GR88G0I6UL",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "普米克",
+      "inn": "budesonide",
+      "enBrand": "Pulmicort",
+      "unii": "Q3OKS62Q6X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "辅舒酮",
+      "inn": "fluticasone",
+      "enBrand": "Flixotide",
+      "unii": "CUT2W21N7U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "必可酮",
+      "inn": "beclometasone",
+      "enBrand": "Becotide",
+      "unii": "5B307S63B2",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "博利康尼",
+      "inn": "terbutaline",
+      "enBrand": "Bricanyl",
+      "unii": "N8ONU3L4BK",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "富露施",
+      "inn": "acetylcysteine",
+      "enBrand": "Fluimucil",
+      "unii": "WYQ7N0BPYC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美卓乐",
+      "inn": "methylprednisolone",
+      "enBrand": "Medrol",
+      "unii": "X4W7ZR7023",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "甲强龙",
+      "inn": "methylprednisolone",
+      "enBrand": "Solu-Medrol",
+      "unii": "X4W7ZR7023",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "得宝松",
+      "inn": "betamethasone",
+      "enBrand": "Diprospan",
+      "unii": "9842X06Q6M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "新山地明",
+      "inn": "ciclosporin",
+      "enBrand": "Sandimmun Neoral",
+      "unii": "83HN0GTJ6D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "普乐可复",
+      "inn": "tacrolimus",
+      "enBrand": "Prograf",
+      "unii": "WM0HAQ4WNM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "骁悉",
+      "inn": "mycophenolate mofetil",
+      "enBrand": "CellCept",
+      "unii": "9242ECW6R0",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "雷帕鸣",
+      "inn": "sirolimus",
+      "enBrand": "Rapamune",
+      "unii": "W36ZG6FT64",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "飞尼妥",
+      "inn": "everolimus",
+      "enBrand": "Afinitor",
+      "unii": "9HW64Q8G6G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "痛风利仙",
+      "inn": "benzbromarone",
+      "enBrand": "Narcaricin",
+      "unii": "4FI608258Y",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "优立通",
+      "inn": "febuxostat",
+      "enBrand": null,
+      "unii": "101V0R1N1P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可密定",
+      "inn": "warfarin",
+      "enBrand": "Coumadin",
+      "unii": "5Q7ZBV23MI",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "克赛",
+      "inn": "enoxaparin",
+      "enBrand": "Clexane",
+      "unii": "8NZ41MIK1O",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "速碧林",
+      "inn": "nadroparin",
+      "enBrand": "Fraxiparine",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拜瑞妥",
+      "inn": "rivaroxaban",
+      "enBrand": "Xarelto",
+      "unii": "9NDF7JZ4M3",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰毕全",
+      "inn": "dabigatran",
+      "enBrand": "Pradaxa",
+      "unii": "2E18WX195X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾乐妥",
+      "inn": "apixaban",
+      "enBrand": "Eliquis",
+      "unii": "3Z9Y7UWC0J",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泰嘉",
+      "inn": "clopidogrel",
+      "enBrand": null,
+      "unii": "A74586SNO7",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "倍林达",
+      "inn": "ticagrelor",
+      "enBrand": "Brilinta",
+      "unii": "GLH0314R40",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "培达",
+      "inn": "cilostazol",
+      "enBrand": "Pletal",
+      "unii": "N7Z035004B",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "潘生丁",
+      "inn": "dipyridamole",
+      "enBrand": "Persantine",
+      "unii": "64ALC7F90C",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "爱通立",
+      "inn": "alteplase",
+      "enBrand": "Actilyse",
+      "unii": "1RXS4UE564",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "弥可保",
+      "inn": "mecobalamin",
+      "enBrand": "Methycobal",
+      "unii": "S341951UVC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "钙尔奇",
+      "inn": "calcium carbonate",
+      "enBrand": "Caltrate",
+      "unii": "H0G9379FGK",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "补达秀",
+      "inn": "potassium chloride",
+      "enBrand": "Slow-K",
+      "unii": "660YQ98I10",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "潘南金",
+      "inn": "potassium magnesium aspartate",
+      "enBrand": "Panangin",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "速尿",
+      "inn": "furosemide",
+      "enBrand": "Lasix",
+      "unii": "7LXU5N7ZO5",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安体舒通",
+      "inn": "spironolactone",
+      "enBrand": "Aldactone",
+      "unii": "27O7W4T232",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "寿比山",
+      "inn": "indapamide",
+      "enBrand": "Natrilix",
+      "unii": "F089I17960",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "特苏尼",
+      "inn": "torasemide",
+      "enBrand": null,
+      "unii": "W31X2H97Z2",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "金奥康",
+      "inn": "omeprazole",
+      "enBrand": null,
+      "unii": "KG60484QX9",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "潘妥洛克",
+      "inn": "pantoprazole",
+      "enBrand": "Pantoloc",
+      "unii": "D6A6JQD40P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "高舒达",
+      "inn": "famotidine",
+      "enBrand": "Gaster",
+      "unii": "5QZO15J2Z8",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达喜",
+      "inn": "hydrotalcite",
+      "enBrand": "Talcid",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "丽珠得乐",
+      "inn": "bismuth",
+      "enBrand": "De-Nol",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "加斯清",
+      "inn": "mosapride",
+      "enBrand": "Gasmotin",
+      "unii": "C4BBL75G2H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞复啉",
+      "inn": "itopride",
+      "enBrand": "Ganaton",
+      "unii": "2H9NV5021M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "得舒特",
+      "inn": "pinaverium",
+      "enBrand": "Dicetel",
+      "unii": "N55A32I1XE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "斯巴敏",
+      "inn": "otilonium bromide",
+      "enBrand": "Spasmomen",
+      "unii": "51F6NVF54Y",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "援生力维",
+      "inn": "trimebutine",
+      "enBrand": null,
+      "unii": "QZ1OJ92E5R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "得每通",
+      "inn": "pancreatin",
+      "enBrand": "Creon",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达吉",
+      "inn": "digestive enzymes",
+      "enBrand": "Combizym",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氟哌酸",
+      "inn": "norfloxacin",
+      "enBrand": "Noroxin",
+      "unii": "N0F8P22L1V",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "灭滴灵",
+      "inn": "metronidazole",
+      "enBrand": "Flagyl",
+      "unii": "140QMO216E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "特丽仙",
+      "inn": "clindamycin",
+      "enBrand": "Dalacin",
+      "unii": "3U02EL437C",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "强力霉素",
+      "inn": "doxycycline",
+      "enBrand": "Vibramycin",
+      "unii": "334895S862",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美满霉素",
+      "inn": "minocycline",
+      "enBrand": "Minocin",
+      "unii": "FYY3R43WGO",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "西力欣",
+      "inn": "cefuroxime",
+      "enBrand": "Zinnat",
+      "unii": "O1R9FJ5O7Q",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "复达欣",
+      "inn": "ceftazidime",
+      "enBrand": "Fortum",
+      "unii": "9M416Z9QNR",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "马斯平",
+      "inn": "cefepime",
+      "enBrand": "Maxipime",
+      "unii": "807K3VQD99",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "世福素",
+      "inn": "cefixime",
+      "enBrand": "Cefspan",
+      "unii": "97I1C9D10P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "希刻劳",
+      "inn": "cefaclor",
+      "enBrand": "Ceclor",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "世扶尼",
+      "inn": "cefdinir",
+      "enBrand": "Omnicef",
+      "unii": "CI0FAO63WC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "特治星",
+      "inn": "piperacillin tazobactam",
+      "enBrand": "Tazocin",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "他格适",
+      "inn": "teicoplanin",
+      "enBrand": "Targocid",
+      "unii": "4U3WMG836X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "无耐",
+      "inn": "aciclovir",
+      "enBrand": "Zovirax",
+      "unii": "X4HES1O11F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "明竹欣",
+      "inn": "valaciclovir",
+      "enBrand": "Valtrex",
+      "unii": "MZ1IW7Q79D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "丽科伟",
+      "inn": "ganciclovir",
+      "enBrand": null,
+      "unii": "P9G3CKZ4P5",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "乐感清",
+      "inn": "zanamivir",
+      "enBrand": "Relenza",
+      "unii": "L6O3XI777I",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "病毒唑",
+      "inn": "ribavirin",
+      "enBrand": "Virazole",
+      "unii": "49717AWG6K",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "博路定",
+      "inn": "entecavir",
+      "enBrand": "Baraclude",
+      "unii": "5968Y6H45M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "贺维力",
+      "inn": "adefovir",
+      "enBrand": "Hepsera",
+      "unii": "U6Q8Z019CZ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "素比伏",
+      "inn": "telbivudine",
+      "enBrand": "Sebivo",
+      "unii": "2NQ51JA47I",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "韦立得",
+      "inn": "tenofovir alafenamide",
+      "enBrand": "Vemlidy",
+      "unii": "EL9943R1YE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "丙通沙",
+      "inn": "sofosbuvir velpatasvir",
+      "enBrand": "Epclusa",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "夏帆宁",
+      "inn": "ledipasvir sofosbuvir",
+      "enBrand": "Harvoni",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "帕罗韦德",
+      "inn": "nirmatrelvir ritonavir",
+      "enBrand": "Paxlovid",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞德西韦",
+      "inn": "remdesivir",
+      "enBrand": "Veklury",
+      "unii": "3QKI37EEHE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "莫努匹韦",
+      "inn": "molnupiravir",
+      "enBrand": "Lagevrio",
+      "unii": "YA84KI1VEW",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "扑尔敏",
+      "inn": "chlorphenamine",
+      "enBrand": null,
+      "unii": "3U6IO1965U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "非那根",
+      "inn": "promethazine",
+      "enBrand": "Phenergan",
+      "unii": "FF28EJQ494",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "赛治",
+      "inn": "thiamazole",
+      "enBrand": "Thyrozol",
+      "unii": "554Z48XN5E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "补佳乐",
+      "inn": "estradiol valerate",
+      "enBrand": "Progynova",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安琪坦",
+      "inn": "progesterone",
+      "enBrand": "Utrogestan",
+      "unii": "4G7DS2Q64Y",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达芙通",
+      "inn": "dydrogesterone",
+      "enBrand": "Duphaston",
+      "unii": "90I02KLE8K",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "妈富隆",
+      "inn": "desogestrel ethinylestradiol",
+      "enBrand": "Marvelon",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "优思明",
+      "inn": "drospirenone ethinylestradiol",
+      "enBrand": "Yasmin",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达英-35",
+      "inn": "cyproterone ethinylestradiol",
+      "enBrand": "Diane-35",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "妥塞敏",
+      "inn": "tranexamic acid",
+      "enBrand": "Transamin",
+      "unii": "6T84R30KC1",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "佳达修",
+      "inn": "hpv vaccine",
+      "enBrand": "Gardasil",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "希瑞适",
+      "inn": "hpv vaccine",
+      "enBrand": "Cervarix",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "沛儿",
+      "inn": "pneumococcal vaccine",
+      "enBrand": "Prevenar",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "迪化糖锭",
+      "inn": "metformin",
+      "enBrand": "Glucophage",
+      "unii": "9100L32L2N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美迪康",
+      "inn": "metformin",
+      "enBrand": null,
+      "unii": "9100L32L2N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "卡博平",
+      "inn": "acarbose",
+      "enBrand": null,
+      "unii": "T58MSI464G",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "文迪雅",
+      "inn": "rosiglitazone",
+      "enBrand": "Avandia",
+      "unii": "05V02F2KDG",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾汀",
+      "inn": "pioglitazone",
+      "enBrand": "Actos",
+      "unii": "X4PV5J91CM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞易宁",
+      "inn": "glipizide",
+      "enBrand": "Glucotrol",
+      "unii": "X7WDT95N5C",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "诺和龙",
+      "inn": "repaglinide",
+      "enBrand": "NovoNorm",
+      "unii": "668Z8C33LU",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "长秀霖",
+      "inn": "insulin glargine",
+      "enBrand": null,
+      "unii": "2ZM8CX04RZ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "甘舒霖",
+      "inn": "insulin human",
+      "enBrand": null,
+      "unii": "1Y17CTI5WQ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "托妥",
+      "inn": "rosuvastatin",
+      "enBrand": "Crestor",
+      "unii": "83MVU38M7Q",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "京必舒新",
+      "inn": "simvastatin",
+      "enBrand": null,
+      "unii": "AGG2FN16EV",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "博苏",
+      "inn": "bisoprolol",
+      "enBrand": null,
+      "unii": "Y41JS2NL6U",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "金络",
+      "inn": "carvedilol",
+      "enBrand": null,
+      "unii": "0K47UL67F2",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "复代文",
+      "inn": "valsartan hydrochlorothiazide",
+      "enBrand": "Co-Diovan",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "安博诺",
+      "inn": "irbesartan hydrochlorothiazide",
+      "enBrand": "CoAprovel",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "鲁南欣康",
+      "inn": "isosorbide mononitrate",
+      "enBrand": null,
+      "unii": "LX1OH63030",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可达龙",
+      "inn": "amiodarone",
+      "enBrand": "Cordarone",
+      "unii": "N3RQ532IUT",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "地高辛",
+      "inn": "digoxin",
+      "enBrand": "Lanoxin",
+      "unii": "73K4184T59",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞泰",
+      "inn": "ramipril",
+      "enBrand": "Triatec",
+      "unii": "L35JN3I7SJ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "捷赐瑞",
+      "inn": "lisinopril",
+      "enBrand": "Zestril",
+      "unii": "E7199S1YWR",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "力清之",
+      "inn": "pitavastatin",
+      "enBrand": "Livalo",
+      "unii": "M5681Q5F9P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "万珂",
+      "inn": "bortezomib",
+      "enBrand": "Velcade",
+      "unii": "69G8BD63PP",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "瑞复美",
+      "inn": "lenalidomide",
+      "enBrand": "Revlimid",
+      "unii": "F0P408N8V2",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "雅美罗",
+      "inn": "tocilizumab",
+      "enBrand": "Actemra",
+      "unii": "I031V2H011",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "喜达诺",
+      "inn": "ustekinumab",
+      "enBrand": "Stelara",
+      "unii": "FU77B4U5Z0",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "可善挺",
+      "inn": "secukinumab",
+      "enBrand": "Cosentyx",
+      "unii": "DLG4EML025",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "惠尔血",
+      "inn": "filgrastim",
+      "enBrand": "Neupogen",
+      "unii": "PVI5M0M1GW",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "益比奥",
+      "inn": "epoetin",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "罗可曼",
+      "inn": "epoetin",
+      "enBrand": "Recormon",
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿那曲唑",
+      "inn": "anastrozole",
+      "enBrand": "Arimidex",
+      "unii": "2Z07MYW1AZ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "来曲唑",
+      "inn": "letrozole",
+      "enBrand": "Femara",
+      "unii": "7LKK855W8I",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "他莫昔芬",
+      "inn": "tamoxifen",
+      "enBrand": "Nolvadex",
+      "unii": "094ZI81Y45",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "米开民",
+      "inn": "micafungin",
+      "enBrand": "Mycamine",
+      "unii": "R10H71BSWG",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "芙必叮",
+      "inn": "desloratadine",
+      "enBrand": "Aerius",
+      "unii": "FVF865388R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "酮替芬",
+      "inn": "ketotifen",
+      "enBrand": "Zaditen",
+      "unii": "X49220TB1D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "别嘌醇",
+      "inn": "allopurinol",
+      "enBrand": "Zyloric",
+      "unii": "63CZ7GJN5I",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "秋水仙碱",
+      "inn": "colchicine",
+      "enBrand": null,
+      "unii": "SML2Y3J35T",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "甲氨蝶呤",
+      "inn": "methotrexate",
+      "enBrand": null,
+      "unii": "YL5FZ2Y5U1",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "环磷酰胺",
+      "inn": "cyclophosphamide",
+      "enBrand": "Endoxan",
+      "unii": "8N3DW7272P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "顺铂",
+      "inn": "cisplatin",
+      "enBrand": "Platinol",
+      "unii": "Q20Q21Q62J",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "卡铂",
+      "inn": "carboplatin",
+      "enBrand": "Paraplatin",
+      "unii": "BG3F62OND5",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿霉素",
+      "inn": "doxorubicin",
+      "enBrand": "Adriamycin",
+      "unii": "80168379AG",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氟尿嘧啶",
+      "inn": "fluorouracil",
+      "enBrand": null,
+      "unii": "U3P01618RT",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "奥司他韦",
+      "inn": "oseltamivir",
+      "enBrand": "Tamiflu",
+      "unii": "20O93X2F9N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "磷酸奥司他韦",
+      "inn": "oseltamivir",
+      "enBrand": "Tamiflu",
+      "unii": "20O93X2F9N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "二甲双胍",
+      "inn": "metformin",
+      "enBrand": null,
+      "unii": "9100L32L2N",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿托伐他汀钙",
+      "inn": "atorvastatin",
+      "enBrand": null,
+      "unii": "A0JWA85V8F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "左氧氟沙星",
+      "inn": "levofloxacin",
+      "enBrand": "Cravit",
+      "unii": "XO9W6M8WWE",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿奇霉素",
+      "inn": "azithromycin",
+      "enBrand": "Zithromax",
+      "unii": "J2VE07JNLC",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "头孢曲松",
+      "inn": "ceftriaxone",
+      "enBrand": "Rocephin",
+      "unii": "75J73V1629",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "美罗培南",
+      "inn": "meropenem",
+      "enBrand": "Merrem",
+      "unii": "FV9V4M52L3",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "万古霉素",
+      "inn": "vancomycin",
+      "enBrand": "Vancocin",
+      "unii": "6Q205EH1VU",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氟康唑",
+      "inn": "fluconazole",
+      "enBrand": "Diflucan",
+      "unii": "8VZV102JHK",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿昔洛韦",
+      "inn": "aciclovir",
+      "enBrand": "Zovirax",
+      "unii": "X4HES1O11F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "拉米夫定",
+      "inn": "lamivudine",
+      "enBrand": "Epivir",
+      "unii": "2T8Q726O95",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "恩替卡韦",
+      "inn": "entecavir",
+      "enBrand": "Baraclude",
+      "unii": "5968Y6H45M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氯吡格雷",
+      "inn": "clopidogrel",
+      "enBrand": "Plavix",
+      "unii": "A74586SNO7",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "利伐沙班",
+      "inn": "rivaroxaban",
+      "enBrand": "Xarelto",
+      "unii": "9NDF7JZ4M3",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿哌沙班",
+      "inn": "apixaban",
+      "enBrand": "Eliquis",
+      "unii": "3Z9Y7UWC0J",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "达比加群",
+      "inn": "dabigatran",
+      "enBrand": "Pradaxa",
+      "unii": "2E18WX195X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "替格瑞洛",
+      "inn": "ticagrelor",
+      "enBrand": "Brilinta",
+      "unii": "GLH0314R40",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "孟鲁司特",
+      "inn": "montelukast",
+      "enBrand": "Singulair",
+      "unii": "MHM278SD3E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "沙丁胺醇",
+      "inn": "salbutamol",
+      "enBrand": "Ventolin",
+      "unii": "QF8SV8JR1R",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "布地奈德",
+      "inn": "budesonide",
+      "enBrand": "Pulmicort",
+      "unii": "Q3OKS62Q6X",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "噻托溴铵",
+      "inn": "tiotropium",
+      "enBrand": "Spiriva",
+      "unii": "0EB439235F",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氯雷他定",
+      "inn": "loratadine",
+      "enBrand": "Clarityne",
+      "unii": "7AJO3BO7QN",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "西替利嗪",
+      "inn": "cetirizine",
+      "enBrand": "Zyrtec",
+      "unii": "YO7261ME24",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "舍曲林",
+      "inn": "sertraline",
+      "enBrand": "Zoloft",
+      "unii": "QUC7NX6WMB",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氟西汀",
+      "inn": "fluoxetine",
+      "enBrand": "Prozac",
+      "unii": "01K63SUP8D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "艾司西酞普兰",
+      "inn": "escitalopram",
+      "enBrand": "Lexapro",
+      "unii": "4O4S742ANY",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "喹硫平",
+      "inn": "quetiapine",
+      "enBrand": "Seroquel",
+      "unii": "2S3PL1B6UJ",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "奥氮平",
+      "inn": "olanzapine",
+      "enBrand": "Zyprexa",
+      "unii": "N7U69T4SZR",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿立哌唑",
+      "inn": "aripiprazole",
+      "enBrand": "Abilify",
+      "unii": "82VFR53I78",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "普瑞巴林",
+      "inn": "pregabalin",
+      "enBrand": "Lyrica",
+      "unii": "55JG375S6M",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "加巴喷丁",
+      "inn": "gabapentin",
+      "enBrand": "Neurontin",
+      "unii": "6CW7F3GXoM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "左乙拉西坦",
+      "inn": "levetiracetam",
+      "enBrand": "Keppra",
+      "unii": "44YRR34555",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "多奈哌齐",
+      "inn": "donepezil",
+      "enBrand": "Aricept",
+      "unii": "8SSC91326P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "西地那非",
+      "inn": "sildenafil",
+      "enBrand": "Viagra",
+      "unii": "V9MO539ZOA",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "他达拉非",
+      "inn": "tadalafil",
+      "enBrand": "Cialis",
+      "unii": "742SXX0ICT",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "泮托拉唑",
+      "inn": "pantoprazole",
+      "enBrand": "Pantoloc",
+      "unii": "D6A6JQD40P",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "埃索美拉唑",
+      "inn": "esomeprazole",
+      "enBrand": "Nexium",
+      "unii": "N3PAIN7O5H",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "奥美拉唑",
+      "inn": "omeprazole",
+      "enBrand": "Losec",
+      "unii": "KG60484QX9",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "布洛芬",
+      "inn": "ibuprofen",
+      "enBrand": "Fenbid",
+      "unii": "WK2XYI10QM",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "对乙酰氨基酚",
+      "inn": "paracetamol",
+      "enBrand": "Tylenol",
+      "unii": "362O9ITL9D",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿司匹林",
+      "inn": "aspirin",
+      "enBrand": "Aspirin",
+      "unii": "R16CO5Y76E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氨氯地平",
+      "inn": "amlodipine",
+      "enBrand": "Norvasc",
+      "unii": "1J444QC288",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "呋塞米",
+      "inn": "furosemide",
+      "enBrand": "Lasix",
+      "unii": "7LXU5N7ZO5",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "氢氯噻嗪",
+      "inn": "hydrochlorothiazide",
+      "enBrand": null,
+      "unii": "0J48LPH2TH",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "螺内酯",
+      "inn": "spironolactone",
+      "enBrand": "Aldactone",
+      "unii": "27O7W4T232",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "华法林",
+      "inn": "warfarin",
+      "enBrand": "Coumadin",
+      "unii": "5Q7ZBV23MI",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "低分子肝素",
+      "inn": "enoxaparin",
+      "enBrand": "Clexane",
+      "unii": "8NZ41MIK1O",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "左甲状腺素钠",
+      "inn": "levothyroxine",
+      "enBrand": "Euthyrox",
+      "unii": "Q51BO43MG4",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "甲硝唑",
+      "inn": "metronidazole",
+      "enBrand": "Flagyl",
+      "unii": "140QMO216E",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "阿莫西林",
+      "inn": "amoxicillin",
+      "enBrand": "Amoxil",
+      "unii": "9EM05410Q9",
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "连花清瘟",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "藿香正气",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "云南白药",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "片仔癀",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "复方丹参滴丸",
+      "inn": "salvia miltiorrhiza",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "速效救心丸",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "麝香保心丸",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "通心络",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "板蓝根",
+      "inn": "isatidis",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "双黄连",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    },
+    {
+      "cnBrand": "清开灵",
+      "inn": "chinese patent",
+      "enBrand": null,
+      "unii": null,
+      "provenance": "curated-cn-brand-map"
+    }
+  ]
+}

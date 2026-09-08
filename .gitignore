@@ -26,3 +26,5 @@ data/incoming/ndc/_*.py
 !data/incoming/open/bundled-seed.csv
 !data/incoming/open/ndc-derived-substances.csv
 !data/incoming/open/README.md
+!data/incoming/ndc/global-products-seed.json
+!data/incoming/open/cn-brand-aliases.json

@@ -45,6 +45,8 @@ export type RankableDoc = {
   brandName?: string;
   genericName?: string;
   dosageForm?: string;
+  countryTags?: string[];
+  regionTags?: string[];
 };
 
 export type RankContext = {
@@ -249,6 +251,8 @@ export type SearchFacets = {
   efficacy: FacetBucket[];
   /** 索引来源：精选 / 开放等 */
   indexSource: FacetBucket[];
+  /** 成药地区 */
+  region: FacetBucket[];
 };
 
 const IMPURITY_TYPE_LABEL: Record<string, string> = {
@@ -293,6 +297,16 @@ export function buildFacets(
   let openN = 0;
   let userN = 0;
   let draftN = 0;
+  const regionMap = new Map<string, { label: string; count: number }>();
+  const REGION_LABEL: Record<string, string> = {
+    US: "美国",
+    EU: "欧盟",
+    UK: "英国",
+    JP: "日本",
+    CN: "中国",
+    WHO: "WHO基本药物",
+    global: "全球",
+  };
 
   for (const h of hits) {
     const layer = h.indexLayer || "curated";
@@ -339,6 +353,15 @@ export function buildFacets(
       if (prev) prev.count++;
       else efficacyMap.set(e, { label: e, count: 1 });
     }
+    if (h.kind === "drug") {
+      for (const r of [...(h.countryTags || []), ...(h.regionTags || [])]) {
+        if (!r || r === "global") continue;
+        const prev = regionMap.get(r);
+        const label = REGION_LABEL[r] || r;
+        if (prev) prev.count++;
+        else regionMap.set(r, { label: `地区：${label}`, count: 1 });
+      }
+    }
   }
 
   return {
@@ -366,6 +389,7 @@ export function buildFacets(
       { value: "user", label: "用户导入", count: userN },
       { value: "draft", label: "缓存草稿", count: draftN },
     ].filter((b) => b.count > 0),
+    region: countMapToBuckets(regionMap, 10),
   };
 }
 

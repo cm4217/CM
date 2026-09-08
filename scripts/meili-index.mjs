@@ -89,7 +89,8 @@ async function loadViaTsx() {
     "    synonyms: [d.genericName, d.inn, d.brandName, ...(d.synonyms||[])].filter(Boolean),",
     '    cas: "", unii: d.unii || "",',
     '    dosageForm: d.dosageForm || "", strength: d.strength || "",',
-    '    blob: [d.brandName, d.genericName, d.inn, d.strength, d.dosageForm, d.unii, d.productNdc].filter(Boolean).join(" ") });',
+    '    countryTags: d.countryTags || [], regionTags: [...(d.countryTags||[]), ...(d.regionTags||[])],',
+    '    blob: [d.brandName, d.genericName, d.inn, d.strength, d.dosageForm, d.unii, d.productNdc, ...(d.synonyms||[]), ...(d.countryTags||[])].filter(Boolean).join(" ") });',
     "}",
     "console.log(JSON.stringify(docs));",
   ].join("\n");
@@ -121,7 +122,7 @@ async function main() {
   } catch (e) { /* may exist */ }
   const settingsTask = await meili("/indexes/" + INDEX + "/settings", "PATCH", {
     searchableAttributes: ["titleZh", "titleEn", "synonyms", "cas", "unii", "molecularFormula", "dosageForm", "strength", "blob"],
-    filterableAttributes: ["kind", "cas", "unii", "parentIds", "dosageForm"],
+    filterableAttributes: ["kind", "cas", "unii", "parentIds", "dosageForm", "countryTags", "regionTags"],
     sortableAttributes: ["titleEn"],
   });
   await waitTask(settingsTask.taskUid);

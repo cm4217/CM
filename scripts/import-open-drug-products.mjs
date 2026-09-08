@@ -1,10 +1,14 @@
 /**
- * import:drugs — openFDA NDC (finished products) -> src/data/openDrugProducts.generated.ts
+ * import:drugs — finished-drug identity -> src/data/openDrugProducts.generated.ts
  * Identity / label metadata only — no pharmacopoeia full text.
  *
- * Sources (open/legal):
- *   https://download.open.fda.gov/drug/ndc/drug-ndc-0001-of-0001.json.zip
- * Place under data/incoming/ndc/ or set OPEN_DRUG_IMPORT_URL / OPEN_DRUG_IMPORT_FILE.
+ * Sources (open/legal + curated):
+ *   - openFDA NDC: https://download.open.fda.gov/drug/ndc/drug-ndc-0001-of-0001.json.zip
+ *   - Multi-region seed: data/incoming/ndc/global-products-seed.json
+ *     (WHO EML-style, EMA/MHRA/PMDA English trade names, CN curated brands)
+ *   - CN brand map: data/incoming/open/cn-brand-aliases.json
+ * Place NDC dump under data/incoming/ndc/ or set OPEN_DRUG_IMPORT_URL / OPEN_DRUG_IMPORT_FILE.
+ * Regenerators: node scripts/generate-global-drug-seed.mjs (or recreate via Python helpers).
  */
 import {
   createWriteStream,
@@ -28,7 +32,10 @@ const INCOMING = join(ROOT, "data/incoming/ndc");
 const OUT_TS = join(ROOT, "src/data/openDrugProducts.generated.ts");
 const OUT_JSON = join(ROOT, "src/data/openDrugProducts.generated.json");
 const BUNDLED = join(INCOMING, "bundled-products-seed.json");
+const GLOBAL_SEED = join(INCOMING, "global-products-seed.json");
+const CN_ALIASES = join(ROOT, "data/incoming/open/cn-brand-aliases.json");
 const SUBSTANCE_TS = join(ROOT, "src/data/openSubstances.generated.ts");
+const SUBSTANCE_JSON = join(ROOT, "src/data/openSubstances.generated.json");
 
 const LIMIT = Math.max(1, Number(process.env.OPEN_DRUG_IMPORT_LIMIT || 4000) || 4000);
 const DOWNLOAD_URL =
@@ -106,7 +113,7 @@ function listJsonCandidates() {
   if (FILE_OVERRIDE && existsSync(FILE_OVERRIDE)) return [FILE_OVERRIDE];
   const out = [];
   for (const name of readdirSync(INCOMING)) {
-    if (name.startsWith(".") || name === "bundled-products-seed.json") continue;
+    if (name.startsWith(".") || name === "bundled-products-seed.json" || name === "global-products-seed.json") continue;
     if (name === "_unzipped") continue;
     const p = join(INCOMING, name);
     if (/\.json$/i.test(name)) out.push(p);
@@ -297,20 +304,20 @@ sys.stderr.write("python_emitted=%d\\n" % n)
   return rows;
 }
 
-function dedupeAndLimit(products) {
+function dedupeProducts(products, limit = Infinity) {
   const scored = products
     .map((p, i) => ({ p, i, score: p._score || 0 }))
     .sort((a, b) => b.score - a.score || a.i - b.i);
   const seen = new Set();
   const out = [];
   for (const { p } of scored) {
-    if (out.length >= LIMIT) break;
-    // dedupe by brand+generic+strength+form (collapse packaging variants)
+    if (out.length >= limit) break;
     const key = [
       (p.brandName || "").toLowerCase(),
       (p.genericName || "").toLowerCase(),
       (p.strength || "").toLowerCase(),
       (p.dosageForm || "").toLowerCase(),
+      (p.countryTags || []).join(",").toLowerCase(),
     ].join("|");
     if (seen.has(key)) continue;
     seen.add(key);
@@ -320,6 +327,101 @@ function dedupeAndLimit(products) {
   return out;
 }
 
+function loadBundledSeed() {
+  if (!existsSync(BUNDLED)) return [];
+  const raw = JSON.parse(readFileSync(BUNDLED, "utf8"));
+  return Array.isArray(raw) ? raw : raw.products || [];
+}
+
+function loadGlobalSeed() {
+  if (!existsSync(GLOBAL_SEED)) return [];
+  const raw = JSON.parse(readFileSync(GLOBAL_SEED, "utf8"));
+  return Array.isArray(raw) ? raw : raw.products || [];
+}
+
+function loadCnBrandAliases() {
+  if (!existsSync(CN_ALIASES)) return [];
+  const raw = JSON.parse(readFileSync(CN_ALIASES, "utf8"));
+  return Array.isArray(raw) ? raw : raw.aliases || [];
+}
+
+/** Map INN / EN brand / UNII -> CN brand names */
+function buildCnAliasIndex(aliases) {
+  const byKey = new Map();
+  function add(k, cn) {
+    if (!k || !cn) return;
+    const key = String(k).toLowerCase().trim();
+    if (!key) return;
+    if (!byKey.has(key)) byKey.set(key, new Set());
+    byKey.get(key).add(cn);
+  }
+  for (const a of aliases) {
+    add(a.inn, a.cnBrand);
+    add(a.enBrand, a.cnBrand);
+    add(a.unii, a.cnBrand);
+    add(a.cnBrand, a.cnBrand);
+  }
+  return byKey;
+}
+
+function applyCnBrands(products, byKey) {
+  let touched = 0;
+  for (const p of products) {
+    const hits = new Set();
+    for (const k of [p.inn, p.genericName, p.brandName, p.unii, p.parentUnii, ...(p.synonyms || [])]) {
+      if (!k) continue;
+      const set = byKey.get(String(k).toLowerCase().trim());
+      if (set) for (const cn of set) hits.add(cn);
+      // also first token of generic
+      const tok = String(k).toLowerCase().split(/[^a-z0-9\u4e00-\u9fff]+/)[0];
+      const set2 = byKey.get(tok);
+      if (set2) for (const cn of set2) hits.add(cn);
+    }
+    if (!hits.size) continue;
+    const syn = Array.from(new Set([...(p.synonyms || []), ...hits]));
+    if (syn.length !== (p.synonyms || []).length) {
+      p.synonyms = syn;
+      touched++;
+    }
+  }
+  return touched;
+}
+
+/** Merge CN brands into open substances synonym fields (in-place JSON rewrite). */
+function mergeCnIntoSubstances(aliases) {
+  if (!existsSync(SUBSTANCE_JSON)) return 0;
+  const arr = JSON.parse(readFileSync(SUBSTANCE_JSON, "utf8"));
+  const byKey = buildCnAliasIndex(aliases);
+  let n = 0;
+  for (const s of arr) {
+    const hits = new Set();
+    for (const k of [s.nameEn, s.nameZh, s.unii, ...(s.synonyms || [])]) {
+      if (!k) continue;
+      const set = byKey.get(String(k).toLowerCase().trim());
+      if (set) for (const cn of set) hits.add(cn);
+    }
+    if (!hits.size) continue;
+    const before = (s.synonyms || []).length;
+    s.synonyms = Array.from(new Set([...(s.synonyms || []), ...hits]));
+    if (s.synonyms.length > before) n++;
+  }
+  if (n) {
+    writeFileSync(SUBSTANCE_JSON, JSON.stringify(arr), "utf8");
+    // keep .ts wrapper pointing at json — no structural change needed
+  }
+  return n;
+}
+
+function regionCounts(records) {
+  const m = {};
+  for (const r of records) {
+    for (const t of r.countryTags || r.regionTags || []) {
+      m[t] = (m[t] || 0) + 1;
+    }
+  }
+  return m;
+}
+
 function writeTs(records, meta) {
   const metaObj = {
     generatedAt: new Date().toISOString(),
@@ -327,13 +429,22 @@ function writeTs(records, meta) {
     provenance: meta.provenance,
     limit: LIMIT,
     files: meta.files || [],
-    expectedFullScale: "100k+ openFDA NDC finished products before LIMIT; git keeps high-value seed",
+    regionCounts: meta.regionCounts || {},
+    cnBrandAliases: meta.cnBrandAliases || 0,
+    expectedFullScale:
+      "100k+ openFDA NDC + multi-region curated seeds; git keeps high-value merged identity seed",
   };
   writeFileSync(OUT_JSON, JSON.stringify(records), "utf8");
   const body =
     "/** AUTO-GENERATED by scripts/import-open-drug-products.mjs — do not edit.\n" +
-    " * Finished-drug identity (openFDA NDC). Generated: " + metaObj.generatedAt + "\n" +
-    " * Count: " + records.length + " provenance: " + meta.provenance + "\n */\n" +
+    " * Finished-drug identity (openFDA NDC + multi-region + CN brands). Generated: " +
+    metaObj.generatedAt +
+    "\n" +
+    " * Count: " +
+    records.length +
+    " provenance: " +
+    meta.provenance +
+    "\n */\n" +
     'import data from "./openDrugProducts.generated.json";\n\n' +
     "export type OpenDrugProductRecord = {\n" +
     "  id: string;\n  brandName: string;\n  genericName: string;\n  inn?: string;\n" +
@@ -341,17 +452,13 @@ function writeTs(records, meta) {
     "  countryTags: string[];\n  regionTags: string[];\n  unii?: string;\n  parentUnii?: string;\n" +
     "  parentSubstanceId?: string;\n  labelerName?: string;\n  productType?: string;\n" +
     "  marketingCategory?: string;\n  synonyms: string[];\n" +
-    '  provenance: "openfda-ndc" | "seed";\n  source: "openfda" | "open";\n};\n\n' +
-    "export const OPEN_DRUG_PRODUCTS_META = " + JSON.stringify(metaObj, null, 2) + " as const;\n\n" +
+    '  provenance: string;\n  source: "openfda" | "open";\n};\n\n' +
+    "export const OPEN_DRUG_PRODUCTS_META = " +
+    JSON.stringify(metaObj, null, 2) +
+    " as const;\n\n" +
     "export const openDrugProducts = data as OpenDrugProductRecord[];\n";
   writeFileSync(OUT_TS, body, "utf8");
   console.log("Wrote", records.length, "->", OUT_JSON, "and", OUT_TS);
-}
-
-function loadBundledSeed() {
-  if (!existsSync(BUNDLED)) return [];
-  const raw = JSON.parse(readFileSync(BUNDLED, "utf8"));
-  return Array.isArray(raw) ? raw : raw.products || [];
 }
 
 async function main() {
@@ -385,12 +492,11 @@ async function main() {
     provenance = "seed";
   }
 
-  const products = [];
+  const usProducts = [];
   for (let i = 0; i < rawRows.length; i++) {
     const r = rawRows[i];
-    // bundled seed may already be normalized
     if (r.brandName || r.id) {
-      products.push({
+      usProducts.push({
         ...r,
         brandName: r.brandName || r.brand_name,
         genericName: r.genericName || r.generic_name,
@@ -404,22 +510,76 @@ async function main() {
       continue;
     }
     const n = normalizeProduct(r, i, substanceIdx);
-    if (n) products.push(n);
+    if (n) usProducts.push(n);
   }
 
-  const records = dedupeAndLimit(products);
-  writeTs(records, { provenance, files: usedFiles });
-  const withUnii = records.filter((r) => r.unii).length;
-  const withParent = records.filter((r) => r.parentSubstanceId).length;
+  const usLimited = dedupeProducts(usProducts, LIMIT);
+  console.log("US/openFDA kept:", usLimited.length, "(limit=" + LIMIT + ")");
+
+  const globalRaw = loadGlobalSeed();
+  const globalProducts = [];
+  for (const r of globalRaw) {
+    globalProducts.push({
+      ...r,
+      brandName: r.brandName || r.brand_name,
+      genericName: r.genericName || r.generic_name,
+      synonyms: r.synonyms || [],
+      countryTags: r.countryTags || ["WHO"],
+      regionTags: r.regionTags || [...(r.countryTags || ["WHO"]), "global"],
+      provenance: r.provenance || "global-seed",
+      source: r.source || "open",
+      _score: r._score ?? 8,
+    });
+  }
+  if (globalProducts.length) {
+    usedFiles.push("global-products-seed.json");
+    console.log("Global multi-region seed:", globalProducts.length);
+  }
+
+  // Prefer keeping all global + US limited; dedupe across both
+  const merged = dedupeProducts(
+    [
+      ...globalProducts.map((p) => ({ ...p, _score: (p._score || 8) + 2 })),
+      ...usLimited.map((p) => ({ ...p, _score: p._score || 10 })),
+    ],
+    Infinity
+  );
+
+  const aliases = loadCnBrandAliases();
+  const byKey = buildCnAliasIndex(aliases);
+  const touched = applyCnBrands(merged, byKey);
+  const substTouched = mergeCnIntoSubstances(aliases);
   console.log(
-    "Done limit=" +
-      LIMIT +
+    "CN brand aliases:",
+    aliases.length,
+    "products enriched:",
+    touched,
+    "substances enriched:",
+    substTouched
+  );
+
+  const provParts = Array.from(new Set(merged.map((r) => r.provenance).filter(Boolean)));
+  const finalProv = provParts.join("+") || provenance;
+  const counts = regionCounts(merged);
+  writeTs(merged, {
+    provenance: finalProv,
+    files: usedFiles,
+    regionCounts: counts,
+    cnBrandAliases: aliases.length,
+  });
+  const withUnii = merged.filter((r) => r.unii).length;
+  const withParent = merged.filter((r) => r.parentSubstanceId).length;
+  console.log(
+    "Done total=" +
+      merged.length +
       " withUnii=" +
       withUnii +
       " linkedParent=" +
       withParent +
+      " regions=" +
+      JSON.stringify(counts) +
       " provenance=" +
-      provenance
+      finalProv
   );
 }
 

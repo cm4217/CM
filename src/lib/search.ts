@@ -89,6 +89,8 @@ export interface SearchFilters {
   titleOnly?: "1" | "";
   /** curated = 仅精选种子；空/all = 含开放索引等 */
   indexSource?: "curated" | "open" | "user" | "draft" | "all" | "";
+  /** 成药地区分面：US / EU / UK / JP / CN / WHO … */
+  region?: string;
 }
 
 type Doc = RankableDoc & {
@@ -114,6 +116,7 @@ type Doc = RankableDoc & {
   strength?: string;
   dosageForm?: string;
   countryTags?: string[];
+  regionTags?: string[];
   parentSubstanceId?: string;
 };
 
@@ -331,9 +334,14 @@ function buildDocs(): Doc[] {
     });
   }
 
-  // Global finished-drug products (openFDA NDC identity layer)
+  // Global finished-drug products (openFDA NDC + multi-region + CN brands)
   for (const d of openDrugProducts) {
-    const titleZh = d.brandName || d.genericName;
+    const cnSyn = (d.synonyms || []).find((s) => /[\u4e00-\u9fff]/.test(s));
+    const titleZh =
+      (/[\u4e00-\u9fff]/.test(d.brandName || "") ? d.brandName : null) ||
+      cnSyn ||
+      d.brandName ||
+      d.genericName;
     const titleEn = d.brandName || d.genericName;
     const initials = zhInitials(titleZh);
     const synonyms = [
@@ -343,6 +351,10 @@ function buildDocs(): Doc[] {
       ...(d.synonyms || []),
     ].filter(Boolean) as string[];
     const uniqSyn = Array.from(new Set(synonyms.map((s) => s.trim()).filter(Boolean)));
+    const regions = Array.from(
+      new Set([...(d.countryTags || []), ...(d.regionTags || [])].filter(Boolean))
+    );
+    const regionBadge = regions.filter((r) => r !== "global").slice(0, 3);
     docs.push({
       kind: "drug",
       id: d.id,
@@ -352,11 +364,11 @@ function buildDocs(): Doc[] {
         d.genericName && d.genericName !== d.brandName ? d.genericName : null,
         d.strength || null,
         d.dosageForm || null,
-        (d.countryTags || []).join("/") || null,
+        regionBadge.join("/") || null,
       ]
         .filter(Boolean)
         .join(" · "),
-      badges: ["成药", "全球成药", ...(d.countryTags || []).slice(0, 2)],
+      badges: ["成药", "全球成药", ...regionBadge],
       blob: [
         d.brandName,
         d.genericName,
@@ -367,6 +379,7 @@ function buildDocs(): Doc[] {
         d.productNdc,
         d.labelerName,
         ...uniqSyn,
+        ...regions,
         initials,
       ]
         .filter(Boolean)
@@ -381,14 +394,15 @@ function buildDocs(): Doc[] {
       cas: undefined,
       unii: d.unii,
       inn: d.inn || d.genericName,
-      summary: "全球成药 / 成品制剂身份（openFDA NDC）· 非药典全文",
-      description: "全球成药 / 成品制剂身份（openFDA NDC）· 非药典全文",
+      summary: "全球成药 / 成品制剂身份（多国开放目录 + 中文商品名）· 非药典全文",
+      description: "全球成药 / 成品制剂身份（多国开放目录 + 中文商品名）· 非药典全文",
       indexLayer: "open",
       brandName: d.brandName,
       genericName: d.genericName,
       strength: d.strength,
       dosageForm: d.dosageForm,
       countryTags: d.countryTags,
+      regionTags: regions,
       parentSubstanceId: d.parentSubstanceId,
     });
   }
@@ -567,6 +581,7 @@ function toHit(
     strength: d.strength,
     dosageForm: d.dosageForm,
     countryTags: d.countryTags,
+    regionTags: d.regionTags || d.countryTags,
     parentSubstanceId: d.parentSubstanceId,
   };
 }
@@ -718,6 +733,12 @@ function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
     // 原料/杂质：查询侧分面高亮，不强制过滤
   }
   // 保留 filters.dosageForm 供 UI / URL
+
+  if (filters.region) {
+    const want = norm(filters.region);
+    const tags = [...(d.countryTags || []), ...(d.regionTags || [])].map(norm);
+    if (!tags.includes(want)) return false;
+  }
 
   const src = (filters.indexSource || "").trim();
   if (src && src !== "all") {

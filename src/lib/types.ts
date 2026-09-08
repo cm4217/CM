@@ -210,6 +210,8 @@ export interface SearchHit {
   dosageForm?: string;
   /** 成药：国家/地区标签 */
   countryTags?: string[];
+  /** 成药：地区分面（US/EU/UK/JP/CN/WHO/global…） */
+  regionTags?: string[];
   /** 成药关联原料药（开放索引 id） */
   parentSubstanceId?: string;
   /** 索引层：精选 / 用户导入 / 草稿 / 开放 */

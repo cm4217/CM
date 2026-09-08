@@ -50,6 +50,7 @@ export function SearchFacetBar({ facets }: { facets: SearchFacets }) {
   const impurityType = sp.get("impurityType") || "";
   const parentId = sp.get("parentId") || "";
   const dosageForm = sp.get("dosageForm") || "";
+  const region = sp.get("region") || "";
   const molecularFormula = sp.get("molecularFormula") || "";
   const pharmaVersion = sp.get("pharmaVersion") || "";
   const efficacy = sp.get("efficacy") || "";
@@ -104,6 +105,18 @@ export function SearchFacetBar({ facets }: { facets: SearchFacets }) {
             }
             label={b.label}
             count={b.count}
+          />
+        ))}
+        {(facets.region || []).map((b) => (
+          <FacetChip
+            key={`rg-${b.value}`}
+            active={region === b.value}
+            onClick={() =>
+              setParam("region", region === b.value ? null : b.value)
+            }
+            label={b.label}
+            count={b.count}
+            activeClass="border-amber-600 bg-amber-50 text-amber-950"
           />
         ))}
         {facets.parentDrug.map((b) => (
