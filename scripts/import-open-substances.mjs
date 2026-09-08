@@ -10,12 +10,15 @@ import {
   readFileSync,
   readdirSync,
   writeFileSync,
+  createReadStream,
+  statSync,
 } from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
+import * as readline from "node:readline";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -26,6 +29,8 @@ const BUNDLED = join(INCOMING, "bundled-seed.csv");
 const LIMIT = Math.max(1, Number(process.env.OPEN_IMPORT_LIMIT || 800) || 800);
 const REQUIRE_CAS = process.env.OPEN_IMPORT_REQUIRE_CAS === "1";
 const DOWNLOAD_URL = process.env.OPEN_IMPORT_URL || "";
+const STREAM = process.env.OPEN_IMPORT_STREAM !== "0";
+const CHUNK_LINES = Math.max(500, Number(process.env.OPEN_IMPORT_CHUNK || 5000) || 5000);
 
 mkdirSync(INCOMING, { recursive: true });
 
@@ -144,13 +149,65 @@ function listCandidateFiles() {
   if (!existsSync(INCOMING)) return files;
   for (const name of readdirSync(INCOMING)) {
     if (name.startsWith(".") || name === "README.md" || name === "bundled-seed.csv") continue;
-    if (name === "_unzipped") continue;
+    if (name === "_unzipped" || name === "_chunk_cache") continue;
     if (/\.(csv|tsv|txt|zip)$/i.test(name)) files.push(join(INCOMING, name));
   }
   return files;
 }
 
+
+function rowFromCols(cols, map, i) {
+  const nameEn = (map.nameEn != null ? cols[map.nameEn] : "").trim();
+  const nameZh = (map.nameZh != null ? cols[map.nameZh] : "").trim() || undefined;
+  let cas = (map.cas != null ? cols[map.cas] : "").trim() || undefined;
+  const unii = (map.unii != null ? cols[map.unii] : "").trim() || undefined;
+  const synRaw = (map.synonyms != null ? cols[map.synonyms] : "") || "";
+  const synonyms = synRaw.split(/[|;,/]/).map((s) => s.trim()).filter(Boolean);
+  if (!nameEn && !unii && !cas) return null;
+  if (cas && !validCas(cas)) cas = undefined;
+  if (REQUIRE_CAS && !cas) return null;
+  return {
+    nameEn: nameEn || unii || cas || ("unknown-" + i),
+    nameZh, cas, unii, synonyms,
+  };
+}
+
+async function parseCsvFileStreaming(path) {
+  const size = statSync(path).size;
+  console.log("Streaming parse", basename(path), "(" + Math.round(size / 1024) + " KB)");
+  const stream = createReadStream(path, { encoding: "utf8" });
+  const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
+  let delim = ",";
+  let map = null;
+  let lineNo = 0;
+  const records = [];
+  for await (const line of rl) {
+    if (!line.trim()) continue;
+    lineNo++;
+    if (lineNo === 1) {
+      delim = detectDelim(line);
+      const headers = splitCsvLine(line, delim);
+      map = mapHeaders(headers);
+      if (map.nameEn == null) {
+        const n = headers.map(normHeader);
+        const idx = n.findIndex((h) => h === "name" || h === "substance" || h.includes("name"));
+        if (idx >= 0) map.nameEn = idx;
+      }
+      continue;
+    }
+    const cols = splitCsvLine(line, delim);
+    const row = rowFromCols(cols, map, lineNo);
+    if (row) records.push(row);
+    if (lineNo % CHUNK_LINES === 0) console.log("  … lines", lineNo, "kept", records.length);
+  }
+  console.log("Parsed", records.length, "from", basename(path), "lines", lineNo);
+  return records;
+}
+
 async function parseCsvFile(path) {
+  if (STREAM && existsSync(path) && statSync(path).size > 512 * 1024) {
+    return parseCsvFileStreaming(path);
+  }
   const raw = readFileSync(path, "utf8");
   const lines = raw.split(/\r?\n/).filter((l) => l.trim());
   if (lines.length < 2) return [];
@@ -195,6 +252,11 @@ function toGenerated(records, provenance) {
     const key = (r.unii || r.cas || r.nameEn).toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
+    if (r.cas) {
+      const casKey = "cas:" + r.cas;
+      if (seen.has(casKey)) continue;
+      seen.add(casKey);
+    }
     const id = slugId(r.nameEn, r.unii, r.cas, out.length);
     out.push({
       id,
@@ -224,6 +286,9 @@ function writeTs(records, meta) {
       provenance: meta.provenance,
       limit: LIMIT,
       requireCas: REQUIRE_CAS,
+      stream: STREAM,
+      files: meta.files || [],
+      expectedFullScale: "100k-200k+ UNII rows before LIMIT; keep git seed small",
     }, null, 2) + " as const;\n\n" +
     "export const openSubstances: OpenSubstanceRecord[] = " + JSON.stringify(records, null, 2) + ";\n";
   writeFileSync(OUT_TS, banner + body, "utf8");

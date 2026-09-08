@@ -37,3 +37,10 @@ GET /api/lookup.csv?q=阿司匹林,布洛芬,对乙酰氨基酚
 本地模板：`/templates/watchlist-import.csv`
 
 说明页：`/tools/sheets`
+
+## Office Excel add-in (sideload)
+
+- Source: `excel-addin/` (mirrored at `public/excel-addin/`)
+- Steps: `excel-addin/SIDELOAD.txt`
+- Task pane calls `GET /api/lookup` and can write the selection
+- UI summary: `/tools/sheets`

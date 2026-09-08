@@ -224,6 +224,48 @@ const RICH: Record<string, CompendialMatrix> = {
         "checks",
         "Related substances (DEMO)"
       ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks",
+        "Water (DEMO)"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks",
+        "Residual solvents (DEMO)"
+      ),
+      row(
+        "clarity",
+        "溶液澄清度",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks",
+        "Clarity of solution (DEMO)"
+      ),
     ],
   },
   "sub-ibuprofen": {
@@ -314,7 +356,59 @@ const RICH: Record<string, CompendialMatrix> = {
         },
         "checks"
       ),
-    ],
+    
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),],
   },
   "sub-paracetamol": {
     substanceId: "sub-paracetamol",
@@ -404,7 +498,59 @@ const RICH: Record<string, CompendialMatrix> = {
         },
         "checks"
       ),
-    ],
+    
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),],
   },
   "sub-amoxicillin": {
     substanceId: "sub-amoxicillin",
@@ -467,6 +613,2158 @@ const RICH: Record<string, CompendialMatrix> = {
           EP: "有此项（示例）",
           BP: "有此项（示例）",
           JP: "有此项（示例）",
+        },
+        "checks"
+      ),
+    
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),],
+  },
+  "sub-omeprazole": {
+    substanceId: "sub-omeprazole",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-metformin": {
+    substanceId: "sub-metformin",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-atorvastatin": {
+    substanceId: "sub-atorvastatin",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-amlodipine": {
+    substanceId: "sub-amlodipine",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-losartan": {
+    substanceId: "sub-losartan",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-metronidazole": {
+    substanceId: "sub-metronidazole",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-caffeine": {
+    substanceId: "sub-caffeine",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-ascorbic-acid": {
+    substanceId: "sub-ascorbic-acid",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-diclofenac": {
+    substanceId: "sub-diclofenac",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-ciprofloxacin": {
+    substanceId: "sub-ciprofloxacin",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-levofloxacin": {
+    substanceId: "sub-levofloxacin",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+    ],
+  },
+  "sub-warfarin": {
+    substanceId: "sub-warfarin",
+    rich: true,
+    rows: [
+      row(
+        "effectiveDate",
+        "生效日期",
+        {
+          ChP: "2020（示例）",
+          USP: "2024（示例）",
+          EP: "11.x（示例）",
+          BP: "2024（示例）",
+          JP: "JP18（示例）",
+          "Ph.Int.": "公开版（示例）",
+        },
+        "meta"
+      ),
+      row(
+        "monographId",
+        "专论编号",
+        {
+          ChP: "示例编号",
+          USP: "DEMO DOI 占位",
+          EP: "示例",
+          BP: "示例",
+          JP: "示例",
+          "Ph.Int.": "示例",
+        },
+        "meta"
+      ),
+      row(
+        "appearance",
+        "性状",
+        {
+          ChP: "【示例】白色或类白色粉末/结晶",
+          USP: "【示例】white powder / crystals",
+          EP: "【示例】white crystalline powder",
+          BP: "【示例】white powder",
+          JP: "【示例】白色结晶性粉末",
+          "Ph.Int.": "【示例】white powder",
+        },
+        "narrative"
+      ),
+      row(
+        "assay",
+        "含量测定",
+        {
+          ChP: "【示例】滴定/HPLC 示意",
+          USP: "【示例】HPLC 示意",
+          EP: "【示例】滴定/色谱示意",
+          BP: "【示例】滴定示意",
+          JP: "【示例】滴定示意",
+          "Ph.Int.": "【示例】assay 示意",
+        },
+        "narrative"
+      ),
+      row(
+        "idMethods",
+        "鉴别方法数",
+        {
+          ChP: "3（示例）",
+          USP: "3（示例）",
+          EP: "3（示例）",
+          BP: "3（示例）",
+          JP: "2（示例）",
+          "Ph.Int.": "2（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "testCount",
+        "检查项目数",
+        {
+          ChP: "6（示例）",
+          USP: "5（示例）",
+          EP: "6（示例）",
+          BP: "5（示例）",
+          JP: "4（示例）",
+          "Ph.Int.": "3（示例）",
+        },
+        "counts"
+      ),
+      row(
+        "related",
+        "有关物质",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "有此项（示例）",
+        },
+        "checks"
+      ),
+      row(
+        "lod",
+        "干燥失重",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "roi",
+        "炽灼残渣",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "heavyMetals",
+        "重金属",
+        {
+          ChP: "有此项（示例）",
+          USP: "—",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "water",
+        "水分",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "—",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "residualSolvents",
+        "残留溶剂",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "有此项（示例）",
+          BP: "有此项（示例）",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
+        },
+        "checks"
+      ),
+      row(
+        "microbial",
+        "微生物限度",
+        {
+          ChP: "有此项（示例）",
+          USP: "有此项（示例）",
+          EP: "—",
+          BP: "—",
+          JP: "有此项（示例）",
+          "Ph.Int.": "—",
         },
         "checks"
       ),

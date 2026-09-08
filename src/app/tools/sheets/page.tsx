@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { DemoBadge } from "@/components/DemoBadge";
+import { SearchBackendChip } from "@/components/SearchBackendChip";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 
 export default function SheetsToolsPage() {
@@ -24,6 +25,7 @@ export default function SheetsToolsPage() {
           <p className="mt-1 text-sm text-slate-500 font-latin">Power Query · From Web</p>
         </div>
         <DemoBadge />
+        <SearchBackendChip />
       </div>
       <DisclaimerBanner compact />
 
@@ -68,6 +70,17 @@ export default function SheetsToolsPage() {
             /templates/watchlist-import.csv
           </a>
         </p>
+      </section>
+
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm space-y-3 text-sm text-slate-700">
+        <h2 className="font-semibold text-slate-900">Office Excel add-in (sideload)</h2>
+        <ol className="list-decimal pl-5 space-y-1">
+          <li>Source: <code className="font-latin">excel-addin/</code> mirrored at <code className="font-latin">public/excel-addin/</code></li>
+          <li>Follow <code className="font-latin">excel-addin/SIDELOAD.txt</code></li>
+          <li>Task pane calls <code className="font-latin">/api/lookup</code> and can write the selection</li>
+        </ol>
+        <p className="text-xs text-slate-500">Rewrite manifest.xml URLs for your deploy origin when not on localhost.</p>
       </section>
 
       <p className="text-sm">

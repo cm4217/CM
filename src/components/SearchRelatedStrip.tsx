@@ -4,21 +4,27 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { SearchHit } from "@/lib/types";
 import { relatedByCooccur, recordCooccur } from "@/lib/sessionCooccur";
+import { logSearchClick } from "@/components/SearchLogBeacon";
 
 type Props = {
   focus: SearchHit | null;
   hits: SearchHit[];
+  query?: string;
 };
 
+type Item = { label: string; href: string; note: string };
+
 /**
- * Related-results strip: parent impurities from hit metadata + same-session co-occur.
+ * Related-results strip: server co-click / co-occur + session fallback + impurity parents.
  */
-export function SearchRelatedStrip({ focus, hits }: Props) {
+export function SearchRelatedStrip({ focus, hits, query }: Props) {
+  const [serverItems, setServerItems] = useState<Item[]>([]);
   const [coIds, setCoIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (!focus) {
       setCoIds([]);
+      setServerItems([]);
       return;
     }
     recordCooccur(
@@ -26,17 +32,63 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
       hits.slice(0, 5).map((h) => h.id)
     );
     setCoIds(relatedByCooccur(focus.id, 8));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- session co-occur keyed by focus id
-  }, [focus?.id]);
+    logSearchClick({
+      entityId: focus.id,
+      kind: focus.kind,
+      q: query,
+    });
+
+    const params = new URLSearchParams({
+      id: focus.id,
+      kind: focus.kind,
+      limit: "8",
+    });
+    if (query) params.set("q", query);
+    let cancelled = false;
+    fetch("/api/related?" + params.toString(), { credentials: "same-origin" })
+      .then((r) => r.json())
+      .then((json) => {
+        if (cancelled) return;
+        const items = Array.isArray(json?.items) ? json.items : [];
+        setServerItems(
+          items.map(
+            (it: {
+              labelZh?: string;
+              href?: string;
+              note?: string;
+            }) => ({
+              label: String(it.labelZh || ""),
+              href: String(it.href || "#"),
+              note: String(it.note || "服务端相关"),
+            })
+          )
+        );
+      })
+      .catch(() => {
+        if (!cancelled) setServerItems([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed by focus id
+  }, [focus?.id, focus?.kind, query]);
 
   const items = useMemo(() => {
-    if (!focus) return [] as { label: string; href: string; note: string }[];
-    const out: { label: string; href: string; note: string }[] = [];
+    if (!focus) return [] as Item[];
+    const out: Item[] = [];
     const seen = new Set<string>([`${focus.kind}:${focus.id}`]);
 
-    // Parent impurities / impurity parents from owned metadata
+    for (const it of serverItems) {
+      if (out.length >= 8) break;
+      const k = it.href;
+      if (seen.has(k) || !it.label) continue;
+      seen.add(k);
+      out.push(it);
+    }
+
     if (focus.kind === "substance" && focus.impurityPreview?.length) {
       for (const name of focus.impurityPreview.slice(0, 4)) {
+        if (out.length >= 8) break;
         const imp = hits.find(
           (h) => h.kind === "impurity" && (h.titleZh === name || h.titleEn === name)
         );
@@ -50,16 +102,16 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
             note: "关联杂质",
           });
         } else {
-          out.push({
-            label: name,
-            href: `/search?q=${encodeURIComponent(name)}&tab=impurity`,
-            note: "杂质预览",
-          });
+          const href = `/search?q=${encodeURIComponent(name)}&tab=impurity`;
+          if (seen.has(href)) continue;
+          seen.add(href);
+          out.push({ label: name, href, note: "杂质预览" });
         }
       }
     }
     if (focus.kind === "impurity" && focus.parentNames?.length) {
       for (let i = 0; i < focus.parentNames.length; i++) {
+        if (out.length >= 8) break;
         const name = focus.parentNames[i];
         const pid = focus.parentIds?.[i];
         const k = pid ? `substance:${pid}` : `name:${name}`;
@@ -75,7 +127,6 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
       }
     }
 
-    // Same-session co-occur → map to hits or detail routes
     for (const id of coIds) {
       if (out.length >= 8) break;
       const hit = hits.find((h) => h.id === id);
@@ -96,7 +147,6 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
       }
     }
 
-    // Sibling hits of other kinds as soft related
     for (const h of hits) {
       if (out.length >= 8) break;
       if (h.id === focus.id && h.kind === focus.kind) continue;
@@ -122,7 +172,7 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
     }
 
     return out.slice(0, 8);
-  }, [focus, hits, coIds]);
+  }, [focus, hits, coIds, serverItems]);
 
   if (!focus || items.length === 0) return null;
 
@@ -134,7 +184,7 @@ export function SearchRelatedStrip({ focus, hits }: Props) {
       <h2 className="text-xs font-semibold text-slate-700">
         相关结果
         <span className="ml-2 font-normal text-slate-400">
-          基于关联杂质 / 父物质 / 同会话共现
+          服务端共现 / 关联杂质 / 同会话（冷启动回退）
         </span>
       </h2>
       <ul className="mt-2 flex flex-wrap gap-2">

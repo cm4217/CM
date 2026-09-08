@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>药典对照层 · 选项</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <main>
+    <h1>药典对照层扩展选项</h1>
+    <p class="muted">配置本站 API 根地址。仅检索索引元数据，不抓取专论全文。</p>
+    <label for="apiBase">API / 站点根地址</label>
+    <input id="apiBase" type="url" placeholder="http://localhost:3000" />
+    <p class="hint">本地开发：<code>http://localhost:3000</code> · 生产：你的 Vercel / 自托管 origin</p>
+    <div class="row">
+      <button id="save" type="button">保存</button>
+      <button id="test" type="button" class="secondary">测试 /api/lookup</button>
+    </div>
+    <p id="status" role="status"></p>
+    <section>
+      <h2>加载未打包扩展</h2>
+      <ol>
+        <li>打开 Chrome / Edge <code>chrome://extensions</code>（或 <code>edge://extensions</code>）。</li>
+        <li>开启「开发者模式」。</li>
+        <li>「加载已解压的扩展程序」→ 选择仓库中的 <code>browser-extension/</code> 目录。</li>
+        <li>可选：固定图标；选中文本右键「药典对照层：检索」；快捷键 Alt+Shift+L。</li>
+      </ol>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

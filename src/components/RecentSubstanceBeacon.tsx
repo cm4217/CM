@@ -3,8 +3,9 @@
 import { useEffect, useMemo } from "react";
 import { pushRecentSubstanceId } from "@/lib/recentSubstances";
 import { recordCooccur } from "@/lib/sessionCooccur";
+import { logSearchClick } from "@/components/SearchLogBeacon";
 
-/** Records substance view into recent + session co-occur (client-only). */
+/** Records substance view into recent + session co-occur + server click log. */
 export function RecentSubstanceBeacon({
   substanceId,
   relatedIds = [],
@@ -20,6 +21,7 @@ export function RecentSubstanceBeacon({
       substanceId,
       relatedKey ? relatedKey.split(",").filter(Boolean) : []
     );
+    logSearchClick({ entityId: substanceId, kind: "substance" });
   }, [substanceId, relatedKey]);
   return null;
 }

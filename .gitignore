@@ -11,3 +11,6 @@ scripts/_meili-dump.tmp.ts
 data/incoming/open/_unzipped/
 data/incoming/open/*.zip
 !data/incoming/open/bundled-seed.csv
+data/search-events.jsonl
+data/incoming/open/_chunk_cache/
+.env

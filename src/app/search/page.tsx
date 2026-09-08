@@ -9,6 +9,7 @@ import { SearchRelaxChips } from "@/components/SearchRelaxChips";
 import { SearchFacetBar } from "@/components/SearchFacetBar";
 import { NameNormalizePanel } from "@/components/NameNormalizePanel";
 import { SearchLogBeacon } from "@/components/SearchLogBeacon";
+import { SearchBackendChip } from "@/components/SearchBackendChip";
 import { searchWithMetaAsync } from "@/lib/search";
 import type { ImpurityType, PharmacopoeiaCode } from "@/lib/types";
 import type { Metadata } from "next";
@@ -91,6 +92,7 @@ export default async function SearchPage({ searchParams }: Props) {
             Search · evidence · knowledge panel · intent tabs · mini-compare
           </p>
         </div>
+        <SearchBackendChip />
       </div>
 
       <DisclaimerBanner compact />
@@ -128,7 +130,7 @@ export default async function SearchPage({ searchParams }: Props) {
         </p>
         {hits.length > 0 ? (
           <p className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm">
-            物质 {nSub} · 杂质 {nImp} · 对照品 {nRs} · 主命中：
+            物质 {nSub} · 杂质 {nImp} · 对照品 {nRs} · 后端 {result.backend} · 主命中：
             <span className="font-medium text-slate-900">{topLabel}</span>
             {typeof topHit?.rankScore === "number" ? (
               <span className="ml-2 text-xs text-slate-400 font-latin">

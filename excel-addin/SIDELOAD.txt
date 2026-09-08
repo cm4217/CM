@@ -1,0 +1,36 @@
+Excel add-in sideload -- Pharmacopoeia index Lookup
+  ====================================================
+
+Folder mirrors public/excel-addin/ (served by Next static):
+  manifest.xml, taskpane.html, taskpane.js, commands.html
+
+Prerequisites
+-----------
+- npm run dev (default http://localhost:3000)
+- Edit manifest.xml SourceLocation / AppDomains /icons if origin differs
+- Icons: /templates/addin-icon-32.png and addin-icon-64.png
+
+Windows desktop Excel
+-------------------
+- File > Options > Trust Center > Trusted Add-in Catalogs
+- Create folder e.g. %USERPROFILE%\ExcelAddins\CM\
+- Copy manifest.xml; add path as trusted catalog
+- Restart Excel > Insert > My Add-ins > Shared Folder
+
+Excel on the web
+--------------
+- Host public/excel-addin/* on HTTPS; rewrite manifest URLs; Upload my add-in
+
+Mac Excel
+--------
+- Copy manifest.xml to ~/Library/Containers/com.microsoft.Excel/Data/Documents/wef/
+- Restart Excel > Insert > Add-ins
+
+Verify
+------
+- Task pane API base default http://localhost:3000
+- Lookup only = JSON; Write = fill selection
+- CORS: /api/lookup allows cross-origin 
+
+UI: /tools/sheets . docs/excel-integration.md
+Copyright: index metadata only, not statutory monograph text.

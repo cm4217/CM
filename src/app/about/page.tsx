@@ -1,6 +1,7 @@
 import { OFFICIAL_LINKS, DISCLAIMER, COPYRIGHT_LABELS } from "@/lib/constants";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { CopyrightBadge } from "@/components/CopyrightBadge";
+import { SearchBackendChip } from "@/components/SearchBackendChip";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +16,9 @@ export default function AboutPage() {
         <p className="mt-1 text-sm text-slate-500 font-latin">
           Legal model · official links · copyright posture
         </p>
+        <div className="mt-3">
+          <SearchBackendChip />
+        </div>
       </div>
 
       <DisclaimerBanner />
@@ -79,11 +83,11 @@ export default function AboutPage() {
         <ul className="text-sm text-slate-600 space-y-2">
           <li>
             <a href="/tools/bookmarklet" className="text-teal-700 hover:underline">书签小工具</a>
-            — 复制药名并打开 ChP / USP / EP
+            — 复制药名并打开 ChP / USP / EP；另见仓库 browser-extension/（load unpacked）
           </li>
           <li>
             <a href="/tools/sheets" className="text-teal-700 hover:underline">Excel / 表格集成</a>
-            — lookup API 与从 Web 取数
+            — lookup API、从 Web 取数与 Office 加载项（excel-addin/SIDELOAD.txt）
           </li>
         </ul>
       </section>

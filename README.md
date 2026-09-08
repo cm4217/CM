@@ -32,6 +32,10 @@ npm run dev
 - /notes 备注
 - /ask 问答
 - /about 关于
+- /tools/bookmarklet 书签与浏览器扩展说明
+- /tools/sheets Excel / 加载项
+- /tools/index 索引缓存
+- /tools/import CSV 导入
 
 ## 本版能力
 
@@ -55,7 +59,7 @@ npm run build | sync:rs | fetch:alerts
 ## 部署上线
 Vercel Import cm4217/CM Next.js build
 Optional LLM keys; Domains
-Meilisearch deferred; offline alerts seed
+Meilisearch optional via docker compose + MEILI_HOST; offline alerts seed
 
 
 ## 扩库
@@ -116,6 +120,17 @@ Metadata only; no full text monographs
 
 版权姿态不变：仅元数据与外链索引，不托管法定专论全文。
 
+
+
+
+## 本轮六项能力（完成）
+
+1. Server related + anon search log: /api/search-log, /api/related, docs/search-events.md
+2. Optional Meilisearch: docker compose, MEILI_HOST, fuse fallback, SearchBackendChip; build works without Meili
+3. UNII open identity streaming import: docs/open-identity.md
+4. Compendial matrices: example/DEMO labels only; no copyrighted monograph text
+5. Excel add-in: excel-addin/ + SIDELOAD.txt; /tools/sheets
+6. Browser extension MV3: browser-extension/ load unpacked; /tools/bookmarklet
 
 ## Extra features
 

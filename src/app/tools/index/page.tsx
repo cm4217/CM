@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { DemoBadge } from "@/components/DemoBadge";
+import { SearchBackendChip } from "@/components/SearchBackendChip";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { showToast } from "@/lib/toastBus";
 import type { DraftSubstance } from "@/lib/indexTypes";
@@ -37,6 +38,7 @@ export default function IndexToolsPage() {
           <p className="mt-1 text-sm text-slate-500">缓存草稿 · 身份层</p>
         </div>
         <DemoBadge />
+        <SearchBackendChip />
       </div>
       <DisclaimerBanner compact />
       <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">

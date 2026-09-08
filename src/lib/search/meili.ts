@@ -18,6 +18,31 @@ function headers(): Record<string, string> {
   return h;
 }
 
+export async function meiliHealth(): Promise<{ ok: boolean; detail?: string }> {
+  const base = host();
+  if (!base) return { ok: false, detail: "MEILI_HOST unset" };
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 1500);
+    const res = await fetch(base + "/health", {
+      signal: ctrl.signal,
+      cache: "no-store",
+    });
+    clearTimeout(t);
+    if (!res.ok) return { ok: false, detail: "HTTP " + res.status };
+    const json = (await res.json().catch(() => ({}))) as { status?: string };
+    return {
+      ok: json.status === "available" || res.ok,
+      detail: json.status || "ok",
+    };
+  } catch (e) {
+    return {
+      ok: false,
+      detail: e instanceof Error ? e.message : "unreachable",
+    };
+  }
+}
+
 export async function meiliSearchCandidates(
   q: string,
   limit = 40
@@ -33,7 +58,7 @@ export async function meiliSearchCandidates(
       body: JSON.stringify({
         q: q.trim(),
         limit,
-        attributesToRetrieve: ["kind", "id"],
+        attributesToRetrieve: ["kind", "id", "entityId"],
       }),
       signal: ctrl.signal,
       cache: "no-store",
@@ -41,11 +66,14 @@ export async function meiliSearchCandidates(
     clearTimeout(t);
     if (!res.ok) return null;
     const json = (await res.json()) as {
-      hits?: Array<{ kind?: string; id?: string }>;
+      hits?: Array<{ kind?: string; id?: string; entityId?: string }>;
     };
     return (json.hits || [])
-      .filter((x) => x.kind && x.id)
-      .map((x) => ({ kind: String(x.kind), id: String(x.id) }));
+      .filter((x) => x.kind && (x.id || x.entityId))
+      .map((x) => ({
+        kind: String(x.kind),
+        id: String(x.entityId || x.id),
+      }));
   } catch {
     return null;
   }
@@ -53,4 +81,8 @@ export async function meiliSearchCandidates(
 
 export function meiliConfigured(): boolean {
   return !!host();
+}
+
+export function meiliHostPublic(): string | null {
+  return host();
 }

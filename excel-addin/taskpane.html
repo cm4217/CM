@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>药典对照层 Lookup</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+  <style>
+    body { font-family: "Segoe UI", "Noto Sans SC", sans-serif; margin: 12px; color: #0f172a; font-size: 13px; }
+    h1 { font-size: 16px; margin: 0 0 8px; }
+    .muted { color: #64748b; font-size: 11px; margin-bottom: 12px; }
+    label { display: block; font-weight: 600; margin-top: 8px; }
+    input, select { width: 100%; box-sizing: border-box; padding: 6px 8px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 6px; }
+    button { margin-top: 10px; background: #0f766e; color: #fff; border: 0; border-radius: 6px; padding: 8px 12px; cursor: pointer; width: 100%; }
+    button:disabled { opacity: 0.5; }
+    #status { margin-top: 10px; white-space: pre-wrap; font-size: 12px; }
+    .ok { color: #0f766e; }
+    .err { color: #be123c; }
+    code { font-size: 11px; }
+  </style>
+</head>
+<body>
+  <h1>药典索引 Lookup</h1>
+  <p class="muted">按药名 / CAS / UNII 查询索引元数据并写入当前选区。非法定专论全文。</p>
+  <label for="apiBase">API 根地址</label>
+  <input id="apiBase" type="url" placeholder="http://localhost:3000" />
+  <label for="q">查询（名称 / CAS / UNII）</label>
+  <input id="q" type="text" placeholder="阿司匹林 或 50-78-2" />
+  <label for="mode">写入模式</label>
+  <select id="mode">
+    <option value="row">一行：中文名,英文名,CAS,UNII,药典</option>
+    <option value="cas">仅 CAS</option>
+    <option value="nameZh">仅中文名</option>
+    <option value="json">调试 JSON（单格）</option>
+  </select>
+  <button id="lookupBtn" type="button">查询并写入选区</button>
+  <button id="lookupOnlyBtn" type="button" style="background:#334155;margin-top:6px;">仅查询（不写表）</button>
+  <div id="status"></div>
+  <script src="taskpane.js"></script>
+</body>
+</html>

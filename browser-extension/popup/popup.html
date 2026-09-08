@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>药典对照层</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <h1>药典对照层 Lookup</h1>
+    <p class="muted">索引元数据 · 非法定专论全文</p>
+  </header>
+  <label for="q">药名 / CAS / UNII</label>
+  <input id="q" type="text" placeholder="阿司匹林 或 50-78-2" autocomplete="off" />
+  <div class="row">
+    <button id="lookup" type="button">查询</button>
+    <button id="openSearch" type="button" class="secondary">打开检索页</button>
+  </div>
+  <pre id="out" class="out" hidden></pre>
+  <p id="err" class="err" hidden></p>
+  <footer>
+    <a id="opts" href="#">选项</a>
+    · API：<span id="baseLabel" class="mono"></span>
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

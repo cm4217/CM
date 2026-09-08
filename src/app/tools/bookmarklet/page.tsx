@@ -81,6 +81,20 @@ export default function BookmarkletPage() {
         ))}
       </ul>
 
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">
+        <h2 className="text-sm font-semibold">Browser extension (Manifest V3)</h2>
+        <ol className="list-decimal pl-5 text-sm text-slate-700 space-y-1">
+          <li>Open Chrome/Edge <code className="font-latin">chrome://extensions</code> (or edge://extensions).</li>
+          <li>Enable Developer mode → Load unpacked → select repo folder <code className="font-latin">browser-extension/</code>.</li>
+          <li>Options: set API base (default <code className="font-latin">http://localhost:3000</code>).</li>
+          <li>Use toolbar popup, right-click selection, or Alt+Shift+L.</li>
+        </ol>
+        <p className="text-xs text-slate-500">
+          See <code className="font-latin">browser-extension/README.md</code>. Queries index metadata via /api/lookup only — no monograph scraping.
+        </p>
+      </section>
+
       <p className="text-sm text-slate-600">
         相关：{" "}
         <Link href="/tools/sheets" className="text-teal-700 hover:underline">

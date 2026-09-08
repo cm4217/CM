@@ -109,7 +109,7 @@ export function SearchResultsShell({
         />
       ) : null}
 
-      <SearchRelatedStrip focus={selected} hits={boosted} />
+      <SearchRelatedStrip focus={selected} hits={boosted} query={q} />
 
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-6 lg:items-start">
         <div className="min-w-0 space-y-4">

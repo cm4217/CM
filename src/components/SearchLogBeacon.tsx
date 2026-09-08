@@ -3,7 +3,14 @@
 import { useEffect } from "react";
 import { LS_QUERY_LOG_QUEUE } from "@/lib/storageKeys";
 
-type Entry = { q: string; hitCount: number; at: string };
+type Entry = {
+  type: "search" | "click";
+  q?: string;
+  hitCount?: number;
+  entityId?: string;
+  kind?: string;
+  at: string;
+};
 
 function flushQueue() {
   if (typeof window === "undefined") return;
@@ -18,6 +25,7 @@ function flushQueue() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ entries: batch }),
       keepalive: true,
+      credentials: "same-origin",
     })
       .then((r) => {
         if (!r.ok) return;
@@ -31,8 +39,19 @@ function flushQueue() {
   }
 }
 
+function enqueue(entry: Entry) {
+  try {
+    const raw = localStorage.getItem(LS_QUERY_LOG_QUEUE);
+    const prev = raw ? (JSON.parse(raw) as Entry[]) : [];
+    const next = [entry, ...(Array.isArray(prev) ? prev : [])].slice(0, 80);
+    localStorage.setItem(LS_QUERY_LOG_QUEUE, JSON.stringify(next));
+  } catch {
+    /* ignore */
+  }
+}
+
 /**
- * 记录检索 q + hitCount 到 localStorage 队列并尝试刷到 /api/search-log。
+ * 记录检索 q + hitCount 到队列并刷到 /api/search-log（服务端 JSONL + anon cookie）。
  */
 export function SearchLogBeacon({
   q,
@@ -44,21 +63,33 @@ export function SearchLogBeacon({
   useEffect(() => {
     const t = q.trim();
     if (!t) return;
-    try {
-      const raw = localStorage.getItem(LS_QUERY_LOG_QUEUE);
-      const prev = raw ? (JSON.parse(raw) as Entry[]) : [];
-      const next = [
-        { q: t, hitCount, at: new Date().toISOString() },
-        ...(Array.isArray(prev) ? prev : []),
-      ].slice(0, 80);
-      localStorage.setItem(LS_QUERY_LOG_QUEUE, JSON.stringify(next));
-    } catch {
-      /* ignore */
-    }
+    enqueue({
+      type: "search",
+      q: t,
+      hitCount,
+      at: new Date().toISOString(),
+    });
     flushQueue();
   }, [q, hitCount]);
 
   return null;
+}
+
+/** Log a result / substance click for server co-occurrence. */
+export function logSearchClick(opts: {
+  entityId: string;
+  kind?: string;
+  q?: string;
+}) {
+  if (typeof window === "undefined" || !opts.entityId) return;
+  enqueue({
+    type: "click",
+    entityId: opts.entityId,
+    kind: opts.kind,
+    q: opts.q,
+    at: new Date().toISOString(),
+  });
+  flushQueue();
 }
 
 export { flushQueue as flushSearchLogQueue };
