@@ -11,7 +11,9 @@ export type WatchlistItem = {
         id: string;
         nameZh: string;
         nameEn: string;
+        inn?: string;
         cas?: string;
+        unii?: string;
         coverage: string;
       }
     | {

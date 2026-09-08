@@ -61,6 +61,7 @@ export default function SubstancePage({ params }: Props) {
             nameEn={s.nameEn}
             inn={s.inn}
             cas={s.cas}
+            unii={s.unii}
           />
         </div>
       </div>

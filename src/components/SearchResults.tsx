@@ -72,6 +72,7 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                     nameEn={substance.nameEn}
                     inn={substance.inn}
                     cas={substance.cas}
+                    unii={substance.unii}
                   />
                 </div>
               )}

@@ -37,7 +37,9 @@ function resolveLine(raw: string): WatchlistItem["resolved"] {
         id: s.id,
         nameZh: s.nameZh,
         nameEn: s.nameEn,
+        inn: s.inn,
         cas: s.cas,
+        unii: s.unii,
         coverage: coverageOfSubstance(s.id),
       };
     }
@@ -54,6 +56,7 @@ function resolveLine(raw: string): WatchlistItem["resolved"] {
         nameZh: i.nameZh,
         nameEn: i.nameEn,
         cas: i.cas,
+        unii: i.unii,
         coverage: `杂质 · ${i.type} · 父物质 ${i.parentSubstanceIds.length}`,
       };
     }
@@ -344,7 +347,9 @@ export default function WatchlistPage() {
                       <OfficialQueryLinks
                         nameZh={r.nameZh}
                         nameEn={r.nameEn}
+                        inn={r.inn}
                         cas={r.cas}
+                        unii={r.unii}
                       />
                     ) : r.status === "external" && r.pubchemUrl ? (
                       <a
