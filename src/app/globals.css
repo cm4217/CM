@@ -45,3 +45,52 @@ a {
   width: 100% !important;
   min-height: 480px;
 }
+
+/* —— Search density —— */
+html[data-density="compact"] .density-card {
+  font-size: 0.925rem;
+}
+html[data-density="compact"] .density-card .mt-3 {
+  margin-top: 0.5rem;
+}
+html[data-density="compact"] .density-card h3 {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+html[data-density="comfortable"] .density-card {
+  font-size: 1.02rem;
+}
+html[data-density="comfortable"] .density-card h3 {
+  font-size: 1.35rem;
+}
+
+/* —— Print: hide chrome, expand folds, show URLs —— */
+@media print {
+  .print\:hidden,
+  header,
+  footer,
+  [data-disclaimer-strip],
+  nav[aria-label="主导航"],
+  .toast-host {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #475569;
+    word-break: break-all;
+  }
+  /* Expand weak folds */
+  details,
+  [aria-expanded="false"] + ul {
+    display: block !important;
+  }
+  .density-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+}

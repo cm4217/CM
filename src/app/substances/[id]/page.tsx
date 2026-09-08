@@ -16,6 +16,7 @@ import { SubstanceExtras } from "@/components/SubstanceExtras";
 import { ImpurityExportPanel } from "@/components/ImpurityExportPanel";
 import { IdStatusBadge, ProvenanceBadge } from "@/components/ProvenanceBadge";
 import { SubstanceQuickActions } from "@/components/SubstanceQuickActions";
+import { RecentSubstanceBeacon } from "@/components/RecentSubstanceBeacon";
 import {
   fieldProvenanceOf,
   resolveEpIdStatus,
@@ -50,6 +51,7 @@ export default function SubstancePage({ params }: Props) {
 
   return (
     <div className="space-y-8">
+      <RecentSubstanceBeacon substanceId={s.id} relatedIds={s.relatedImpurityIds} />
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2 items-center">
           <DemoBadge />

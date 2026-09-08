@@ -194,6 +194,12 @@ export interface SearchHit {
   impurityPreview?: string[];
   /** 是否有文档直达字段 */
   hasDeepLink?: boolean;
+  /** InChIKey（种子元数据，非药典正文） */
+  inchiKey?: string;
+  /** 排序分（rankDocs）；用于 Hero 置信门控 / mini-compare */
+  rankScore?: number;
+  /** 结构化证据行（仅自有元数据，无专论正文） */
+  evidence?: { field: string; value: string; reasonCode: string }[];
 }
 
 /** ICH / 监管限值示例行（非法定正文） */

@@ -115,3 +115,13 @@ See package scripts test:search, synonym:gap, meili:index. Autocomplete groups, 
 - **卡片抛光**：一键复制 CAS / UNII / 中文名；更清晰层级与键盘 focus ring。
 - **概览条**：`物质 x · 杂质 y · 对照品 z · 主命中：…`；`titleOnly` 与杂质 compact 表兼容。
 
+## 检索结果 P0 下一层（本轮）
+
+1. **证据行 Evidence**：每条命中展示 `evidence[{field,value,reasonCode}]`（命中字段 / CAS / 覆盖 / 版本 / ICH 等自有元数据），**无专论正文**。
+2. **知识面板**：`/search` lg+ 粘性侧栏；PubChem PNG 经 **`/api/chem/image`** 与 **`/api/chem/compound`** 服务端代理缓存（浏览器不直连 PubChem）；ID 芯片 + ChP/USP/EP/JP/BP/Ph.Int. 覆盖矩阵；标注「PubChem 结构示意图，非正式药典附图」；移动端折叠摘要条。
+3. **Best Match 置信门控**：仅当 top1−top2 分差 ≥ 阈值或 tier 为 cas/exact 时展示 Hero；否则「多条接近，请选择」横幅。
+4. **客户端提升**：SSR 后按关注 / 最近物质 id 轻量稳定重排 +「关注」徽章；工作台可关。
+5. **密度 / 打印 / a11y**：`data-density` compact|default|comfortable；打印隐藏 chrome、展开折叠、显示 URL；结果数 `aria-live`。
+6. **意图 Tab** `?tab=all|substance|impurity|rs|external` + 计数；**接近快比** mini-compare；**相关结果条**（关联杂质/父物质 + 同会话共现）。
+
+版权姿态不变：仅元数据与外链索引，不托管法定专论全文。不部署本轮。

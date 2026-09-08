@@ -8,6 +8,7 @@ import { OfficialQueryLinks } from "./OfficialQueryLinks";
 import { SearchCardActions } from "./SearchCardActions";
 import { CopyChip } from "./CopyChip";
 import { buildHighlightTerms, highlightText } from "@/lib/highlightText";
+import { EvidenceRow } from "./EvidenceRow";
 
 function hrefFor(hit: SearchHit) {
   if (hit.kind === "substance") return `/substances/${hit.id}`;
@@ -51,6 +52,13 @@ type Props = {
   tokens?: string[];
   /** CAS（若查询解析出） */
   cas?: string;
+  /** 由 Shell 置信门控决定是否展示 Hero */
+  showHero?: boolean;
+  /** 关注 id 集合（徽章） */
+  watchIds?: Set<string>;
+  selectedKey?: string | null;
+  onSelectHit?: (hit: SearchHit) => void;
+  clientBoostActive?: boolean;
 };
 
 function isWeak(hit: SearchHit) {
@@ -76,11 +84,17 @@ function ResultCard({
   titleOnly,
   terms,
   hero = false,
+  watched = false,
+  selected = false,
+  onSelect,
 }: {
   hit: SearchHit;
   titleOnly: boolean;
   terms: string[];
   hero?: boolean;
+  watched?: boolean;
+  selected?: boolean;
+  onSelect?: (hit: SearchHit) => void;
 }) {
   const hl = (t?: string) => highlightText(t, terms);
 
@@ -88,9 +102,12 @@ function ResultCard({
     <div
       className={
         hero
-          ? "rounded-2xl border-2 border-teal-400 bg-gradient-to-br from-teal-50 via-white to-white shadow-md overflow-hidden"
-          : "rounded-xl border border-slate-200 bg-white shadow-sm hover:border-teal-300 hover:shadow transition overflow-hidden focus-within:ring-2 focus-within:ring-teal-500/40"
+          ? "rounded-2xl border-2 border-teal-400 bg-gradient-to-br from-teal-50 via-white to-white shadow-md overflow-hidden density-card"
+          : selected
+            ? "rounded-xl border-2 border-teal-500 bg-white shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-teal-500/40 density-card"
+            : "rounded-xl border border-slate-200 bg-white shadow-sm hover:border-teal-300 hover:shadow transition overflow-hidden focus-within:ring-2 focus-within:ring-teal-500/40 density-card"
       }
+      data-hit-key={`${hit.kind}:${hit.id}`}
     >
       {hero ? (
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-teal-100 bg-teal-600/95 px-4 py-2 text-white">
@@ -113,6 +130,11 @@ function ResultCard({
             {kindLabel[hit.kind]}
           </span>
           <DemoBadge />
+          {watched ? (
+            <span className="rounded-md bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-800">
+              关注
+            </span>
+          ) : null}
           {hit.kind === "substance" && hit.substanceType && (
             <span className="rounded-md bg-slate-50 px-2 py-0.5 text-xs text-slate-600 font-latin">
               {hit.substanceType}
@@ -129,6 +151,22 @@ function ResultCard({
             </span>
           ) : null}
         </div>
+
+        {!titleOnly ? <EvidenceRow evidence={hit.evidence} /> : null}
+
+        {!titleOnly && onSelect ? (
+          <button
+            type="button"
+            className="mt-1 text-[11px] text-teal-700 hover:underline print:hidden"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onSelect(hit);
+            }}
+          >
+            在知识面板查看
+          </button>
+        ) : null}
 
         <h3
           className={
@@ -303,10 +341,16 @@ function WeakFold({
   hits,
   titleOnly,
   terms,
+  watchIds,
+  selectedKey,
+  onSelectHit,
 }: {
   hits: SearchHit[];
   titleOnly: boolean;
   terms: string[];
+  watchIds?: Set<string>;
+  selectedKey?: string | null;
+  onSelectHit?: (hit: SearchHit) => void;
 }) {
   const [open, setOpen] = useState(false);
   if (hits.length === 0) return null;
@@ -328,7 +372,14 @@ function WeakFold({
         <ul className="space-y-3 border-t border-slate-200 px-3 pb-3 pt-3">
           {hits.map((hit) => (
             <li key={`weak-${hit.kind}-${hit.id}`}>
-              <ResultCard hit={hit} titleOnly={titleOnly} terms={terms} />
+              <ResultCard
+                hit={hit}
+                titleOnly={titleOnly}
+                terms={terms}
+                watched={!!watchIds?.has(hit.id)}
+                selected={selectedKey === `${hit.kind}:${hit.id}`}
+                onSelect={onSelectHit}
+              />
             </li>
           ))}
         </ul>
@@ -343,12 +394,18 @@ function KindSection({
   titleOnly,
   terms,
   skipIds,
+  watchIds,
+  selectedKey,
+  onSelectHit,
 }: {
   kind: SearchHit["kind"];
   hits: SearchHit[];
   titleOnly: boolean;
   terms: string[];
   skipIds: Set<string>;
+  watchIds?: Set<string>;
+  selectedKey?: string | null;
+  onSelectHit?: (hit: SearchHit) => void;
 }) {
   if (hits.length === 0) return null;
   const filtered = hits.filter((h) => !skipIds.has(`${h.kind}:${h.id}`));
@@ -381,11 +438,25 @@ function KindSection({
           <ul className="space-y-3">
             {listed.map((hit) => (
               <li key={`${hit.kind}-${hit.id}`}>
-                <ResultCard hit={hit} titleOnly={titleOnly} terms={terms} />
+                <ResultCard
+                  hit={hit}
+                  titleOnly={titleOnly}
+                  terms={terms}
+                  watched={!!watchIds?.has(hit.id)}
+                  selected={selectedKey === `${hit.kind}:${hit.id}`}
+                  onSelect={onSelectHit}
+                />
               </li>
             ))}
           </ul>
-          <WeakFold hits={weakTail} titleOnly={titleOnly} terms={terms} />
+          <WeakFold
+            hits={weakTail}
+            titleOnly={titleOnly}
+            terms={terms}
+            watchIds={watchIds}
+            selectedKey={selectedKey}
+            onSelectHit={onSelectHit}
+          />
         </>
       )}
     </section>
@@ -400,6 +471,10 @@ export function SearchResults({
   core = "",
   tokens = [],
   cas = "",
+  showHero: showHeroProp,
+  watchIds,
+  selectedKey = null,
+  onSelectHit,
 }: Props) {
   const terms = useMemo(
     () => buildHighlightTerms({ q, core, tokens, cas }),
@@ -424,11 +499,13 @@ export function SearchResults({
   }
 
   const top = hits[0];
-  const showHero = top && isHeroEligible(top);
+  // Shell passes confidence-gated showHero; fallback to legacy tier check
+  const showHero =
+    typeof showHeroProp === "boolean"
+      ? showHeroProp && !!top
+      : !!(top && isHeroEligible(top));
   const skipIds = new Set<string>();
-  // Keep hero in sections too (count accurate); visually distinct via hero only above.
-  // Do not skip — PubChem-style often lists again; we skip to reduce noise.
-  if (showHero) {
+  if (showHero && top) {
     skipIds.add(`${top.kind}:${top.id}`);
   }
 
@@ -459,8 +536,16 @@ export function SearchResults({
     <div className="space-y-5">
       {anchorNav}
 
-      {showHero ? (
-        <ResultCard hit={top} titleOnly={titleOnly} terms={terms} hero />
+      {showHero && top ? (
+        <ResultCard
+          hit={top}
+          titleOnly={titleOnly}
+          terms={terms}
+          hero
+          watched={!!watchIds?.has(top.id)}
+          selected={selectedKey === `${top.kind}:${top.id}`}
+          onSelect={onSelectHit}
+        />
       ) : null}
 
       {showCompactTable ? (
@@ -533,6 +618,9 @@ export function SearchResults({
             titleOnly={titleOnly}
             terms={terms}
             skipIds={skipIds}
+            watchIds={watchIds}
+            selectedKey={selectedKey}
+            onSelectHit={onSelectHit}
           />
         );
       })}

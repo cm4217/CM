@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { SearchFilters } from "@/components/SearchFilters";
-import { SearchResults } from "@/components/SearchResults";
+import { SearchResultsShell } from "@/components/SearchResultsShell";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { DidYouMean } from "@/components/DidYouMean";
@@ -35,6 +35,7 @@ type Props = {
     strict?: string;
     titleOnly?: string;
     view?: string;
+    tab?: string;
   };
 };
 
@@ -74,12 +75,14 @@ export default async function SearchPage({ searchParams }: Props) {
     : "无";
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">检索结果</h1>
-        <p className="mt-1 text-sm text-slate-500 font-latin">
-          Search · parse · rank · facets · RxNorm · external helpers
-        </p>
+    <div className="space-y-6 search-page">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">检索结果</h1>
+          <p className="mt-1 text-sm text-slate-500 font-latin">
+            Search · evidence · knowledge panel · intent tabs · mini-compare
+          </p>
+        </div>
       </div>
 
       <DisclaimerBanner compact />
@@ -89,7 +92,7 @@ export default async function SearchPage({ searchParams }: Props) {
       </Suspense>
 
       <div className="space-y-2">
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600" aria-live="polite">
           共 <span className="font-semibold text-teal-800">{hits.length}</span> 条结果
           {q ? (
             <>
@@ -119,6 +122,11 @@ export default async function SearchPage({ searchParams }: Props) {
           <p className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm">
             物质 {nSub} · 杂质 {nImp} · 对照品 {nRs} · 主命中：
             <span className="font-medium text-slate-900">{topLabel}</span>
+            {typeof topHit?.rankScore === "number" ? (
+              <span className="ml-2 text-xs text-slate-400 font-latin">
+                score {topHit.rankScore.toFixed(0)}
+              </span>
+            ) : null}
           </p>
         ) : null}
       </div>
@@ -148,7 +156,7 @@ export default async function SearchPage({ searchParams }: Props) {
       {fewLocal ? <DidYouMean q={q} enabled /> : null}
 
       {q ? (
-        <div className="rounded-xl border border-teal-200 bg-teal-50/50 px-4 py-3">
+        <div className="rounded-xl border border-teal-200 bg-teal-50/50 px-4 py-3 print:hidden">
           <OfficialQueryLinks
             title="用当前关键词直接查官网"
             nameZh={q}
@@ -158,17 +166,22 @@ export default async function SearchPage({ searchParams }: Props) {
         </div>
       ) : null}
 
-      <SearchResults
-        hits={hits}
-        titleOnly={titleOnly}
-        compact={compact}
-        q={q}
-        core={result.parsed.core}
-        tokens={result.parsed.tokens}
-        cas={result.parsed.cas || ""}
-      />
+      <Suspense fallback={<div className="text-sm text-slate-500">加载结果…</div>}>
+        <SearchResultsShell
+          hits={hits}
+          titleOnly={titleOnly}
+          compact={compact}
+          q={q}
+          core={result.parsed.core}
+          tokens={result.parsed.tokens}
+          cas={result.parsed.cas || ""}
+          fewLocal={fewLocal}
+        />
+      </Suspense>
 
-      <ExternalSearchCards q={q} show={fewLocal} />
+      <div id="external-helpers">
+        <ExternalSearchCards q={q} show={fewLocal || searchParams.tab === "external"} />
+      </div>
     </div>
   );
 }

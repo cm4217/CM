@@ -13,16 +13,22 @@ import {
 } from "@/lib/compareQueueStorage";
 import { showToast } from "@/lib/toastBus";
 import { SynonymGapExportButton } from "@/components/SynonymGapExportButton";
+import {
+  isClientBoostEnabled,
+  setClientBoostEnabled,
+} from "@/lib/clientBoost";
 
 export default function WorkbenchPage() {
   const [history, setHistory] = useState<string[]>([]);
   const [watch, setWatch] = useState<WatchlistItem[]>([]);
   const [queue, setQueue] = useState<string[]>([]);
+  const [boostOn, setBoostOn] = useState(true);
 
   useEffect(() => {
     setHistory(loadSearchHistory());
     setWatch(loadWatchlist());
     setQueue(loadCompareQueue());
+    setBoostOn(isClientBoostEnabled());
   }, []);
 
   const alerts = useMemo(() => recentAlerts(4), []);
@@ -67,6 +73,26 @@ export default function WorkbenchPage() {
       </section>
 
       <SynonymGapExportButton />
+
+      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
+        <h2 className="text-sm font-semibold text-slate-900">检索结果客户端提升</h2>
+        <p className="text-xs text-slate-500">
+          开启后，/search 在 SSR 命中基础上对关注列表与最近浏览物质做轻量、稳定重排，并显示「关注」徽章。
+        </p>
+        <label className="flex items-center gap-2 text-sm text-slate-800">
+          <input
+            type="checkbox"
+            checked={boostOn}
+            onChange={(e) => {
+              const on = e.target.checked;
+              setClientBoostEnabled(on);
+              setBoostOn(on);
+              showToast(on ? "已开启关注/最近提升" : "已关闭客户端提升", "ok");
+            }}
+          />
+          启用关注 / 最近浏览轻量提升
+        </label>
+      </section>
 
       <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-4 space-y-2">
         <h2 className="text-sm font-semibold text-teal-950">快捷键</h2>

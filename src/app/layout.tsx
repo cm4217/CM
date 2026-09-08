@@ -37,12 +37,20 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${inter.variable} ${notoSansSC.variable}`}>
       <body className="min-h-screen flex flex-col font-sans">
-        <DisclaimerStrip />
-        <Header />
+        <div className="print:hidden" data-disclaimer-strip>
+          <DisclaimerStrip />
+        </div>
+        <div className="print:hidden">
+          <Header />
+        </div>
         <GlobalHotkeys />
-        <ToastHost />
-        <main className="flex-1 mx-auto w-full max-w-6xl px-4 py-8">{children}</main>
-        <Footer />
+        <div className="print:hidden toast-host">
+          <ToastHost />
+        </div>
+        <main className="flex-1 mx-auto w-full max-w-6xl px-4 py-8 lg:max-w-7xl">{children}</main>
+        <div className="print:hidden">
+          <Footer />
+        </div>
       </body>
     </html>
   );

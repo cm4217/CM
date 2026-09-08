@@ -34,6 +34,7 @@ import {
   type SearchFacets,
 } from "./search/rank";
 import { meiliSearchCandidates, meiliConfigured } from "./search/meili";
+import { buildEvidence } from "./search/evidence";
 
 function norm(s: string) {
   return s.trim().toLowerCase();
@@ -97,6 +98,7 @@ type Doc = RankableDoc & {
   inn?: string;
   impurityPreview?: string[];
   description: string;
+  inchiKey?: string;
 };
 
 function buildDocs(): Doc[] {
@@ -166,6 +168,7 @@ function buildDocs(): Doc[] {
       substanceType: s.type,
       inn: s.inn,
       impurityPreview: preview,
+      inchiKey: s.inchiKey,
       description: s.summaryZh || "",
       molecularFormula: s.molecularFormula,
       pharmaVersions: Array.from(
@@ -220,6 +223,7 @@ function buildDocs(): Doc[] {
       parentIds: i.parentSubstanceIds,
       parentNames,
       ichTags: i.ichTags,
+      inchiKey: i.inchiKey,
       description: i.summaryZh || "",
       molecularFormula: i.molecularFormula,
     });
@@ -275,8 +279,26 @@ const fuseLoose = makeFuse(0.55);
 
 function toHit(
   d: Doc,
-  extra?: { matchTier?: MatchTier; matchReason?: string }
+  extra?: { matchTier?: MatchTier; matchReason?: string; rankScore?: number }
 ): SearchHit {
+  const matchTier = extra?.matchTier;
+  const matchReason = extra?.matchReason;
+  const evidence = buildEvidence({
+    kind: d.kind,
+    matchTier,
+    matchReason,
+    cas: d.cas,
+    unii: d.unii,
+    pharmacopoeias: d.pharmacopoeias as PharmacopoeiaCode[] | undefined,
+    pharmaVersions: d.pharmaVersions,
+    ichTags: d.ichTags,
+    hasRS: d.hasRS,
+    hasDeepLink: d.hasDeepLink,
+    epTextNumber: d.epTextNumber,
+    uspDoi: d.uspDoi,
+    molecularFormula: d.molecularFormula,
+    impurityType: d.impurityType,
+  });
   return {
     kind: d.kind,
     id: d.id,
@@ -303,9 +325,12 @@ function toHit(
     substanceType: d.substanceType,
     inn: d.inn,
     impurityPreview: d.impurityPreview,
-    matchTier: extra?.matchTier,
-    matchReason: extra?.matchReason,
+    matchTier,
+    matchReason,
     hasDeepLink: d.hasDeepLink,
+    inchiKey: d.inchiKey,
+    rankScore: extra?.rankScore,
+    evidence,
   };
 }
 
@@ -519,6 +544,7 @@ function runOnce(
         toHit(r.doc as Doc, {
           matchTier: "cas",
           matchReason: MATCH_REASON_ZH.cas,
+          rankScore: r.score,
         })
       );
     }
@@ -581,6 +607,7 @@ function runOnce(
     toHit(r.doc as Doc, {
       matchTier: r.tier,
       matchReason: r.reason,
+      rankScore: r.score,
     })
   );
 }
@@ -790,6 +817,7 @@ export async function searchWithMetaAsync(
           return toHit(r.doc as Doc, {
             matchTier: r.tier || tier,
             matchReason: r.reason,
+            rankScore: r.score,
           });
         });
         const outHits =
