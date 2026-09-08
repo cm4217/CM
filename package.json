@@ -10,6 +10,9 @@
     "sync:rs": "node scripts/sync-reference-standards.mjs"
   },
   "dependencies": {
+    "ketcher-core": "3.7.0",
+    "ketcher-react": "3.7.0",
+    "ketcher-standalone": "3.7.0",
     "next": "14.2.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

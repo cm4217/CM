@@ -35,3 +35,13 @@ a {
 .prose-table tr:hover td {
   @apply bg-teal-50/40;
 }
+
+/* Ketcher sketcher: fill fixed-height host without breaking page layout */
+.ketcher-host {
+  isolation: isolate;
+}
+.ketcher-host > div {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 480px;
+}

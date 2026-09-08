@@ -153,6 +153,6 @@ export async function GET(req: NextRequest) {
     mode,
     local,
     pubchem,
-    note: "结构检索：SMILES + PubChem（未集成 Ketcher，以控制构建体积）。结构图来自 PubChem 公开服务。",
+    note: "结构检索：Ketcher 画板 / SMILES + PubChem。结构图来自 PubChem 公开服务。",
   });
 }
