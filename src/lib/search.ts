@@ -6,6 +6,7 @@ import {
   referenceMaterials,
 } from "@/data";
 import { openSubstances } from "@/data/openSubstances.generated";
+import { openDrugProducts } from "@/data/openDrugProducts.generated";
 import {
   loadDrafts,
   loadUserImports,
@@ -108,6 +109,12 @@ type Doc = RankableDoc & {
   description: string;
   inchiKey?: string;
   indexLayer: IndexLayer;
+  brandName?: string;
+  genericName?: string;
+  strength?: string;
+  dosageForm?: string;
+  countryTags?: string[];
+  parentSubstanceId?: string;
 };
 
 function buildDocs(): Doc[] {
@@ -264,13 +271,16 @@ function buildDocs(): Doc[] {
   }
 
   // Open identity bulk (dedup vs curated by cas/unii/nameEn)
-  const curatedKeys = new Set<string>();
-  for (const s of substances) {
-    if (s.cas) curatedKeys.add("cas:" + norm(s.cas));
-    if (s.unii) curatedKeys.add("unii:" + norm(s.unii));
-    curatedKeys.add("en:" + norm(s.nameEn));
-    curatedKeys.add("zh:" + norm(s.nameZh));
+  // Map curated doc index for synonym merge when open row is deduped away
+  const curatedDocByKey = new Map<string, Doc>();
+  for (const d of docs) {
+    if (d.kind !== "substance") continue;
+    if (d.cas) curatedDocByKey.set("cas:" + norm(d.cas), d);
+    if (d.unii) curatedDocByKey.set("unii:" + norm(d.unii), d);
+    curatedDocByKey.set("en:" + norm(d.titleEn), d);
+    curatedDocByKey.set("zh:" + norm(d.titleZh), d);
   }
+  const curatedKeys = new Set(curatedDocByKey.keys());
   for (const o of openSubstances) {
     const keys = [
       o.cas ? "cas:" + norm(o.cas) : "",
@@ -278,7 +288,17 @@ function buildDocs(): Doc[] {
       "en:" + norm(o.nameEn),
       o.nameZh ? "zh:" + norm(o.nameZh) : "",
     ].filter(Boolean);
-    if (keys.some((k) => curatedKeys.has(k))) continue;
+    if (keys.some((k) => curatedKeys.has(k))) {
+      // Merge brand/INN synonyms into curated doc so Lipitor/Tamiflu/Glucophage still hit
+      const target = keys.map((k) => curatedDocByKey.get(k)).find(Boolean);
+      if (target && o.synonyms?.length) {
+        const extra = o.synonyms.filter(Boolean);
+        const set = new Set([...(target.synonyms || []), ...extra].map((s) => s.trim()));
+        target.synonyms = Array.from(set);
+        target.blob = [target.blob, ...extra].filter(Boolean).join(" ");
+      }
+      continue;
+    }
     const titleZh = o.nameZh || o.nameEn;
     const initials = zhInitials(titleZh);
     const synonyms = [...(o.synonyms || [])];
@@ -290,7 +310,7 @@ function buildDocs(): Doc[] {
       subtitle: [o.cas ? `CAS ${o.cas}` : null, o.unii ? `UNII ${o.unii}` : null]
         .filter(Boolean)
         .join(" · "),
-      badges: ["开放索引", "identity"],
+      badges: ["开放索引", "原料药", "identity"],
       blob: [titleZh, o.nameEn, o.cas, o.unii, ...synonyms, initials]
         .filter(Boolean)
         .join(" "),
@@ -300,13 +320,76 @@ function buildDocs(): Doc[] {
       hasRS: false,
       hasVerifiedDocId: false,
       hasDeepLink: !!o.unii,
-      type: "other",
+      type: "API",
       cas: o.cas,
       unii: o.unii,
-      summary: "开放身份索引（UNII/seed）· 非药典全文",
-      substanceType: "other",
-      description: "开放身份索引（UNII/seed）· 非药典全文",
+      inn: o.nameEn,
+      summary: "开放原料药 / 物质身份索引（UNII·NDC·seed）· 非药典全文",
+      substanceType: "API",
+      description: "开放原料药 / 物质身份索引（UNII·NDC·seed）· 非药典全文",
       indexLayer: "open",
+    });
+  }
+
+  // Global finished-drug products (openFDA NDC identity layer)
+  for (const d of openDrugProducts) {
+    const titleZh = d.brandName || d.genericName;
+    const titleEn = d.brandName || d.genericName;
+    const initials = zhInitials(titleZh);
+    const synonyms = [
+      d.genericName,
+      d.inn,
+      d.brandName,
+      ...(d.synonyms || []),
+    ].filter(Boolean) as string[];
+    const uniqSyn = Array.from(new Set(synonyms.map((s) => s.trim()).filter(Boolean)));
+    docs.push({
+      kind: "drug",
+      id: d.id,
+      titleZh,
+      titleEn,
+      subtitle: [
+        d.genericName && d.genericName !== d.brandName ? d.genericName : null,
+        d.strength || null,
+        d.dosageForm || null,
+        (d.countryTags || []).join("/") || null,
+      ]
+        .filter(Boolean)
+        .join(" · "),
+      badges: ["成药", "全球成药", ...(d.countryTags || []).slice(0, 2)],
+      blob: [
+        d.brandName,
+        d.genericName,
+        d.inn,
+        d.strength,
+        d.dosageForm,
+        d.unii,
+        d.productNdc,
+        d.labelerName,
+        ...uniqSyn,
+        initials,
+      ]
+        .filter(Boolean)
+        .join(" "),
+      synonyms: uniqSyn,
+      initials,
+      pharmacopoeias: [],
+      hasRS: false,
+      hasVerifiedDocId: false,
+      hasDeepLink: !!(d.unii || d.productNdc),
+      type: "drug",
+      cas: undefined,
+      unii: d.unii,
+      inn: d.inn || d.genericName,
+      summary: "全球成药 / 成品制剂身份（openFDA NDC）· 非药典全文",
+      description: "全球成药 / 成品制剂身份（openFDA NDC）· 非药典全文",
+      indexLayer: "open",
+      brandName: d.brandName,
+      genericName: d.genericName,
+      strength: d.strength,
+      dosageForm: d.dosageForm,
+      countryTags: d.countryTags,
+      parentSubstanceId: d.parentSubstanceId,
     });
   }
   return docs;
@@ -398,12 +481,17 @@ function getAllDocs(): Doc[] {
 const ALL_DOCS = STATIC_DOCS;
 
 const FUSE_KEYS = [
-  { name: "titleZh", weight: 0.32 },
-  { name: "titleEn", weight: 0.22 },
-  { name: "synonyms", weight: 0.2 },
-  { name: "initials", weight: 0.1 },
-  { name: "description", weight: 0.06 },
-  { name: "blob", weight: 0.1 },
+  { name: "titleZh", weight: 0.28 },
+  { name: "titleEn", weight: 0.2 },
+  { name: "synonyms", weight: 0.22 },
+  { name: "inn", weight: 0.12 },
+  { name: "cas", weight: 0.08 },
+  { name: "unii", weight: 0.06 },
+  { name: "brandName", weight: 0.08 },
+  { name: "genericName", weight: 0.06 },
+  { name: "initials", weight: 0.06 },
+  { name: "description", weight: 0.04 },
+  { name: "blob", weight: 0.08 },
 ];
 
 function makeFuse(threshold: number) {
@@ -474,6 +562,12 @@ function toHit(
     rankScore: extra?.rankScore,
     evidence,
     indexLayer: d.indexLayer,
+    brandName: d.brandName,
+    genericName: d.genericName,
+    strength: d.strength,
+    dosageForm: d.dosageForm,
+    countryTags: d.countryTags,
+    parentSubstanceId: d.parentSubstanceId,
   };
 }
 
@@ -481,10 +575,15 @@ function casFastPath(cas: string): Doc[] {
   const n = norm(cas);
   return getAllDocs().filter(
     (d) =>
-      (d.kind === "substance" || d.kind === "impurity") &&
+      (d.kind === "substance" || d.kind === "impurity" || d.kind === "drug") &&
       d.cas &&
       norm(d.cas) === n
   );
+}
+
+function uniiFastPath(unii: string): Doc[] {
+  const n = norm(unii);
+  return getAllDocs().filter((d) => d.unii && norm(d.unii) === n);
 }
 
 function collectCandidates(
@@ -552,14 +651,19 @@ function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
     ["API", "excipient", "biological", "herb", "other"].includes(typeFilter);
   const wantImpurities = !typeFilter || typeFilter === "impurity";
   const wantRS = !typeFilter || typeFilter === "rs";
+  const wantDrugs = !typeFilter || typeFilter === "drug" || typeFilter === "product";
 
   if (d.kind === "substance" && !wantSubstances) return false;
   if (d.kind === "impurity" && !wantImpurities) return false;
   if (d.kind === "rs" && !wantRS) return false;
+  if (d.kind === "drug" && !wantDrugs) return false;
   if (typeFilter && d.kind === "substance" && typeFilter !== d.type) return false;
+  if (typeFilter === "drug" || typeFilter === "product") {
+    if (d.kind !== "drug") return false;
+  }
 
   if (filters.pharmacopoeia) {
-    if (d.kind === "rs") return false;
+    if (d.kind === "rs" || d.kind === "drug") return false;
     if (d.kind === "substance" && !d.pharmacopoeias.includes(filters.pharmacopoeia))
       return false;
     if (d.kind === "impurity") {
@@ -607,7 +711,12 @@ function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
     if (!(d.efficacyStatuses || []).includes(filters.efficacy)) return false;
   }
 
-  // dosageForm：查询侧分面高亮；有剂型时不额外过滤文档（种子为原料索引）
+  if (filters.dosageForm) {
+    if (d.kind === "drug") {
+      if (!d.dosageForm || norm(d.dosageForm) !== norm(filters.dosageForm)) return false;
+    }
+    // 原料/杂质：查询侧分面高亮，不强制过滤
+  }
   // 保留 filters.dosageForm 供 UI / URL
 
   const src = (filters.indexSource || "").trim();
@@ -698,6 +807,33 @@ function runOnce(
         toHit(r.doc as Doc, {
           matchTier: "cas",
           matchReason: MATCH_REASON_ZH.cas,
+          rankScore: r.score,
+        })
+      );
+    }
+  }
+
+  // UNII 精确快路径（10 位字母数字）
+  const rawQ = (parsed.raw || "").trim();
+  if (/^[A-Za-z0-9]{10}$/.test(rawQ)) {
+    const uniiHits = uniiFastPath(rawQ).filter((d) => applyTypeFilters(d, filters));
+    if (uniiHits.length > 0) {
+      const synonymTerms = new Set(synonymExtras.map(norm));
+      const rankable: RankableDoc[] = uniiHits.map((d) => ({
+        ...d,
+        matchedVia: "exact" as MatchTier,
+        fuseScore: 0,
+      }));
+      const ranked = rankDocs(rankable, {
+        parsed,
+        synonymTerms,
+        dosageMismatchPenalty: false,
+        relaxed: relax.looseFuzzy,
+      });
+      return ranked.map((r) =>
+        toHit(r.doc as Doc, {
+          matchTier: "exact",
+          matchReason: "UNII 精确",
           rankScore: r.score,
         })
       );

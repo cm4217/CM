@@ -150,7 +150,7 @@ export interface ChangeEvent {
 }
 
 export interface SearchHit {
-  kind: "substance" | "impurity" | "rs";
+  kind: "substance" | "impurity" | "rs" | "drug";
   id: string;
   titleZh: string;
   titleEn: string;
@@ -200,6 +200,18 @@ export interface SearchHit {
   rankScore?: number;
   /** 结构化证据行（仅自有元数据，无专论正文） */
   evidence?: { field: string; value: string; reasonCode: string }[];
+  /** 成药：商品名 */
+  brandName?: string;
+  /** 成药：通用名 */
+  genericName?: string;
+  /** 成药：规格 */
+  strength?: string;
+  /** 成药：剂型 */
+  dosageForm?: string;
+  /** 成药：国家/地区标签 */
+  countryTags?: string[];
+  /** 成药关联原料药（开放索引 id） */
+  parentSubstanceId?: string;
   /** 索引层：精选 / 用户导入 / 草稿 / 开放 */
   indexLayer?: "curated" | "user" | "draft" | "open";
 }

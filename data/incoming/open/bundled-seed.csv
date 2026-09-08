@@ -2,18 +2,18 @@ nameEn,nameZh,cas,unii,synonyms
 Aspirin,阿司匹林,50-78-2,R16CO5Y76E,Acetylsalicylic acid|ASA
 Ibuprofen,布洛芬,15687-27-1,WK2XYI10QM,(±)-2-(4-Isobutylphenyl)propionic acid
 Paracetamol,对乙酰氨基酚,103-90-2,362O9ITL9D,Acetaminophen|APAP
-Metformin,二甲双胍,657-24-9,9100L32L2N,Metformin hydrochloride
+Metformin,二甲双胍,657-24-9,9100L32L2N,Metformin hydrochloride|Glucophage|格华止
 Amoxicillin,阿莫西林,26787-78-0,9EM05410Q9,Amoxycillin
-Atorvastatin,阿托伐他汀,134523-00-5,A0JWA85V8F,Atorvastatin calcium
-Omeprazole,奥美拉唑,73590-58-6,KG60484QX9,
-Amlodipine,氨氯地平,88150-42-9,1J444QC288,Amlodipine besylate
+Atorvastatin,阿托伐他汀,134523-00-5,A0JWA85V8F,Atorvastatin calcium|Lipitor|立普妥
+Omeprazole,奥美拉唑,73590-58-6,KG60484QX9,Losec|Prilosec
+Amlodipine,氨氯地平,88150-42-9,1J444QC288,Amlodipine besylate|Norvasc|络活喜
 Losartan,氯沙坦,114798-26-4,JMS50MPO89,Losartan potassium
-Simvastatin,辛伐他汀,79902-63-9,AGG2FN16EV,
+Simvastatin,辛伐他汀,79902-63-9,AGG2FN16EV,Zocor
 Metoprolol,美托洛尔,37350-58-6,GEB06NHM23,Metoprolol tartrate
 Lisinopril,赖诺普利,83915-83-7,E7199S1YWR,
 Gabapentin,加巴喷丁,60142-96-3,6CW7F3GXoM,
 Sertraline,舍曲林,79617-96-2,QUC7NX6WMB,Sertraline hydrochloride
-Fluoxetine,氟西汀,54910-89-3,01K63SUP8D,Fluoxetine hydrochloride|Prozac
+Fluoxetine,氟西汀,54910-89-3,01K63SUP8D,Fluoxetine hydrochloride|Prozac|百忧解
 Citalopram,西酞普兰,59729-33-8,0DHU5B8D6V,
 Escitalopram,艾司西酞普兰,128196-01-0,4O4S742ANY,
 Venlafaxine,文拉法辛,93413-69-5,GRZ5RCB1QG,
@@ -29,11 +29,11 @@ Lorazepam,劳拉西泮,846-49-1,O26FZP769L,
 Alprazolam,阿普唑仑,28981-97-7,YU55MQ3IZY,
 Clonazepam,氯硝西泮,1622-61-3,5PE9FDE8GB,
 Zolpidem,唑吡坦,82626-48-0,7K383OQI23,
-Warfarin,华法林,81-81-2,5Q7ZBV23MI,
+Warfarin,华法林,81-81-2,5Q7ZBV23MI,Coumadin
 Heparin,肝素,9005-49-6,T2410KM04A,
-Clopidogrel,氯吡格雷,113665-84-2,A74586SNO7,Clopidogrel bisulfate
+Clopidogrel,氯吡格雷,113665-84-2,A74586SNO7,Clopidogrel bisulfate|Plavix
 Aspirin lysine,阿司匹林赖氨酸,,,
-Rosuvastatin,瑞舒伐他汀,287714-41-4,83MVU38M7Q,
+Rosuvastatin,瑞舒伐他汀,287714-41-4,83MVU38M7Q,Crestor
 Pravastatin,普伐他汀,81093-37-0,KXO2KT9N0G,
 Ezetimibe,依折麦布,163222-33-1,EOR26LQQ24,
 Fenofibrate,非诺贝特,49562-28-9,U202363U8B,
@@ -106,14 +106,14 @@ Metformin hydrochloride,盐酸二甲双胍,1115-70-4,7866113PPU,
 Gliclazide,格列齐特,21187-98-4,G4PX8C4HKV,
 Glimepiride,格列美脲,93479-97-1,6KY687524F,
 Glipizide,格列吡嗪,29094-61-9,X7WDT95N5C,
-Sitagliptin,西他列汀,486460-32-6,QFP0P1DV7Z,
+Sitagliptin,西他列汀,486460-32-6,QFP0P1DV7Z,Januvia
 Linagliptin,利格列汀,668270-12-0,3X29ZEJ4R2,
-Empagliflozin,恩格列净,864070-44-0,HDC1R2M35U,
-Dapagliflozin,达格列净,461432-26-8,1ULL0QJ8UC,
+Empagliflozin,恩格列净,864070-44-0,HDC1R2M35U,Jardiance
+Dapagliflozin,达格列净,461432-26-8,1ULL0QJ8UC,Farxiga|Forxiga
 Pioglitazone,吡格列酮,111025-46-8,X4PV5J91CM,
 Acarbose,阿卡波糖,56180-94-0,T58MSI464G,
 Repaglinide,瑞格列奈,135062-02-1,668Z8C33LU,
-Levothyroxine,左甲状腺素,51-48-9,Q51BO43MG4,Levothyroxine sodium|T4
+Levothyroxine,左甲状腺素,51-48-9,Q51BO43MG4,Levothyroxine sodium|T4|Synthroid|优甲乐
 Liothyronine,碘塞罗宁,6893-02-3,06CA6660VV,T3
 Methimazole,甲巯咪唑,60-56-0,554Z48XN5E,Thiamazole
 Propylthiouracil,丙硫氧嘧啶,51-52-5,721M76096N,
@@ -140,7 +140,7 @@ Adalimumab,阿达木单抗,331731-18-1,FYS6T7F842,
 Infliximab,英夫利西单抗,170277-31-3,B72HH48FLU,
 Etanercept,依那西普,185243-69-0,OP401G7OJC,
 Tocilizumab,托珠单抗,375823-41-9,I031V2H011,
-Oseltamivir,奥司他韦,196618-13-0,20O93L6F9H,
+Oseltamivir,奥司他韦,196618-13-0,20O93L6F9H,Tamiflu|奥司他韦磷酸盐
 Aciclovir,阿昔洛韦,59277-89-3,X4HES1O11F,Acyclovir
 Valaciclovir,伐昔洛韦,124832-26-4,MZ1IW7Q79D,Valacyclovir
 Ganciclovir,更昔洛韦,82410-32-0,P9G3CKZ4P5,
@@ -649,3 +649,6 @@ Excipient epsilon 44,,,SEED000044X,demo-syn-epsilon
 Salt epsilon 45,,,SEED000045X,demo-syn-epsilon
 Base epsilon 46,,,SEED000046X,demo-syn-epsilon
 Hydrochloride epsilon 47,,,SEED000047X,demo-syn-epsilon
+Sodium epsilon 48,,,SEED000048X,demo-syn-epsilon
+Potassium epsilon 49,,,SEED000049X,demo-syn-epsilon
+Calcium epsilon 50,,,SEED000050X,demo-syn-epsilon

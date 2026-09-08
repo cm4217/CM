@@ -181,3 +181,6 @@ See package scripts test:search, synonym:gap, meili:index. Autocomplete groups, 
 6. **意图 Tab** `?tab=all|substance|impurity|rs|external` + 计数；**接近快比** mini-compare；**相关结果条**（关联杂质/父物质 + 同会话共现）。
 
 版权姿态不变：仅元数据与外链索引，不托管法定专论全文。不部署本轮。
+
+## Global libraries (API + finished drugs)
+import:open (OPEN_IMPORT_LIMIT default 8000), expand:ndc-substances, import:drugs (OPEN_DRUG_IMPORT_LIMIT default 4000). Docs: docs/open-identity.md. Search kind drug vs substance.

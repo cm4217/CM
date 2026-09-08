@@ -43,7 +43,7 @@ export default function IndexToolsPage() {
       <DisclaimerBanner compact />
       <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-2">
         <h2 className="text-sm font-semibold">晋升说明</h2>
-        <p className="text-sm text-slate-700">草稿仅身份元数据。确认后写入种子或经 CSV 工具合并。开放库请运行 import:open 脚本。</p>
+        <p className="text-sm text-slate-700">草稿仅身份元数据。确认后写入种子或经 CSV 工具合并。开放库请运行 import:open + import:drugs + expand:ndc-substances (docs/open-identity.md)。</p>
         <p className="text-sm">
           <Link href="/tools/import" className="text-teal-800 hover:underline">CSV 导入</Link>
           {" · "}

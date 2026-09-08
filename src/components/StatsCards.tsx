@@ -5,10 +5,10 @@ export function StatsCards() {
   const items = [
     { label: "物质", value: stats.substances, en: "Substances" },
     { label: "杂质节点", value: stats.impurities, en: "Impurities" },
-    { label: "专论引用", value: stats.monographRefs, en: "Monograph refs" },
     { label: "对照品", value: stats.referenceMaterials, en: "RS catalog" },
+    { label: "原料药库", value: stats.openSubstances, en: "Open APIs" },
+    { label: "成药库", value: stats.openDrugProducts, en: "Finished drugs" },
     { label: "修订事件", value: stats.changeEvents, en: "Change events" },
-    { label: "开放索引", value: stats.openSubstances, en: "Open identity" },
   ];
 
   return (

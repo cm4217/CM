@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { substances, impurities } from "@/data";
+import { openSubstances } from "@/data/openSubstances.generated";
+import { openDrugProducts } from "@/data/openDrugProducts.generated";
 import { SYNONYM_CLUSTERS } from "@/lib/synonyms";
 import { cachedFetch, ONE_HOUR } from "@/lib/cache";
 
@@ -7,7 +9,7 @@ export const revalidate = 3600;
 
 export type SuggestItem = {
   source: "local" | "pubchem";
-  kind?: "substance" | "impurity" | "synonym" | "cas";
+  kind?: "substance" | "impurity" | "synonym" | "cas" | "drug";
   id?: string;
   label: string;
   labelZh?: string;
@@ -17,7 +19,7 @@ export type SuggestItem = {
   unii?: string;
 };
 
-export type SuggestGroupType = "品种" | "杂质" | "CAS" | "同义词" | "PubChem";
+export type SuggestGroupType = "品种" | "原料药" | "成药" | "杂质" | "CAS" | "同义词" | "PubChem";
 
 export type SuggestGroup = {
   type: SuggestGroupType;
@@ -102,6 +104,49 @@ function localBuckets(q: string, limitPer = 6) {
     else push(impuritiesOut, { ...item, kind: "impurity" });
   }
 
+  const openOut: SuggestItem[] = [];
+  const drugOut: SuggestItem[] = [];
+  for (const o of openSubstances) {
+    if (openOut.length >= limitPer) break;
+    const blob = [o.nameZh, o.nameEn, o.cas, o.unii, ...(o.synonyms || [])]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    if (!blob.includes(n)) continue;
+    push(openOut, {
+      source: "local",
+      kind: "substance",
+      id: o.id,
+      label: `${o.nameZh || o.nameEn} / ${o.nameEn}`,
+      labelZh: o.nameZh || o.nameEn,
+      labelEn: o.nameEn,
+      href: `/substances/${o.id}`,
+      cas: o.cas,
+      unii: o.unii,
+    });
+  }
+  for (const d of openDrugProducts) {
+    if (drugOut.length >= limitPer) break;
+    const blob = [d.brandName, d.genericName, d.inn, d.unii, d.strength, d.dosageForm, ...(d.synonyms || [])]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    if (!blob.includes(n)) continue;
+    const href = d.parentSubstanceId
+      ? `/substances/${d.parentSubstanceId}`
+      : `/search?q=${encodeURIComponent(d.genericName || d.brandName)}&type=drug`;
+    push(drugOut, {
+      source: "local",
+      kind: "drug",
+      id: d.id,
+      label: `${d.brandName} · ${d.genericName}${d.strength ? " " + d.strength : ""}`,
+      labelZh: d.brandName,
+      labelEn: d.genericName,
+      href,
+      unii: d.unii,
+    });
+  }
+
   for (const cluster of SYNONYM_CLUSTERS) {
     if (cluster.some((t) => norm(t).includes(n) || n.includes(norm(t)))) {
       const primary = cluster[0];
@@ -116,6 +161,8 @@ function localBuckets(q: string, limitPer = 6) {
 
   return {
     substances: substancesOut.slice(0, limitPer),
+    open: openOut.slice(0, limitPer),
+    drugs: drugOut.slice(0, limitPer),
     impurities: impuritiesOut.slice(0, limitPer),
     cas: casOut.slice(0, limitPer),
     synonyms: synonymOut.slice(0, limitPer),
@@ -156,7 +203,7 @@ export async function GET(req: NextRequest) {
   const pubchem = await pubchemSuggest(q, 6);
 
   const localLabels = new Set(
-    [...local.substances, ...local.impurities, ...local.cas, ...local.synonyms].map(
+    [...local.substances, ...local.open, ...local.drugs, ...local.impurities, ...local.cas, ...local.synonyms].map(
       (s) => norm(s.labelEn || s.label)
     )
   );
@@ -164,6 +211,8 @@ export async function GET(req: NextRequest) {
 
   const groups: SuggestGroup[] = [];
   if (local.substances.length) groups.push({ type: "品种", items: local.substances });
+  if (local.open.length) groups.push({ type: "原料药", items: local.open });
+  if (local.drugs.length) groups.push({ type: "成药", items: local.drugs });
   if (local.impurities.length) groups.push({ type: "杂质", items: local.impurities });
   if (local.cas.length) groups.push({ type: "CAS", items: local.cas });
   if (local.synonyms.length) groups.push({ type: "同义词", items: local.synonyms });
@@ -178,6 +227,8 @@ export async function GET(req: NextRequest) {
     sources: {
       local:
         local.substances.length +
+        local.open.length +
+        local.drugs.length +
         local.impurities.length +
         local.cas.length +
         local.synonyms.length,

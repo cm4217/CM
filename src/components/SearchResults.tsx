@@ -13,16 +13,22 @@ import { EvidenceRow } from "./EvidenceRow";
 function hrefFor(hit: SearchHit) {
   if (hit.kind === "substance") return `/substances/${hit.id}`;
   if (hit.kind === "impurity") return `/impurities/${hit.id}`;
+  if (hit.kind === "drug") {
+    if (hit.parentSubstanceId) return `/substances/${hit.parentSubstanceId}`;
+    const q = hit.genericName || hit.brandName || hit.titleEn || hit.titleZh;
+    return `/search?q=${encodeURIComponent(q)}&type=API`;
+  }
   return `/reference-standards#${hit.id}`;
 }
 
 const kindLabel = {
-  substance: "物质",
+  substance: "物质/原料药",
   impurity: "杂质",
   rs: "对照品",
+  drug: "成药",
 } as const;
 
-const kindOrder: Array<SearchHit["kind"]> = ["substance", "impurity", "rs"];
+const kindOrder: Array<SearchHit["kind"]> = ["substance", "drug", "impurity", "rs"];
 
 const impurityTypeLabel: Record<string, string> = {
   process: "工艺",
@@ -501,6 +507,7 @@ export function SearchResults({
 
   const byKind: Record<SearchHit["kind"], SearchHit[]> = {
     substance: [],
+    drug: [],
     impurity: [],
     rs: [],
   };

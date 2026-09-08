@@ -13,7 +13,7 @@ import {
 
 export type SuggestItem = {
   source: "local" | "pubchem";
-  kind?: "substance" | "impurity" | "synonym" | "cas";
+  kind?: "substance" | "impurity" | "synonym" | "cas" | "drug";
   id?: string;
   label: string;
   labelZh?: string;

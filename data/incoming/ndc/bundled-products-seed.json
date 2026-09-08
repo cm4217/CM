@@ -1,0 +1,1418 @@
+[
+  {
+    "id": "drug-71610-275-tablet-ibuprofen-800-mg-1",
+    "brandName": "IBU",
+    "genericName": "Ibuprofen",
+    "inn": "Ibuprofen",
+    "strength": "IBUPROFEN 800 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-275",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "WK2XYI10QM",
+    "parentUnii": "WK2XYI10QM",
+    "parentSubstanceId": "open-wk2xyi10qm",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Ibuprofen",
+      "IBUPROFEN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-289-tablet-film-coated-extended-release-divalproex",
+    "brandName": "Divalproex sodium",
+    "genericName": "Divalproex sodium",
+    "inn": "Divalproex Sodium",
+    "strength": "DIVALPROEX SODIUM 250 mg/1",
+    "dosageForm": "TABLET, FILM COATED, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-289",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "644VL95AO6",
+    "parentUnii": "644VL95AO6",
+    "parentSubstanceId": "open-644vl95ao6",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "DIVALPROEX SODIUM"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-313-capsule-pregabalin-25-mg-1",
+    "brandName": "Pregabalin",
+    "genericName": "PREGABALIN",
+    "inn": "Pregabalin",
+    "strength": "PREGABALIN 25 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-313",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "55JG375S6M",
+    "parentUnii": "55JG375S6M",
+    "parentSubstanceId": "open-55jg375s6m",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "PREGABALIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-343-tablet-extended-release-potassium-chloride-1",
+    "brandName": "Potassium Chloride",
+    "genericName": "potassium chloride",
+    "inn": "Potassium Chloride",
+    "strength": "POTASSIUM CHLORIDE 1500 mg/1",
+    "dosageForm": "TABLET, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-343",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "660YQ98I10",
+    "parentUnii": "660YQ98I10",
+    "parentSubstanceId": "open-660yq98i10",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "POTASSIUM CHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-383-tablet-lisinopril-20-mg-1",
+    "brandName": "Lisinopril and Hydrochlorothiazide",
+    "genericName": "Lisinopril and Hydrochlorothiazide Tablets",
+    "inn": "Lisinopril And Hydrochlorothiazide Tablets",
+    "strength": "LISINOPRIL 20 mg/1 + HYDROCHLOROTHIAZIDE 25 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-383",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "E7199S1YWR",
+    "parentUnii": "E7199S1YWR",
+    "parentSubstanceId": "open-e7199s1ywr",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Lisinopril and Hydrochlorothiazide Tablets",
+      "LISINOPRIL",
+      "HYDROCHLOROTHIAZIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-402-capsule-delayed-release-duloxetine-hydrochlo",
+    "brandName": "Duloxetine",
+    "genericName": "Duloxetine Hydrochloride",
+    "inn": "Duloxetine Hydrochloride",
+    "strength": "DULOXETINE HYDROCHLORIDE 30 mg/1",
+    "dosageForm": "CAPSULE, DELAYED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-402",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "9044SC542W",
+    "parentUnii": "9044SC542W",
+    "parentSubstanceId": "open-9044sc542w",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Duloxetine Hydrochloride",
+      "DULOXETINE HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-409-tablet-film-coated-eszopiclone-3-mg-1",
+    "brandName": "Eszopiclone",
+    "genericName": "Eszopiclone",
+    "inn": "Eszopiclone",
+    "strength": "ESZOPICLONE 3 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-409",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "UZX80K71OE",
+    "parentUnii": "UZX80K71OE",
+    "parentSubstanceId": "open-uzx80k71oe",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "ESZOPICLONE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-412-tablet-citalopram-hydrobrom",
+    "brandName": "Citalopram",
+    "genericName": "Citalopram",
+    "inn": "Citalopram",
+    "strength": "CITALOPRAM HYDROBROMIDE 40 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-412",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "I1E9D14F36",
+    "parentUnii": "I1E9D14F36",
+    "parentSubstanceId": "open-i1e9d14f36",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "CITALOPRAM HYDROBROMIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-428-tablet-film-coated-cyclobenzaprine-hydr",
+    "brandName": "Cyclobenzaprine Hydrochloride",
+    "genericName": "cyclobenzaprine hydrochloride",
+    "inn": "Cyclobenzaprine Hydrochloride",
+    "strength": "CYCLOBENZAPRINE HYDROCHLORIDE 10 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-428",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "0VE05JYS2P",
+    "parentUnii": "0VE05JYS2P",
+    "parentSubstanceId": "open-0ve05jys2p",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "CYCLOBENZAPRINE HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-470-tablet-famotidine-20-mg-1",
+    "brandName": "Famotidine",
+    "genericName": "Famotidine",
+    "inn": "Famotidine",
+    "strength": "FAMOTIDINE 20 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-470",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "5QZO15J2Z8",
+    "parentUnii": "5QZO15J2Z8",
+    "parentSubstanceId": "open-5qzo15j2z8",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "FAMOTIDINE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-475-tablet-film-coated-mirtazapine-15-mg-1",
+    "brandName": "Mirtazapine",
+    "genericName": "Mirtazapine",
+    "inn": "Mirtazapine",
+    "strength": "MIRTAZAPINE 15 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-475",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "A051Q2099Q",
+    "parentUnii": "A051Q2099Q",
+    "parentSubstanceId": "open-a051q2099q",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "MIRTAZAPINE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-482-tablet-doxazosin-mesylate-2",
+    "brandName": "Doxazosin",
+    "genericName": "Doxazosin Mesylate",
+    "inn": "Doxazosin Mesylate",
+    "strength": "DOXAZOSIN MESYLATE 2 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-482",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "86P6PQK0MU",
+    "parentUnii": "86P6PQK0MU",
+    "parentSubstanceId": "open-86p6pqk0mu",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Doxazosin Mesylate",
+      "DOXAZOSIN MESYLATE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-499-tablet-extended-release-guaifenesin-600-mg-1",
+    "brandName": "Mucus Relief",
+    "genericName": "Guaifenesin",
+    "inn": "Guaifenesin",
+    "strength": "GUAIFENESIN 600 mg/1",
+    "dosageForm": "TABLET, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-499",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "495W7451VQ",
+    "parentUnii": "495W7451VQ",
+    "parentSubstanceId": "open-495w7451vq",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN OTC DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Guaifenesin",
+      "GUAIFENESIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-501-tablet-ibuprofen-600-mg-1",
+    "brandName": "IBU",
+    "genericName": "Ibuprofen",
+    "inn": "Ibuprofen",
+    "strength": "IBUPROFEN 600 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-501",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "WK2XYI10QM",
+    "parentUnii": "WK2XYI10QM",
+    "parentSubstanceId": "open-wk2xyi10qm",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Ibuprofen",
+      "IBUPROFEN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-515-tablet-film-coated-finasteride-5-mg-1",
+    "brandName": "Finasteride",
+    "genericName": "Finasteride",
+    "inn": "Finasteride",
+    "strength": "FINASTERIDE 5 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-515",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "57GNO57U7G",
+    "parentUnii": "57GNO57U7G",
+    "parentSubstanceId": "open-57gno57u7g",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "FINASTERIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-518-tablet-film-coated-extended-release-ranolazine",
+    "brandName": "Ranolazine",
+    "genericName": "RANOLAZINE",
+    "inn": "Ranolazine",
+    "strength": "RANOLAZINE 500 mg/1",
+    "dosageForm": "TABLET, FILM COATED, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-518",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "A6IEZ5M406",
+    "parentUnii": "A6IEZ5M406",
+    "parentSubstanceId": "open-a6iez5m406",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "RANOLAZINE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-554-tablet-extended-release-metformin-hydrochlor",
+    "brandName": "Metformin hydrochloride",
+    "genericName": "Metformin hydrochloride",
+    "inn": "Metformin Hydrochloride",
+    "strength": "METFORMIN HYDROCHLORIDE 500 mg/1",
+    "dosageForm": "TABLET, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-554",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "786Z46389E",
+    "parentUnii": "786Z46389E",
+    "parentSubstanceId": "open-786z46389e",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "METFORMIN HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-555-tablet-extended-release-metoprolol-succinate",
+    "brandName": "Metoprolol Succinate",
+    "genericName": "Metoprolol Succinate",
+    "inn": "Metoprolol Succinate",
+    "strength": "METOPROLOL SUCCINATE 25 mg/1",
+    "dosageForm": "TABLET, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-555",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "TH25PD4CCB",
+    "parentUnii": "TH25PD4CCB",
+    "parentSubstanceId": "open-th25pd4ccb",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "METOPROLOL SUCCINATE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-583-tablet-meloxicam-7-5-mg-1",
+    "brandName": "Meloxicam",
+    "genericName": "Meloxicam",
+    "inn": "Meloxicam",
+    "strength": "MELOXICAM 7.5 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-583",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "VG2QF83CGL",
+    "parentUnii": "VG2QF83CGL",
+    "parentSubstanceId": "open-vg2qf83cgl",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "MELOXICAM"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-588-tablet-lisinopril-5-mg-1",
+    "brandName": "LISINOPRIL",
+    "genericName": "Lisinopril",
+    "inn": "Lisinopril",
+    "strength": "LISINOPRIL 5 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-588",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "E7199S1YWR",
+    "parentUnii": "E7199S1YWR",
+    "parentSubstanceId": "open-e7199s1ywr",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "LISINOPRIL"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-618-capsule-pregabalin-150-mg-1",
+    "brandName": "Pregabalin",
+    "genericName": "PREGABALIN",
+    "inn": "Pregabalin",
+    "strength": "PREGABALIN 150 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-618",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "55JG375S6M",
+    "parentUnii": "55JG375S6M",
+    "parentSubstanceId": "open-55jg375s6m",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "PREGABALIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-0409-7870-injection-solution-docetaxel-anhydrous",
+    "brandName": "Docetaxel",
+    "genericName": "DOCETAXEL ANHYDROUS",
+    "inn": "Docetaxel Anhydrous",
+    "strength": "DOCETAXEL ANHYDROUS 10 mg/mL",
+    "dosageForm": "INJECTION, SOLUTION",
+    "route": "INTRAVENOUS",
+    "productNdc": "0409-7870",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "699121PHCA",
+    "parentUnii": "699121PHCA",
+    "parentSubstanceId": "open-699121phca",
+    "labelerName": "Hospira, Inc.",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "NDA",
+    "synonyms": [
+      "DOCETAXEL ANHYDROUS"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-628-tablet-doxazosin-mesylate-8",
+    "brandName": "Doxazosin",
+    "genericName": "doxazosin",
+    "inn": "Doxazosin",
+    "strength": "DOXAZOSIN MESYLATE 8 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-628",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "86P6PQK0MU",
+    "parentUnii": "86P6PQK0MU",
+    "parentSubstanceId": "open-86p6pqk0mu",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "NDA AUTHORIZED GENERIC",
+    "synonyms": [
+      "DOXAZOSIN MESYLATE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-655-tablet-lorazepam-2-mg-1",
+    "brandName": "Lorazepam",
+    "genericName": "Lorazepam",
+    "inn": "Lorazepam",
+    "strength": "LORAZEPAM 2 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-655",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "O26FZP769L",
+    "parentUnii": "O26FZP769L",
+    "parentSubstanceId": "open-o26fzp769l",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "LORAZEPAM"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-669-tablet-sodium-bicarbonate-6",
+    "brandName": "Sodium Bicarbonate Antacid",
+    "genericName": "Sodium Bicarbonate",
+    "inn": "Sodium Bicarbonate",
+    "strength": "SODIUM BICARBONATE 650 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-669",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "8MDF5V39QO",
+    "parentUnii": "8MDF5V39QO",
+    "parentSubstanceId": "open-8mdf5v39qo",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN OTC DRUG",
+    "marketingCategory": "OTC MONOGRAPH DRUG",
+    "synonyms": [
+      "Sodium Bicarbonate",
+      "SODIUM BICARBONATE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-673-tablet-metformin-hydrochlor",
+    "brandName": "Metformin Hydrochloride",
+    "genericName": "Metformin Hydrochloride",
+    "inn": "Metformin Hydrochloride",
+    "strength": "METFORMIN HYDROCHLORIDE 1000 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-673",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "786Z46389E",
+    "parentUnii": "786Z46389E",
+    "parentSubstanceId": "open-786z46389e",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "METFORMIN HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-697-capsule-hydrochlorothiazide",
+    "brandName": "Hydrochlorothiazide",
+    "genericName": "Hydrochlorothiazide",
+    "inn": "Hydrochlorothiazide",
+    "strength": "HYDROCHLOROTHIAZIDE 12.5 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-697",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "0J48LPH2TH",
+    "parentUnii": "0J48LPH2TH",
+    "parentSubstanceId": "open-0j48lph2th",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "HYDROCHLOROTHIAZIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-708-tablet-film-coated-bupropion-hydrochlor",
+    "brandName": "Bupropion Hydrochloride",
+    "genericName": "Bupropion Hydrochloride",
+    "inn": "Bupropion Hydrochloride",
+    "strength": "BUPROPION HYDROCHLORIDE 100 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-708",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "ZG7E5POY8O",
+    "parentUnii": "ZG7E5POY8O",
+    "parentSubstanceId": "open-zg7e5poy8o",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "BUPROPION HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-0409-9045-injection-solution-bupivacaine-hydrochl",
+    "brandName": "Bupivacaine Hydrochloride and Epinephrine",
+    "genericName": "BUPIVACAINE HYDROCHLORIDE AND EPINEPHRINE",
+    "inn": "Bupivacaine Hydrochloride And Epinephrine",
+    "strength": "BUPIVACAINE HYDROCHLORIDE 5 mg/mL + EPINEPHRINE BITARTRATE 5 ug/mL",
+    "dosageForm": "INJECTION, SOLUTION",
+    "route": "EPIDURAL/INTRACAUDAL/PERINEURAL",
+    "productNdc": "0409-9045",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "7TQO7W3VT8",
+    "parentUnii": "7TQO7W3VT8",
+    "parentSubstanceId": "open-7tqo7w3vt8",
+    "labelerName": "Hospira, Inc.",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "BUPIVACAINE HYDROCHLORIDE",
+      "EPINEPHRINE BITARTRATE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-709-tablet-lovastatin-40-mg-1",
+    "brandName": "Lovastatin",
+    "genericName": "Lovastatin",
+    "inn": "Lovastatin",
+    "strength": "LOVASTATIN 40 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-709",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "9LHU78OQFD",
+    "parentUnii": "9LHU78OQFD",
+    "parentSubstanceId": "open-9lhu78oqfd",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "LOVASTATIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-733-tablet-lisinopril-20-mg-1",
+    "brandName": "LISINOPRIL",
+    "genericName": "LISINOPRIL",
+    "inn": "Lisinopril",
+    "strength": "LISINOPRIL 20 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-733",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "E7199S1YWR",
+    "parentUnii": "E7199S1YWR",
+    "parentSubstanceId": "open-e7199s1ywr",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "LISINOPRIL"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-734-tablet-alprazolam-5-mg-1",
+    "brandName": "Alprazolam",
+    "genericName": "Alprazolam",
+    "inn": "Alprazolam",
+    "strength": "ALPRAZOLAM .5 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-734",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "YU55MQ3IZY",
+    "parentUnii": "YU55MQ3IZY",
+    "parentSubstanceId": "open-yu55mq3izy",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "ALPRAZOLAM"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-736-capsule-delayed-release-pellets-duloxetine-hyd",
+    "brandName": "Duloxetine Delayed-Release",
+    "genericName": "DULOXETINE HYDROCHLORIDE",
+    "inn": "Duloxetine Hydrochloride",
+    "strength": "DULOXETINE HYDROCHLORIDE 30 mg/1",
+    "dosageForm": "CAPSULE, DELAYED RELEASE PELLETS",
+    "route": "ORAL",
+    "productNdc": "71610-736",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "9044SC542W",
+    "parentUnii": "9044SC542W",
+    "parentSubstanceId": "open-9044sc542w",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "DULOXETINE HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-742-tablet-spironolactone-25-mg",
+    "brandName": "SPIRONOLACTONE",
+    "genericName": "SPIRONOLACTONE",
+    "inn": "Spironolactone",
+    "strength": "SPIRONOLACTONE 25 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-742",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "27O7W4T232",
+    "parentUnii": "27O7W4T232",
+    "parentSubstanceId": "open-27o7w4t232",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "SPIRONOLACTONE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-748-tablet-lisinopril-2-5-mg-1",
+    "brandName": "LISINOPRIL",
+    "genericName": "LISINOPRIL",
+    "inn": "Lisinopril",
+    "strength": "LISINOPRIL 2.5 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-748",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "E7199S1YWR",
+    "parentUnii": "E7199S1YWR",
+    "parentSubstanceId": "open-e7199s1ywr",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "LISINOPRIL"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-751-tablet-film-coated-amitriptyline-hydroc",
+    "brandName": "Amitriptyline Hydrochloride",
+    "genericName": "Amitriptyline Hydrochloride",
+    "inn": "Amitriptyline Hydrochloride",
+    "strength": "AMITRIPTYLINE HYDROCHLORIDE 25 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-751",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "26LUD4JO9K",
+    "parentUnii": "26LUD4JO9K",
+    "parentSubstanceId": "open-26lud4jo9k",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "AMITRIPTYLINE HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-0409-9104-injection-solution-concentrate-dopamine-hydroc",
+    "brandName": "DOPamine Hydrochloride",
+    "genericName": "Dopamine Hydrochloride",
+    "inn": "Dopamine Hydrochloride",
+    "strength": "DOPAMINE HYDROCHLORIDE 40 mg/mL",
+    "dosageForm": "INJECTION, SOLUTION, CONCENTRATE",
+    "route": "INTRAVENOUS",
+    "productNdc": "0409-9104",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "7L3E358N9L",
+    "parentUnii": "7L3E358N9L",
+    "parentSubstanceId": "open-7l3e358n9l",
+    "labelerName": "Hospira, Inc.",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "NDA",
+    "synonyms": [
+      "DOPAMINE HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-757-capsule-gabapentin-400-mg-1",
+    "brandName": "GABAPENTIN",
+    "genericName": "gabapentin",
+    "inn": "Gabapentin",
+    "strength": "GABAPENTIN 400 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-757",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "6CW7F3G59X",
+    "parentUnii": "6CW7F3G59X",
+    "parentSubstanceId": "open-6cw7f3g59x",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "GABAPENTIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-800-capsule-pregabalin-300-mg-1",
+    "brandName": "Pregabalin",
+    "genericName": "PREGABALIN",
+    "inn": "Pregabalin",
+    "strength": "PREGABALIN 300 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-800",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "55JG375S6M",
+    "parentUnii": "55JG375S6M",
+    "parentSubstanceId": "open-55jg375s6m",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "PREGABALIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-803-tablet-folic-acid-1-mg-1",
+    "brandName": "FOLIC ACID",
+    "genericName": "FOLIC ACID",
+    "inn": "Folic Acid",
+    "strength": "FOLIC ACID 1 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-803",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "935E97BOY8",
+    "parentUnii": "935E97BOY8",
+    "parentSubstanceId": "open-935e97boy8",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "FOLIC ACID"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-810-tablet-film-coated-sacubitril-24-mg-1",
+    "brandName": "ENTRESTO",
+    "genericName": "Sacubitril and Valsartan",
+    "inn": "Sacubitril And Valsartan",
+    "strength": "SACUBITRIL 24 mg/1 + VALSARTAN 26 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-810",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "17ERJ0MKGI",
+    "parentUnii": "17ERJ0MKGI",
+    "parentSubstanceId": "open-17erj0mkgi",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "NDA",
+    "synonyms": [
+      "Sacubitril and Valsartan",
+      "SACUBITRIL",
+      "VALSARTAN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-811-tablet-film-coated-apixaban-2-5-mg-1",
+    "brandName": "ELIQUIS",
+    "genericName": "apixaban",
+    "inn": "Apixaban",
+    "strength": "APIXABAN 2.5 mg/1",
+    "dosageForm": "TABLET, FILM COATED",
+    "route": "ORAL",
+    "productNdc": "71610-811",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "3Z9Y7UWC1J",
+    "parentUnii": "3Z9Y7UWC1J",
+    "parentSubstanceId": "open-3z9y7uwc1j",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "NDA",
+    "synonyms": [
+      "apixaban",
+      "APIXABAN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-820-capsule-pregabalin-50-mg-1",
+    "brandName": "Pregabalin",
+    "genericName": "Pregabalin",
+    "inn": "Pregabalin",
+    "strength": "PREGABALIN 50 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-820",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "55JG375S6M",
+    "parentUnii": "55JG375S6M",
+    "parentSubstanceId": "open-55jg375s6m",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "PREGABALIN"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-822-tablet-cilostazol-100-mg-1",
+    "brandName": "cilostazol",
+    "genericName": "cilostazol",
+    "inn": "Cilostazol",
+    "strength": "CILOSTAZOL 100 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-822",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "N7Z035406B",
+    "parentUnii": "N7Z035406B",
+    "parentSubstanceId": "open-n7z035406b",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "CILOSTAZOL"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-854-capsule-terazosin-hydrochlor",
+    "brandName": "Terazosin Hydrochloride",
+    "genericName": "Terazosin Hydrochloride",
+    "inn": "Terazosin Hydrochloride",
+    "strength": "TERAZOSIN HYDROCHLORIDE 1 mg/1",
+    "dosageForm": "CAPSULE",
+    "route": "ORAL",
+    "productNdc": "71610-854",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "D32S14F082",
+    "parentUnii": "D32S14F082",
+    "parentSubstanceId": "open-d32s14f082",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "TERAZOSIN HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-867-tablet-extended-release-metformin-hydrochlor",
+    "brandName": "Metformin hydrochloride ER",
+    "genericName": "Metformin hydrochloride",
+    "inn": "Metformin Hydrochloride",
+    "strength": "METFORMIN HYDROCHLORIDE 750 mg/1",
+    "dosageForm": "TABLET, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-867",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "786Z46389E",
+    "parentUnii": "786Z46389E",
+    "parentSubstanceId": "open-786z46389e",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Metformin hydrochloride",
+      "METFORMIN HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-868-tablet-lisinopril-20-mg-1",
+    "brandName": "Lisinopril and Hydrochlorothiazide",
+    "genericName": "Lisinopril and Hydrochlorothiazide Tablets",
+    "inn": "Lisinopril And Hydrochlorothiazide Tablets",
+    "strength": "LISINOPRIL 20 mg/1 + HYDROCHLOROTHIAZIDE 12.5 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-868",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "E7199S1YWR",
+    "parentUnii": "E7199S1YWR",
+    "parentSubstanceId": "open-e7199s1ywr",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "Lisinopril and Hydrochlorothiazide Tablets",
+      "LISINOPRIL",
+      "HYDROCHLOROTHIAZIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-869-capsule-extended-release-phenytoin-sodium-100",
+    "brandName": "Phenytoin Sodium",
+    "genericName": "Phenytoin Sodium",
+    "inn": "Phenytoin Sodium",
+    "strength": "PHENYTOIN SODIUM 100 mg/1",
+    "dosageForm": "CAPSULE, EXTENDED RELEASE",
+    "route": "ORAL",
+    "productNdc": "71610-869",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "4182431BJH",
+    "parentUnii": "4182431BJH",
+    "parentSubstanceId": "open-4182431bjh",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "PHENYTOIN SODIUM"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-71610-889-tablet-sotalol-hydrochlorid",
+    "brandName": "Sotalol Hydrochloride",
+    "genericName": "Sotalol Hydrochloride",
+    "inn": "Sotalol Hydrochloride",
+    "strength": "SOTALOL HYDROCHLORIDE 80 mg/1",
+    "dosageForm": "TABLET",
+    "route": "ORAL",
+    "productNdc": "71610-889",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "HEC37C70XX",
+    "parentUnii": "HEC37C70XX",
+    "parentSubstanceId": "open-hec37c70xx",
+    "labelerName": "Aphena Pharma Solutions - Tennessee, LLC",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "marketingCategory": "ANDA",
+    "synonyms": [
+      "SOTALOL HYDROCHLORIDE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  },
+  {
+    "id": "drug-0436-0672-solution-sodium-hypochlorite",
+    "brandName": "Dakins Quarter",
+    "genericName": "Sodium Hypochlorite",
+    "inn": "Sodium Hypochlorite",
+    "strength": "SODIUM HYPOCHLORITE 1.25 mg/mL",
+    "dosageForm": "SOLUTION",
+    "route": "TOPICAL",
+    "productNdc": "0436-0672",
+    "countryTags": [
+      "US"
+    ],
+    "regionTags": [
+      "US",
+      "global"
+    ],
+    "unii": "DY38VHM5OD",
+    "parentUnii": "DY38VHM5OD",
+    "parentSubstanceId": "open-dy38vhm5od",
+    "labelerName": "Century Pharmaceuticals, Inc.",
+    "productType": "HUMAN OTC DRUG",
+    "marketingCategory": "UNAPPROVED DRUG OTHER",
+    "synonyms": [
+      "Sodium Hypochlorite",
+      "SODIUM HYPOCHLORITE"
+    ],
+    "provenance": "openfda-ndc",
+    "source": "openfda"
+  }
+]

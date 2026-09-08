@@ -1,15 +1,6 @@
-# Open identity / UNII
-
-See package scripts seed:open and import:open.
-Place bulk files under data/incoming/open/. Env vars in .env.example.
-Large files stream by default (OPEN_IMPORT_STREAM=1).
-Generated: src/data/openSubstances.generated.ts
-UI: /tools/index /tools/import
-Full notes: raise OPEN_IMPORT_LIMIT locally; no monograph full text.
-
-## Env
-OPEN_IMPORT_LIMIT (800), OPEN_IMPORT_REQUIRE_CAS, OPEN_IMPORT_URL, OPEN_IMPORT_STREAM, OPEN_IMPORT_CHUNK.
-Full UNII 100k-200k+ rows; raise LIMIT locally.
-
-## Copyright
-Public identity only; no statutory monograph text.
+# Open identity - API and finished drugs
+Identity only. No monograph full text.
+See package scripts import:open import:drugs expand:ndc-substances.
+OPEN_IMPORT_LIMIT default 8000; OPEN_DRUG_IMPORT_LIMIT default 4000.
+Output: openSubstances.generated.ts and openDrugProducts.generated.ts
+Full: import:drugs then expand:ndc-substances then import:open

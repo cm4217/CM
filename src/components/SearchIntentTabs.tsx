@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { SearchHit } from "@/lib/types";
 
-export type SearchTab = "all" | "substance" | "impurity" | "rs" | "external";
+export type SearchTab = "all" | "substance" | "drug" | "impurity" | "rs" | "external";
 
 const LABELS: Record<SearchTab, string> = {
   all: "全部",
-  substance: "物质",
+  substance: "原料药",
+  drug: "成药",
   impurity: "杂质",
   rs: "对照品",
   external: "站外",
@@ -26,6 +27,7 @@ export function SearchIntentTabs({ hits, fewLocal = false }: Props) {
   const counts: Record<SearchTab, number> = {
     all: hits.length,
     substance: hits.filter((h) => h.kind === "substance").length,
+    drug: hits.filter((h) => h.kind === "drug").length,
     impurity: hits.filter((h) => h.kind === "impurity").length,
     rs: hits.filter((h) => h.kind === "rs").length,
     external: fewLocal ? 1 : 0,
@@ -68,7 +70,7 @@ export function SearchIntentTabs({ hits, fewLocal = false }: Props) {
 
 export function filterHitsByTab(hits: SearchHit[], tab: string | undefined | null): SearchHit[] {
   if (!tab || tab === "all" || tab === "external") return hits;
-  if (tab === "substance" || tab === "impurity" || tab === "rs") {
+  if (tab === "substance" || tab === "drug" || tab === "impurity" || tab === "rs") {
     return hits.filter((h) => h.kind === tab);
   }
   return hits;

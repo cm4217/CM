@@ -66,7 +66,7 @@ export function SearchFilters() {
               onChange={setQ}
               onSubmit={(query) => pushParams(query)}
               onPickHref={(href) => router.push(href)}
-              placeholder="药名 / INN / CAS / 杂质名 / 剂型（如阿司匹林片）"
+              placeholder="药名 / INN / 商品名 / CAS / UNII / 成药 / 剂型"
               hideSubmit
               inputClassName="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
@@ -97,6 +97,8 @@ export function SearchFilters() {
             <option value="">全部</option>
             <option value="API">API / 原料药</option>
             <option value="excipient">辅料</option>
+            <option value="drug">成药 / 成品</option>
+            <option value="product">成药 (product)</option>
             <option value="impurity">杂质</option>
             <option value="rs">对照品</option>
           </select>

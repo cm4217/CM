@@ -14,3 +14,15 @@ data/incoming/open/*.zip
 data/search-events.jsonl
 data/incoming/open/_chunk_cache/
 .env
+
+data/incoming/open/*.zip
+data/incoming/open/_unzipped/
+data/incoming/open/_chunk_cache/
+data/incoming/ndc/*.zip
+data/incoming/ndc/*.json
+data/incoming/ndc/_unzipped/
+data/incoming/ndc/_*.py
+!data/incoming/ndc/bundled-products-seed.json
+!data/incoming/open/bundled-seed.csv
+!data/incoming/open/ndc-derived-substances.csv
+!data/incoming/open/README.md

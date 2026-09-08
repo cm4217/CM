@@ -14,6 +14,8 @@
     "meili:index": "node scripts/meili-index.mjs",
     "import:open": "node scripts/import-open-substances.mjs",
     "import:unii": "node scripts/import-open-substances.mjs",
+    "import:drugs": "node scripts/import-open-drug-products.mjs",
+    "expand:ndc-substances": "node scripts/expand-substances-from-ndc.mjs",
     "seed:open": "node scripts/generate-open-seed.mjs"
   },
   "dependencies": {

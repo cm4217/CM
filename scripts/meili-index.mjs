@@ -52,6 +52,7 @@ async function loadViaTsx() {
   const dump = [
     'import { substances, impurities, referenceMaterials } from "./src/data";',
     'import { openSubstances } from "./src/data/openSubstances.generated";',
+    'import { openDrugProducts } from "./src/data/openDrugProducts.generated";',
     "const docs = [];",
     "for (const s of substances) {",
     '  docs.push({ id: "substance:" + s.id, kind: "substance", entityId: s.id,',
@@ -82,6 +83,14 @@ async function loadViaTsx() {
     '    cas: o.cas || "", unii: o.unii || "",',
     '    blob: [o.nameZh, o.nameEn, o.cas, o.unii, ...(o.synonyms||[])].filter(Boolean).join(" ") });',
     "}",
+    "for (const d of openDrugProducts || []) {",
+    '  docs.push({ id: "drug:" + d.id, kind: "drug", entityId: d.id,',
+    "    titleZh: d.brandName || d.genericName, titleEn: d.brandName || d.genericName,",
+    "    synonyms: [d.genericName, d.inn, d.brandName, ...(d.synonyms||[])].filter(Boolean),",
+    '    cas: "", unii: d.unii || "",',
+    '    dosageForm: d.dosageForm || "", strength: d.strength || "",',
+    '    blob: [d.brandName, d.genericName, d.inn, d.strength, d.dosageForm, d.unii, d.productNdc].filter(Boolean).join(" ") });',
+    "}",
     "console.log(JSON.stringify(docs));",
   ].join("\n");
   const tmp = join(root, "scripts", "_meili-dump.tmp.ts");
@@ -111,8 +120,8 @@ async function main() {
     await meili("/indexes", "POST", { uid: INDEX, primaryKey: "id" });
   } catch (e) { /* may exist */ }
   const settingsTask = await meili("/indexes/" + INDEX + "/settings", "PATCH", {
-    searchableAttributes: ["titleZh", "titleEn", "synonyms", "cas", "unii", "molecularFormula", "blob"],
-    filterableAttributes: ["kind", "cas", "unii", "parentIds"],
+    searchableAttributes: ["titleZh", "titleEn", "synonyms", "cas", "unii", "molecularFormula", "dosageForm", "strength", "blob"],
+    filterableAttributes: ["kind", "cas", "unii", "parentIds", "dosageForm"],
     sortableAttributes: ["titleEn"],
   });
   await waitTask(settingsTask.taskUid);

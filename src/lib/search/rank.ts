@@ -42,6 +42,9 @@ export type RankableDoc = {
   efficacyStatuses?: string[];
   /** curated > user > draft > open */
   indexLayer?: IndexLayer;
+  brandName?: string;
+  genericName?: string;
+  dosageForm?: string;
 };
 
 export type RankContext = {
@@ -57,7 +60,15 @@ function norm(s: string) {
 }
 
 function exactNameHit(doc: RankableDoc, terms: string[]): boolean {
-  const names = [doc.titleZh, doc.titleEn, ...doc.synonyms].map(norm);
+  const names = [
+    doc.titleZh,
+    doc.titleEn,
+    doc.brandName || "",
+    doc.genericName || "",
+    ...doc.synonyms,
+  ]
+    .filter(Boolean)
+    .map(norm);
   return terms.some((t) => {
     const n = norm(t);
     return names.some((name) => name === n);
@@ -140,8 +151,9 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
   if (doc.hasVerifiedDocId) score += 35;
   if (doc.hasDeepLink && doc.kind !== "rs") score += 15;
 
-  // 物质优先于杂质优先于对照品（同档内）
+  // 物质优先于成药优先于杂质优先于对照品（同档内）
   if (doc.kind === "substance") score += 8;
+  else if (doc.kind === "drug") score += 6;
   else if (doc.kind === "impurity") score += 4;
   else if (doc.kind === "rs") score -= 30;
 
@@ -154,9 +166,26 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
   };
   score += layerBoost[doc.indexLayer || "curated"] ?? 0;
 
-  if (ctx.dosageMismatchPenalty && ctx.parsed.dosageForms.length > 0) {
-    // 种子库为原料药索引，剂型查询命中原料 → 轻罚
-    score -= 40;
+  if (ctx.parsed.dosageForms.length > 0) {
+    if (doc.kind === "drug" && doc.dosageForm) {
+      const df = doc.dosageForm.toLowerCase();
+      const hit = ctx.parsed.dosageForms.some((f) => {
+        const fl = f.toLowerCase();
+        return (
+          df.includes(fl) ||
+          (fl === "tablet" && df.includes("tablet")) ||
+          (fl === "片" && df.includes("tablet")) ||
+          (fl === "capsule" && df.includes("capsule")) ||
+          (fl === "胶囊" && df.includes("capsule")) ||
+          (fl === "injection" && (df.includes("inject") || df.includes("solution")))
+        );
+      });
+      if (hit) score += 50;
+      else if (ctx.dosageMismatchPenalty) score -= 20;
+    } else if (ctx.dosageMismatchPenalty && doc.kind !== "drug") {
+      // 种子库为原料药索引，剂型查询命中原料 → 轻罚
+      score -= 40;
+    }
   }
 
   return {

@@ -148,7 +148,7 @@ export default function ImportToolsPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">CSV 批量导入</h1>
-          <p className="mt-1 text-sm text-slate-500">用户导入 · 身份层 · 非药典全文</p>
+          <p className="mt-1 text-sm text-slate-500">用户导入 · 身份层 · 非药典全文; scripts: import:open / import:drugs</p>
         </div>
         <DemoBadge />
       </div>
