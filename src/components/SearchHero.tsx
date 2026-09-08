@@ -38,7 +38,7 @@ export function SearchHero() {
           以索引与对照连接多药典
         </h1>
         <p className="mt-3 max-w-2xl text-teal-50/90 text-sm sm:text-base leading-relaxed">
-          按药名 / INN / CAS / 杂质名检索。支持同义词、拼音首字母、自动补全与 RxNorm
+          按药名 / INN / CAS / 杂质名 / 剂型检索。支持同义词、拼音首字母、剂型与盐型清洗、自动补全与 RxNorm
           提示。限度与方法以现行官方药典为准。
         </p>
 
@@ -55,7 +55,7 @@ export function SearchHero() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-teal-100/90">
-          {["阿司匹林", "乙酰水杨酸", "布洛芬", "NDMA", "aspl", "15687-27-1"].map(
+          {["阿司匹林", "阿司匹林片", "乙酰水杨酸", "NDMA", "aspl", "50-78-2"].map(
             (t) => (
               <button
                 key={t}

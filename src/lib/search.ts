@@ -16,6 +16,23 @@ import {
   matchPinyinInitials,
   PINYIN_INITIALS,
 } from "./synonyms";
+import {
+  buildSearchTerms,
+  parseQuery,
+  type ParsedQuery,
+  type RelaxMode,
+} from "./search/parseQuery";
+import {
+  buildFacets,
+  classifyTier,
+  hasDeepLinkFields,
+  hasVerifiedDocIds,
+  MATCH_REASON_ZH,
+  rankDocs,
+  type MatchTier,
+  type RankableDoc,
+  type SearchFacets,
+} from "./search/rank";
 
 function norm(s: string) {
   return s.trim().toLowerCase();
@@ -28,8 +45,11 @@ function includes(hay: string | undefined, q: string) {
 
 function zhInitials(text: string): string {
   if (PINYIN_INITIALS[text]) return PINYIN_INITIALS[text];
+  // 仅对汉字取首字母，避免名称中夹带的 NDMA/ASA 等拉丁缩写污染 initials
+  const zhOnly = (text || "").replace(/[^一-鿿]/g, "");
+  if (!zhOnly) return "";
   try {
-    return pinyin(text, { pattern: "first", toneType: "none", type: "array" })
+    return pinyin(zhOnly, { pattern: "first", toneType: "none", type: "array" })
       .join("")
       .toLowerCase()
       .replace(/[^a-z]/g, "");
@@ -43,37 +63,38 @@ export interface SearchFilters {
   pharmacopoeia?: PharmacopoeiaCode | "";
   type?: string;
   hasRS?: "yes" | "no" | "";
+  hasCAS?: "yes" | "no" | "";
+  hasDeepLink?: "yes" | "no" | "";
+  impurityType?: ImpurityType | "";
+  /** 放宽步骤：dosage | salt | fuzzy */
+  relax?: string;
+  /** 阻止自动放宽 */
+  strict?: "1" | "";
+  titleOnly?: "1" | "";
 }
 
-type Doc = {
-  kind: SearchHit["kind"];
-  id: string;
-  titleZh: string;
-  titleEn: string;
+type Doc = RankableDoc & {
   subtitle?: string;
   badges: string[];
   blob: string;
-  initials: string;
-  pharmacopoeias: string[];
-  hasRS: boolean;
   type?: string;
-  impurityCount?: number;
-  cas?: string;
   unii?: string;
   epTextNumber?: string;
   uspDoi?: string;
   phIntDocPath?: string;
   summary?: string;
-  impurityType?: ImpurityType;
   parentNames?: string[];
   ichTags?: string[];
   substanceType?: SubstanceType;
   inn?: string;
+  impurityPreview?: string[];
+  description: string;
 };
 
 function buildDocs(): Doc[] {
   const docs: Doc[] = [];
   const substanceById = new Map(substances.map((s) => [s.id, s]));
+  const impurityById = new Map(impurities.map((i) => [i.id, i]));
 
   for (const s of substances) {
     const initials = zhInitials(s.nameZh);
@@ -82,6 +103,14 @@ function buildDocs(): Doc[] {
     const pharmas = Array.from(
       new Set(s.monographRefs.map((m) => m.pharmacopoeia))
     ) as PharmacopoeiaCode[];
+    const preview = s.relatedImpurityIds
+      .map((id) => impurityById.get(id)?.nameZh)
+      .filter(Boolean)
+      .slice(0, 3) as string[];
+    const synonyms = [
+      ...(s.inn ? [s.inn] : []),
+      ...s.aliases,
+    ];
     docs.push({
       kind: "substance",
       id: s.id,
@@ -102,9 +131,22 @@ function buildDocs(): Doc[] {
       ]
         .filter(Boolean)
         .join(" "),
+      synonyms,
       initials,
       pharmacopoeias: pharmas,
       hasRS: anyRS,
+      hasVerifiedDocId: hasVerifiedDocIds({
+        epIdStatus: s.epIdStatus,
+        uspDoiStatus: s.uspDoiStatus,
+        phIntIdStatus: s.phIntIdStatus,
+        monographRefs: s.monographRefs,
+      }),
+      hasDeepLink: hasDeepLinkFields({
+        epTextNumber: s.epTextNumber,
+        uspDoi: s.uspDoi,
+        phIntDocPath: s.phIntDocPath,
+        unii: s.unii,
+      }),
       type: s.type,
       impurityCount: s.relatedImpurityIds.length,
       cas: s.cas,
@@ -115,6 +157,8 @@ function buildDocs(): Doc[] {
       summary: s.summaryZh,
       substanceType: s.type,
       inn: s.inn,
+      impurityPreview: preview,
+      description: s.summaryZh || "",
     });
   }
   for (const i of impurities) {
@@ -122,6 +166,10 @@ function buildDocs(): Doc[] {
     const parentNames = i.parentSubstanceIds
       .map((id) => substanceById.get(id)?.nameZh)
       .filter(Boolean) as string[];
+    const synonyms = [
+      ...(i.chemicalName ? [i.chemicalName] : []),
+      ...i.namingCrosswalk.map((n) => n.name),
+    ];
     docs.push({
       kind: "impurity",
       id: i.id,
@@ -143,9 +191,12 @@ function buildDocs(): Doc[] {
       ]
         .filter(Boolean)
         .join(" "),
+      synonyms,
       initials,
       pharmacopoeias: i.namingCrosswalk.map((n) => n.system),
       hasRS: i.relatedRSIds.length > 0,
+      hasVerifiedDocId: false,
+      hasDeepLink: !!(i.cas || i.unii),
       type: "impurity",
       cas: i.cas,
       unii: i.unii,
@@ -153,6 +204,7 @@ function buildDocs(): Doc[] {
       impurityType: i.type,
       parentNames,
       ichTags: i.ichTags,
+      description: i.summaryZh || "",
     });
   }
   for (const r of referenceMaterials) {
@@ -166,11 +218,15 @@ function buildDocs(): Doc[] {
       blob: [r.nameZh, r.nameEn, r.catalogCode, r.issuer, r.cas, r.notes]
         .filter(Boolean)
         .join(" "),
+      synonyms: [r.catalogCode, r.issuer].filter(Boolean),
       initials: "",
       pharmacopoeias: [],
       hasRS: true,
+      hasVerifiedDocId: false,
+      hasDeepLink: !!r.officialUrl,
       type: "rs",
       cas: r.cas,
+      description: r.notes || "",
     });
   }
   return docs;
@@ -178,19 +234,32 @@ function buildDocs(): Doc[] {
 
 const ALL_DOCS = buildDocs();
 
-const fuse = new Fuse(ALL_DOCS, {
-  keys: [
-    { name: "titleZh", weight: 0.35 },
-    { name: "titleEn", weight: 0.25 },
-    { name: "blob", weight: 0.3 },
-    { name: "initials", weight: 0.1 },
-  ],
-  threshold: 0.4,
-  ignoreLocation: true,
-  includeScore: true,
-});
+const FUSE_KEYS = [
+  { name: "titleZh", weight: 0.32 },
+  { name: "titleEn", weight: 0.22 },
+  { name: "synonyms", weight: 0.2 },
+  { name: "initials", weight: 0.1 },
+  { name: "description", weight: 0.06 },
+  { name: "blob", weight: 0.1 },
+];
 
-function toHit(d: Doc): SearchHit {
+function makeFuse(threshold: number) {
+  return new Fuse(ALL_DOCS, {
+    keys: FUSE_KEYS,
+    threshold,
+    ignoreLocation: true,
+    includeScore: true,
+    useTokenSearch: true,
+  });
+}
+
+const fuseStrict = makeFuse(0.4);
+const fuseLoose = makeFuse(0.55);
+
+function toHit(
+  d: Doc,
+  extra?: { matchTier?: MatchTier; matchReason?: string }
+): SearchHit {
   return {
     kind: d.kind,
     id: d.id,
@@ -212,11 +281,81 @@ function toHit(d: Doc): SearchHit {
     ichTags: d.ichTags,
     substanceType: d.substanceType,
     inn: d.inn,
+    impurityPreview: d.impurityPreview,
+    matchTier: extra?.matchTier,
+    matchReason: extra?.matchReason,
+    hasDeepLink: d.hasDeepLink,
   };
 }
 
-export function searchAll(filters: SearchFilters): SearchHit[] {
-  const qRaw = (filters.q || "").trim();
+function casFastPath(cas: string): Doc[] {
+  const n = norm(cas);
+  return ALL_DOCS.filter(
+    (d) =>
+      (d.kind === "substance" || d.kind === "impurity") &&
+      d.cas &&
+      norm(d.cas) === n
+  );
+}
+
+function collectCandidates(
+  terms: string[],
+  fuse: Fuse<Doc>
+): Map<string, { doc: Doc; fuseScore?: number; via?: MatchTier }> {
+  const seen = new Map<string, { doc: Doc; fuseScore?: number; via?: MatchTier }>();
+
+  const put = (d: Doc, fuseScore?: number, via?: MatchTier) => {
+    const k = `${d.kind}:${d.id}`;
+    const prev = seen.get(k);
+    if (!prev) {
+      seen.set(k, { doc: d, fuseScore, via });
+      return;
+    }
+    if (
+      typeof fuseScore === "number" &&
+      (prev.fuseScore === undefined || fuseScore < prev.fuseScore)
+    ) {
+      prev.fuseScore = fuseScore;
+    }
+    if (via && (!prev.via || tierRank(via) > tierRank(prev.via))) {
+      prev.via = via;
+    }
+  };
+
+  for (const term of terms) {
+    const results = fuse.search(term, { limit: 50 });
+    for (const r of results) {
+      put(r.item, r.score, undefined);
+    }
+    for (const d of ALL_DOCS) {
+      if (
+        matchPinyinInitials(d.titleZh, term) ||
+        (d.initials && d.initials.includes(norm(term).replace(/\s+/g, "")))
+      ) {
+        put(d, undefined, "pinyin");
+      }
+    }
+    const n = norm(term);
+    for (const d of ALL_DOCS) {
+      if (
+        includes(d.blob, n) ||
+        includes(d.titleZh, n) ||
+        includes(d.titleEn, n) ||
+        d.synonyms.some((s) => includes(s, n))
+      ) {
+        put(d, undefined, undefined);
+      }
+    }
+  }
+  return seen;
+}
+
+function tierRank(t: MatchTier): number {
+  const order: MatchTier[] = ["cas", "exact", "synonym", "pinyin", "fuzzy", "relaxed"];
+  return order.length - order.indexOf(t);
+}
+
+function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
   const typeFilter = (filters.type || "").trim();
   const wantSubstances =
     !typeFilter ||
@@ -224,65 +363,312 @@ export function searchAll(filters: SearchFilters): SearchHit[] {
   const wantImpurities = !typeFilter || typeFilter === "impurity";
   const wantRS = !typeFilter || typeFilter === "rs";
 
-  let candidates: Doc[] = ALL_DOCS;
+  if (d.kind === "substance" && !wantSubstances) return false;
+  if (d.kind === "impurity" && !wantImpurities) return false;
+  if (d.kind === "rs" && !wantRS) return false;
+  if (typeFilter && d.kind === "substance" && typeFilter !== d.type) return false;
 
-  if (qRaw) {
-    const expanded = expandQueryWithSynonyms(qRaw);
-    const seen = new Map<string, Doc>();
-    for (const term of expanded) {
-      const results = fuse.search(term, { limit: 40 });
-      for (const r of results) {
-        const k = `${r.item.kind}:${r.item.id}`;
-        if (!seen.has(k)) seen.set(k, r.item);
-      }
-      for (const d of ALL_DOCS) {
-        if (
-          matchPinyinInitials(d.titleZh, term) ||
-          (d.initials && d.initials.includes(norm(term).replace(/\s+/g, "")))
-        ) {
-          const k = `${d.kind}:${d.id}`;
-          if (!seen.has(k)) seen.set(k, d);
-        }
-      }
-      const n = norm(term);
-      for (const d of ALL_DOCS) {
-        if (includes(d.blob, n) || includes(d.titleZh, n) || includes(d.titleEn, n)) {
-          const k = `${d.kind}:${d.id}`;
-          if (!seen.has(k)) seen.set(k, d);
-        }
-      }
+  if (filters.pharmacopoeia) {
+    if (d.kind === "rs") return false;
+    if (d.kind === "substance" && !d.pharmacopoeias.includes(filters.pharmacopoeia))
+      return false;
+    if (d.kind === "impurity") {
+      const parents = substances.filter((s) =>
+        impurities.find((i) => i.id === d.id)?.parentSubstanceIds.includes(s.id)
+      );
+      const parentHas = parents.some((s) =>
+        s.monographRefs.some((m) => m.pharmacopoeia === filters.pharmacopoeia)
+      );
+      const cwHas = d.pharmacopoeias.includes(filters.pharmacopoeia);
+      if (!parentHas && !cwHas) return false;
     }
-    candidates = Array.from(seen.values());
   }
 
-  const hits: SearchHit[] = [];
-  for (const d of candidates) {
-    if (d.kind === "substance" && !wantSubstances) continue;
-    if (d.kind === "impurity" && !wantImpurities) continue;
-    if (d.kind === "rs" && !wantRS) continue;
-    if (typeFilter && d.kind === "substance" && typeFilter !== d.type) continue;
+  if (filters.hasRS === "yes" && !d.hasRS) return false;
+  if (filters.hasRS === "no" && d.hasRS) return false;
 
-    if (filters.pharmacopoeia) {
-      if (d.kind === "rs") continue;
-      if (d.kind === "substance" && !d.pharmacopoeias.includes(filters.pharmacopoeia))
-        continue;
-      if (d.kind === "impurity") {
-        const parents = substances.filter((s) =>
-          impurities.find((i) => i.id === d.id)?.parentSubstanceIds.includes(s.id)
-        );
-        const parentHas = parents.some((s) =>
-          s.monographRefs.some((m) => m.pharmacopoeia === filters.pharmacopoeia)
-        );
-        const cwHas = d.pharmacopoeias.includes(filters.pharmacopoeia);
-        if (!parentHas && !cwHas) continue;
-      }
-    }
+  if (filters.hasCAS === "yes" && !d.cas) return false;
+  if (filters.hasCAS === "no" && d.cas) return false;
 
-    if (filters.hasRS === "yes" && !d.hasRS) continue;
-    if (filters.hasRS === "no" && d.hasRS) continue;
+  if (filters.hasDeepLink === "yes" && !d.hasDeepLink) return false;
+  if (filters.hasDeepLink === "no" && d.hasDeepLink) return false;
 
-    hits.push(toHit(d));
+  if (filters.impurityType) {
+    if (d.kind !== "impurity" || d.impurityType !== filters.impurityType) return false;
   }
 
-  return hits;
+  return true;
 }
+
+export type RelaxationChip = {
+  id: "dosage" | "salt" | "fuzzy";
+  label: string;
+  detail?: string;
+};
+
+export type SearchResponse = {
+  hits: SearchHit[];
+  parsed: ParsedQuery;
+  appliedRelax: RelaxationChip[];
+  availableRelax: RelaxationChip[];
+  facets: SearchFacets;
+  /** 严格模式未放宽前的命中数 */
+  strictHitCount: number;
+};
+
+const FEW = 3;
+
+function parseRelaxParam(relax?: string): Set<string> {
+  if (!relax) return new Set();
+  return new Set(
+    relax
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean)
+  );
+}
+
+function runOnce(
+  filters: SearchFilters,
+  parsed: ParsedQuery,
+  relax: RelaxMode,
+  synonymExtras: string[]
+): SearchHit[] {
+  const fuse = relax.looseFuzzy ? fuseLoose : fuseStrict;
+
+  // CAS 精确快路径
+  if (parsed.cas && parsed.casValid !== false) {
+    const casHits = casFastPath(parsed.cas).filter((d) =>
+      applyTypeFilters(d, filters)
+    );
+    if (casHits.length > 0 && (parsed.isCasQuery || casHits.length <= 5)) {
+      const synonymTerms = new Set(synonymExtras.map(norm));
+      const rankable: RankableDoc[] = casHits.map((d) => ({
+        ...d,
+        matchedVia: "cas" as MatchTier,
+        fuseScore: 0,
+      }));
+      const ranked = rankDocs(rankable, {
+        parsed,
+        synonymTerms,
+        dosageMismatchPenalty: parsed.dosageForms.length > 0,
+        relaxed: relax.looseFuzzy,
+      });
+      return ranked.map((r) =>
+        toHit(r.doc as Doc, {
+          matchTier: "cas",
+          matchReason: MATCH_REASON_ZH.cas,
+        })
+      );
+    }
+  }
+
+  const baseTerms = buildSearchTerms(parsed, relax);
+  const terms = Array.from(
+    new Set([
+      ...baseTerms,
+      ...synonymExtras.flatMap((t) =>
+        buildSearchTerms(parseQuery(t), {
+          stripDosage: relax.stripDosage,
+          stripSalt: relax.stripSalt,
+          looseFuzzy: false,
+        })
+      ),
+    ])
+  );
+
+  if (!filters.q?.trim()) {
+    return ALL_DOCS.filter((d) => applyTypeFilters(d, filters)).map((d) =>
+      toHit(d)
+    );
+  }
+
+  const seen = collectCandidates(terms, fuse);
+  const synonymTerms = new Set(synonymExtras.map(norm));
+
+  const docs: RankableDoc[] = [];
+  for (const { doc, fuseScore, via } of Array.from(seen.values())) {
+    if (!applyTypeFilters(doc, filters)) continue;
+    const ctx = {
+      parsed,
+      synonymTerms,
+      dosageMismatchPenalty: parsed.dosageForms.length > 0,
+      relaxed: relax.looseFuzzy,
+    };
+    const classified = classifyTier(
+      { ...doc, fuseScore, matchedVia: via },
+      ctx
+    );
+    // 取 via / classify 中更强的一层，避免错误 pinyin via 压过 synonym
+    const tier =
+      via && tierRank(via) > tierRank(classified) ? via : classified;
+    docs.push({
+      ...doc,
+      fuseScore,
+      matchedVia: tier,
+    });
+  }
+
+  const ranked = rankDocs(docs, {
+    parsed,
+    synonymTerms,
+    dosageMismatchPenalty: parsed.dosageForms.length > 0,
+    relaxed: relax.looseFuzzy,
+  });
+
+  return ranked.map((r) =>
+    toHit(r.doc as Doc, {
+      matchTier: r.tier,
+      matchReason: r.reason,
+    })
+  );
+}
+
+/**
+ * 完整检索（含解析、放宽、分面）。页面与 eval 使用此接口。
+ */
+export function searchWithMeta(filters: SearchFilters): SearchResponse {
+  const qRaw = (filters.q || "").trim();
+  const parsed = parseQuery(qRaw);
+  const synonymExtras = qRaw ? expandQueryWithSynonyms(qRaw) : [];
+  const requested = parseRelaxParam(filters.relax);
+  const strict = filters.strict === "1";
+
+  const available: RelaxationChip[] = [];
+  if (parsed.dosageForms.length) {
+    available.push({
+      id: "dosage",
+      label: "去掉剂型",
+      detail: parsed.dosageForms.join("、"),
+    });
+  }
+  if (parsed.saltHydrateStripped.length) {
+    available.push({
+      id: "salt",
+      label: "去掉盐/水合物",
+      detail: parsed.saltHydrateStripped.join("、"),
+    });
+  }
+  available.push({ id: "fuzzy", label: "放宽模糊匹配" });
+
+  // 严格基线（不剥离、不放宽）
+  const strictHits = runOnce(
+    filters,
+    parsed,
+    { stripDosage: false, stripSalt: false, looseFuzzy: false },
+    synonymExtras
+  );
+
+  let mode: RelaxMode = {
+    stripDosage: false,
+    stripSalt: false,
+    looseFuzzy: false,
+  };
+  const applied: RelaxationChip[] = [];
+
+  if (!strict && qRaw) {
+    // URL 显式 relax，或自动递进
+    const want = new Set(requested);
+    if (want.size === 0 && strictHits.length < FEW) {
+      // 自动：dosage → salt → fuzzy
+      if (parsed.dosageForms.length) want.add("dosage");
+      if (parsed.saltHydrateStripped.length && (strictHits.length < FEW || want.has("dosage"))) {
+        // 先试 dosage，仍少再加 salt
+      }
+      if (parsed.dosageForms.length) {
+        const afterDos = runOnce(
+          filters,
+          parsed,
+          { stripDosage: true, stripSalt: false, looseFuzzy: false },
+          synonymExtras
+        );
+        if (afterDos.length > strictHits.length || strictHits.length < FEW) {
+          want.add("dosage");
+          if (afterDos.length < FEW && parsed.saltHydrateStripped.length) {
+            want.add("salt");
+            const afterSalt = runOnce(
+              filters,
+              parsed,
+              { stripDosage: true, stripSalt: true, looseFuzzy: false },
+              synonymExtras
+            );
+            if (afterSalt.length < FEW) want.add("fuzzy");
+          } else if (afterDos.length < FEW) {
+            want.add("fuzzy");
+          }
+        }
+      } else if (parsed.saltHydrateStripped.length) {
+        want.add("salt");
+        const afterSalt = runOnce(
+          filters,
+          parsed,
+          { stripDosage: false, stripSalt: true, looseFuzzy: false },
+          synonymExtras
+        );
+        if (afterSalt.length < FEW) want.add("fuzzy");
+      } else if (strictHits.length < FEW) {
+        want.add("fuzzy");
+      }
+    }
+
+    mode = {
+      stripDosage: want.has("dosage"),
+      stripSalt: want.has("salt"),
+      looseFuzzy: want.has("fuzzy"),
+    };
+    for (const chip of available) {
+      if (want.has(chip.id)) applied.push(chip);
+    }
+  } else if (requested.size) {
+    mode = {
+      stripDosage: requested.has("dosage"),
+      stripSalt: requested.has("salt"),
+      looseFuzzy: requested.has("fuzzy"),
+    };
+    for (const chip of available) {
+      if (requested.has(chip.id)) applied.push(chip);
+    }
+  }
+
+  // 日常有剂型/盐时：即便命中不少，也用 core 提升召回，但仍标为已应用剥离（可移除）
+  // 仅当用户未 strict 且未显式清空时，对「阿司匹林片」类查询默认剥离剂型参与匹配
+  if (!strict && qRaw && requested.size === 0 && applied.length === 0) {
+    if (parsed.dosageForms.length) {
+      mode.stripDosage = true;
+      applied.push(available.find((c) => c.id === "dosage")!);
+    }
+    if (parsed.saltHydrateStripped.length) {
+      mode.stripSalt = true;
+      applied.push(available.find((c) => c.id === "salt")!);
+    }
+  }
+
+  const hits =
+    !qRaw || (applied.length === 0 && !mode.looseFuzzy)
+      ? strictHits
+      : runOnce(filters, parsed, mode, synonymExtras);
+
+  // titleOnly：压缩摘要等字段（UI 侧也会处理；此处去掉 summary 以减轻）
+  const outHits =
+    filters.titleOnly === "1"
+      ? hits.map((h) => ({ ...h, summary: undefined, subtitle: undefined }))
+      : hits;
+
+  const facets = buildFacets(outHits, parsed);
+
+  return {
+    hits: outHits,
+    parsed,
+    appliedRelax: applied.filter(Boolean),
+    availableRelax: available,
+    facets,
+    strictHitCount: strictHits.length,
+  };
+}
+
+/** 兼容旧调用：仅返回 hits */
+export function searchAll(filters: SearchFilters): SearchHit[] {
+  return searchWithMeta(filters).hits;
+}
+
+export type { ParsedQuery, SearchFacets, MatchTier };

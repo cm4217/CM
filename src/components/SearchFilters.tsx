@@ -19,6 +19,19 @@ export function SearchFilters() {
     if (pharmacopoeia) params.set("pharmacopoeia", pharmacopoeia);
     if (type) params.set("type", type);
     if (hasRS) params.set("hasRS", hasRS);
+    // 保留分面 / 视图 / 放宽相关参数
+    for (const key of [
+      "hasCAS",
+      "hasDeepLink",
+      "impurityType",
+      "titleOnly",
+      "view",
+      "relax",
+      "strict",
+    ]) {
+      const v = sp.get(key);
+      if (v) params.set(key, v);
+    }
     router.push(`/search?${params.toString()}`);
   }
 
@@ -47,7 +60,7 @@ export function SearchFilters() {
               onChange={setQ}
               onSubmit={(query) => pushParams(query)}
               onPickHref={(href) => router.push(href)}
-              placeholder="药名 / INN / CAS / 杂质名"
+              placeholder="药名 / INN / CAS / 杂质名 / 剂型（如阿司匹林片）"
               hideSubmit
               inputClassName="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />

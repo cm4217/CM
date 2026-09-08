@@ -5,8 +5,10 @@ import { DisclaimerBanner } from "@/components/Disclaimer";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { DidYouMean } from "@/components/DidYouMean";
 import { ExternalSearchCards } from "@/components/ExternalSearchCards";
-import { searchAll } from "@/lib/search";
-import type { PharmacopoeiaCode } from "@/lib/types";
+import { SearchRelaxChips } from "@/components/SearchRelaxChips";
+import { SearchFacetBar } from "@/components/SearchFacetBar";
+import { searchWithMeta } from "@/lib/search";
+import type { ImpurityType, PharmacopoeiaCode } from "@/lib/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,28 +21,44 @@ type Props = {
     pharmacopoeia?: string;
     type?: string;
     hasRS?: string;
+    hasCAS?: string;
+    hasDeepLink?: string;
+    impurityType?: string;
+    relax?: string;
+    strict?: string;
+    titleOnly?: string;
+    view?: string;
   };
 };
 
 const FEW_HITS = 3;
 
 export default function SearchPage({ searchParams }: Props) {
-  const hits = searchAll({
+  const result = searchWithMeta({
     q: searchParams.q,
     pharmacopoeia: (searchParams.pharmacopoeia || "") as PharmacopoeiaCode | "",
     type: searchParams.type || "",
     hasRS: (searchParams.hasRS || "") as "yes" | "no" | "",
+    hasCAS: (searchParams.hasCAS || "") as "yes" | "no" | "",
+    hasDeepLink: (searchParams.hasDeepLink || "") as "yes" | "no" | "",
+    impurityType: (searchParams.impurityType || "") as ImpurityType | "",
+    relax: searchParams.relax,
+    strict: (searchParams.strict || "") as "1" | "",
+    titleOnly: (searchParams.titleOnly || "") as "1" | "",
   });
 
+  const hits = result.hits;
   const q = (searchParams.q || "").trim();
   const fewLocal = !!q && hits.length < FEW_HITS;
+  const titleOnly = searchParams.titleOnly === "1";
+  const compact = searchParams.view === "compact";
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">检索结果</h1>
         <p className="mt-1 text-sm text-slate-500 font-latin">
-          Search · autocomplete · RxNorm · external helpers
+          Search · parse · rank · facets · external helpers
         </p>
       </div>
 
@@ -56,9 +74,38 @@ export default function SearchPage({ searchParams }: Props) {
           <>
             {" "}
             · 关键词「<span className="font-medium">{q}</span>」
+            {result.parsed.core && result.parsed.core !== q ? (
+              <>
+                {" "}
+                · 核心词「
+                <span className="font-medium font-latin">{result.parsed.core}</span>」
+              </>
+            ) : null}
+            {result.parsed.cas ? (
+              <>
+                {" "}
+                · CAS{" "}
+                <span className="font-latin">
+                  {result.parsed.cas}
+                  {result.parsed.casValid === false ? "（校验失败）" : ""}
+                </span>
+              </>
+            ) : null}
           </>
         ) : null}
       </p>
+
+      {result.appliedRelax.length > 0 ? (
+        <Suspense fallback={null}>
+          <SearchRelaxChips applied={result.appliedRelax} />
+        </Suspense>
+      ) : null}
+
+      {hits.length > 0 || result.facets.dosageForm.length > 0 ? (
+        <Suspense fallback={null}>
+          <SearchFacetBar facets={result.facets} />
+        </Suspense>
+      ) : null}
 
       {fewLocal ? <DidYouMean q={q} enabled /> : null}
 
@@ -73,7 +120,7 @@ export default function SearchPage({ searchParams }: Props) {
         </div>
       ) : null}
 
-      <SearchResults hits={hits} />
+      <SearchResults hits={hits} titleOnly={titleOnly} compact={compact} />
 
       <ExternalSearchCards q={q} show={fewLocal} />
     </div>

@@ -174,6 +174,14 @@ export interface SearchHit {
   /** 物质类型 API/excipient… */
   substanceType?: SubstanceType;
   inn?: string;
+  /** 匹配层级：exact / cas / synonym / pinyin / fuzzy / relaxed */
+  matchTier?: "exact" | "cas" | "synonym" | "pinyin" | "fuzzy" | "relaxed";
+  /** 中文匹配原因，如「精确名称」 */
+  matchReason?: string;
+  /** 物质卡片：关联杂质名预览（最多 3） */
+  impurityPreview?: string[];
+  /** 是否有文档直达字段 */
+  hasDeepLink?: boolean;
 }
 
 /** ICH / 监管限值示例行（非法定正文） */

@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "description": "药典 MVP 检索黄金集 — Top1/Top3 断言（示例数据）",
+  "cases": [
+    {
+      "id": "aspirin-zh",
+      "q": "阿司匹林",
+      "top1": ["substance:sub-aspirin"],
+      "top3Any": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-en",
+      "q": "Aspirin",
+      "top1": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-syn-asa",
+      "q": "ASA",
+      "top1": ["substance:sub-aspirin"],
+      "top3Any": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-syn-yxsys",
+      "q": "乙酰水杨酸",
+      "top1": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-inn",
+      "q": "Acetylsalicylic acid",
+      "top1": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-dosage-pian",
+      "q": "阿司匹林片",
+      "top1": ["substance:sub-aspirin"],
+      "expectCoreContains": "阿司匹林",
+      "expectDosage": ["片"]
+    },
+    {
+      "id": "aspirin-dosage-capsule",
+      "q": "阿司匹林胶囊",
+      "top1": ["substance:sub-aspirin"],
+      "expectDosage": ["胶囊"]
+    },
+    {
+      "id": "aspirin-pinyin",
+      "q": "aspl",
+      "top1": ["substance:sub-aspirin"],
+      "top3Any": ["substance:sub-aspirin"]
+    },
+    {
+      "id": "aspirin-cas",
+      "q": "50-78-2",
+      "top1": ["substance:sub-aspirin"],
+      "expectCas": "50-78-2",
+      "expectMatchTier": "cas"
+    },
+    {
+      "id": "aspirin-cas-prefix",
+      "q": "CAS 50-78-2",
+      "top1": ["substance:sub-aspirin"],
+      "expectMatchTier": "cas"
+    },
+    {
+      "id": "ibuprofen-cas",
+      "q": "15687-27-1",
+      "top1": ["substance:sub-ibuprofen"],
+      "expectMatchTier": "cas"
+    },
+    {
+      "id": "ibuprofen-zh",
+      "q": "布洛芬",
+      "top1": ["substance:sub-ibuprofen"]
+    },
+    {
+      "id": "paracetamol-zh",
+      "q": "对乙酰氨基酚",
+      "top1": ["substance:sub-paracetamol"]
+    },
+    {
+      "id": "paracetamol-syn",
+      "q": "扑热息痛",
+      "top1": ["substance:sub-paracetamol"]
+    },
+    {
+      "id": "paracetamol-apap",
+      "q": "APAP",
+      "top3Any": ["substance:sub-paracetamol"]
+    },
+    {
+      "id": "metformin",
+      "q": "二甲双胍",
+      "top1": ["substance:sub-metformin"]
+    },
+    {
+      "id": "omeprazole",
+      "q": "奥美拉唑",
+      "top1": ["substance:sub-omeprazole"]
+    },
+    {
+      "id": "ndma",
+      "q": "NDMA",
+      "top3Any": ["impurity:imp-aspirin-ndma", "impurity:imp-ndma-global"],
+      "top1AnyOf": ["impurity:imp-aspirin-ndma", "impurity:imp-ndma-global"]
+    },
+    {
+      "id": "ndma-zh",
+      "q": "N-亚硝基二甲胺",
+      "top3Any": ["impurity:imp-aspirin-ndma", "impurity:imp-ndma-global"]
+    },
+    {
+      "id": "ndma-cas",
+      "q": "62-75-9",
+      "top3Any": ["impurity:imp-aspirin-ndma", "impurity:imp-ndma-global"],
+      "expectMatchTier": "cas"
+    },
+    {
+      "id": "salicylic-acid",
+      "q": "水杨酸",
+      "top3Any": ["impurity:imp-salicylic-acid", "substance:sub-aspirin"]
+    },
+    {
+      "id": "salicylic-cas",
+      "q": "69-72-7",
+      "top1": ["impurity:imp-salicylic-acid"],
+      "expectMatchTier": "cas"
+    },
+    {
+      "id": "ranitidine",
+      "q": "雷尼替丁",
+      "top1": ["substance:sub-ranitidine"]
+    },
+    {
+      "id": "amoxicillin",
+      "q": "阿莫西林",
+      "top1": ["substance:sub-amoxicillin"]
+    },
+    {
+      "id": "amlodipine-besylate-ish",
+      "q": "氨氯地平苯磺酸盐",
+      "top1": ["substance:sub-amlodipine"],
+      "expectSalt": true
+    },
+    {
+      "id": "metformin-hcl",
+      "q": "二甲双胍盐酸盐",
+      "top1": ["substance:sub-metformin"],
+      "expectSalt": true
+    },
+    {
+      "id": "metformin-hcl-en",
+      "q": "Metformin hydrochloride",
+      "top1": ["substance:sub-metformin"],
+      "expectSalt": true
+    },
+    {
+      "id": "sodium-chloride",
+      "q": "氯化钠",
+      "top1": ["substance:sub-sodium-chloride"]
+    },
+    {
+      "id": "typo-aspirin-soft",
+      "q": "阿斯匹林",
+      "top3Any": ["substance:sub-aspirin"],
+      "optional": true,
+      "note": "常见错字；模糊/同义可能召回"
+    },
+    {
+      "id": "typo-asprin",
+      "q": "asprin",
+      "top3Any": ["substance:sub-aspirin"],
+      "optional": true
+    },
+    {
+      "id": "ibuprofen-tablet",
+      "q": "布洛芬片",
+      "top1": ["substance:sub-ibuprofen"],
+      "expectDosage": ["片"]
+    },
+    {
+      "id": "injection-omeprazole",
+      "q": "奥美拉唑注射液",
+      "top1": ["substance:sub-omeprazole"],
+      "expectDosage": ["注射液"]
+    },
+    {
+      "id": "4-aminophenol",
+      "q": "4-氨基苯酚",
+      "top3Any": ["impurity:imp-paracetamol-4ap"]
+    },
+    {
+      "id": "methanol",
+      "q": "甲醇",
+      "top3Any": ["impurity:imp-methanol"]
+    },
+    {
+      "id": "losartan",
+      "q": "氯沙坦",
+      "top1": ["substance:sub-losartan"]
+    },
+    {
+      "id": "warfarin",
+      "q": "华法林",
+      "top1": ["substance:sub-warfarin"]
+    },
+    {
+      "id": "ciprofloxacin",
+      "q": "环丙沙星",
+      "top1": ["substance:sub-ciprofloxacin"]
+    },
+    {
+      "id": "lactose",
+      "q": "乳糖",
+      "top1": ["substance:sub-lactose"]
+    },
+    {
+      "id": "invalid-cas-format-still-parse",
+      "q": "50-78-3",
+      "expectCas": "50-78-3",
+      "expectCasValid": false,
+      "note": "校验位错误；不强制命中阿司匹林"
+    },
+    {
+      "id": "ndea",
+      "q": "NDEA",
+      "top3Any": ["impurity:imp-ndea"]
+    }
+  ]
+}
