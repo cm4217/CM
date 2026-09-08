@@ -9,6 +9,7 @@ import {
 import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { LiveEnrichment } from "@/components/LiveEnrichment";
 import type { Metadata } from "next";
 
 type Props = { params: { id: string } };
@@ -54,6 +55,8 @@ export default function SubstancePage({ params }: Props) {
       </div>
 
       <DisclaimerBanner />
+
+      <LiveEnrichment name={s.nameEn} cas={s.cas} unii={s.unii} />
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <InfoCard label="INN" value={s.inn || "—"} />

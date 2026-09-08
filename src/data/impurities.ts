@@ -8,6 +8,9 @@ export const impurities: ImpurityNode[] = [
     nameEn: "Salicylic acid",
     chemicalName: "2-Hydroxybenzoic acid",
     cas: "69-72-7",
+    unii: "O414PZ4LPZ",
+    smiles: "OC(=O)C1=CC=CC=C1O",
+    inchiKey: "YGSDEFSMJLZEOE-UHFFFAOYSA-N",
     type: "degradation",
     parentSubstanceIds: ["sub-aspirin"],
     namingCrosswalk: [
@@ -31,6 +34,8 @@ export const impurities: ImpurityNode[] = [
     nameEn: "Aspirin Impurity B (demo)",
     chemicalName: "4-Hydroxybenzoic acid",
     cas: "99-96-7",
+    smiles: "OC(=O)C1=CC=C(O)C=C1",
+    inchiKey: "FJKROLUGYXJWQN-UHFFFAOYSA-N",
     type: "process",
     parentSubstanceIds: ["sub-aspirin"],
     namingCrosswalk: [
@@ -51,6 +56,8 @@ export const impurities: ImpurityNode[] = [
     nameEn: "N-Nitrosodimethylamine (NDMA)",
     chemicalName: "N,N-Dimethylnitrous amide",
     cas: "62-75-9",
+    smiles: "CN(C)N=O",
+    inchiKey: "UYVYSYJQQZJNKJ-UHFFFAOYSA-N",
     type: "nitrosamine",
     parentSubstanceIds: ["sub-aspirin"],
     namingCrosswalk: [
@@ -73,6 +80,8 @@ export const impurities: ImpurityNode[] = [
     nameEn: "Ibuprofen Impurity F",
     chemicalName: "1-(4-Isobutylphenyl)ethanone",
     cas: "38861-78-8",
+    smiles: "CC(C)CC1=CC=C(C=C1)C(C)=O",
+    inchiKey: "KEAGRYYGYWZVPC-UHFFFAOYSA-N",
     type: "process",
     parentSubstanceIds: ["sub-ibuprofen"],
     namingCrosswalk: [

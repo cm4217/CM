@@ -1,12 +1,15 @@
 export { substances } from "./substances";
 export { impurities } from "./impurities";
-export { referenceMaterials } from "./referenceMaterials";
+export { referenceMaterials, REFERENCE_MATERIALS_LAST_SYNCED } from "./referenceMaterials";
 export { changeEvents } from "./changeEvents";
+export { ichLimits, getLimitsForImpurityType, getLimit } from "./ichLimits";
+export { alertSources } from "./alertSources";
 
 import { substances } from "./substances";
 import { impurities } from "./impurities";
 import { referenceMaterials } from "./referenceMaterials";
 import { changeEvents } from "./changeEvents";
+import { ichLimits } from "./ichLimits";
 
 export function getSubstance(id: string) {
   return substances.find((s) => s.id === id);
@@ -26,6 +29,7 @@ export function getStats() {
     impurities: impurities.length,
     referenceMaterials: referenceMaterials.length,
     changeEvents: changeEvents.length,
+    ichLimits: ichLimits.length,
     monographRefs: substances.reduce((n, s) => n + s.monographRefs.length, 0),
   };
 }

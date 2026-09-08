@@ -52,6 +52,9 @@ export interface Substance {
   monographRefs: MonographRef[];
   relatedImpurityIds: string[];
   relatedRSIds: string[];
+  /** Optional SMILES for local structure search (demo) */
+  smiles?: string;
+  inchiKey?: string;
   demoLabel: true;
 }
 
@@ -67,6 +70,7 @@ export interface ImpurityNode {
   nameEn: string;
   chemicalName?: string;
   cas?: string;
+  unii?: string;
   type: ImpurityType;
   parentSubstanceIds: string[];
   namingCrosswalk: NamingCrosswalk[];
@@ -74,6 +78,8 @@ export interface ImpurityNode {
   ichTags: string[];
   summaryZh: string;
   summaryEn: string;
+  smiles?: string;
+  inchiKey?: string;
   demoLabel: true;
 }
 
@@ -96,7 +102,7 @@ export interface ReferenceMaterial {
 export interface ChangeEvent {
   id: string;
   date: string;
-  pharmacopoeia: PharmacopoeiaCode | "ICH" | "multi";
+  pharmacopoeia: PharmacopoeiaCode | "ICH" | "FDA" | "EMA" | "multi";
   titleZh: string;
   titleEn: string;
   summaryZh: string;
@@ -105,6 +111,7 @@ export interface ChangeEvent {
   relatedImpurityIds?: string[];
   severity: "info" | "watch" | "critical";
   officialUrl?: string;
+  sourceKey?: string;
   demoLabel: true;
 }
 
@@ -115,4 +122,36 @@ export interface SearchHit {
   titleEn: string;
   subtitle?: string;
   badges: string[];
+}
+
+/** ICH / 监管限值示例行（非法定正文） */
+export type IchLimitCategory =
+  | "Q3C"
+  | "Q3D"
+  | "M7"
+  | "nitrosamine"
+  | "other";
+
+export interface IchLimitRow {
+  id: string;
+  category: IchLimitCategory;
+  nameZh: string;
+  nameEn: string;
+  cas?: string;
+  /** 示例数值，务必核官方最新版 */
+  exampleValue: string;
+  unit?: string;
+  classOrNote?: string;
+  impurityTypes?: ImpurityType[];
+  officialUrls: { label: string; url: string }[];
+  disclaimerZh: string;
+  demoLabel: true;
+}
+
+export interface AlertSourceMeta {
+  key: string;
+  nameZh: string;
+  nameEn: string;
+  url: string;
+  notesZh: string;
 }

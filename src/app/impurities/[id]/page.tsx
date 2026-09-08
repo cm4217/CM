@@ -9,6 +9,9 @@ import {
 import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { LiveEnrichment } from "@/components/LiveEnrichment";
+import { LimitCards } from "@/components/LimitCards";
+import { getLimitsForImpurityType } from "@/data";
 import type { Metadata } from "next";
 
 type Props = { params: { id: string } };
@@ -33,6 +36,7 @@ export default function ImpurityPage({ params }: Props) {
   const rsList = i.relatedRSIds
     .map((id) => getReferenceMaterial(id))
     .filter(Boolean);
+  const limitRows = getLimitsForImpurityType(i.type, i.cas);
 
   return (
     <div className="space-y-8">
@@ -62,6 +66,10 @@ export default function ImpurityPage({ params }: Props) {
       </div>
 
       <DisclaimerBanner />
+
+      <LiveEnrichment name={i.nameEn} cas={i.cas} unii={i.unii} />
+
+      <LimitCards rows={limitRows} />
 
       <section className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">

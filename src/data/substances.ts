@@ -9,6 +9,8 @@ export const substances: Substance[] = [
     inn: "Acetylsalicylic acid",
     cas: "50-78-2",
     unii: "R16CO5Y76E",
+    smiles: "CC(=O)OC1=CC=CC=C1C(=O)O",
+    inchiKey: "BSYNRYMUTXBXSQ-UHFFFAOYSA-N",
     aliases: ["乙酰水杨酸", "ASA", "2-Acetoxybenzoic acid"],
     type: "API",
     summaryZh:
@@ -86,6 +88,8 @@ export const substances: Substance[] = [
     inn: "Ibuprofen",
     cas: "15687-27-1",
     unii: "WK2XYI10QM",
+    smiles: "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+    inchiKey: "HEFNNWSXXWATRW-UHFFFAOYSA-N",
     aliases: ["异丁苯丙酸", "(±)-2-(4-Isobutylphenyl)propionic acid"],
     type: "API",
     summaryZh:

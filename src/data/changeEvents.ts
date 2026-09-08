@@ -1,7 +1,41 @@
 import type { ChangeEvent } from "@/lib/types";
 
-/** 示例数据 — SAMPLE/DEMO revision alerts */
+/** 示例数据 — SAMPLE/DEMO revision alerts（扩展来源） */
 export const changeEvents: ChangeEvent[] = [
+  {
+    id: "ce-2025-fda-nitrosamine",
+    date: "2025-02-18",
+    pharmacopoeia: "FDA",
+    titleZh: "FDA 亚硝胺杂质控制指导原则更新提示（示例）",
+    titleEn: "FDA nitrosamine impurities guidance update (demo)",
+    summaryZh:
+      "示例：关注 FDA 关于人用药品中亚硝胺杂质控制的指导原则修订与 AI 表更新。请以 FDA 现行文件为准。",
+    summaryEn:
+      "Demo: watch FDA nitrosamine control guidance and AI table updates.",
+    relatedImpurityIds: ["imp-aspirin-ndma"],
+    relatedSubstanceIds: ["sub-aspirin"],
+    severity: "critical",
+    officialUrl:
+      "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/control-nitrosamine-impurities-human-drugs",
+    sourceKey: "fda-nitrosamine",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2024-ema-nitrosamine",
+    date: "2024-12-05",
+    pharmacopoeia: "EMA",
+    titleZh: "EMA 亚硝胺杂质 referral / Q&A 更新（示例）",
+    titleEn: "EMA nitrosamine referral / Q&A update (demo)",
+    summaryZh:
+      "示例：EMA 亚硝胺相关程序与问答更新索引。本站仅链至公开监管页，不转载专论正文。",
+    summaryEn: "Demo index to EMA nitrosamine public pages.",
+    relatedImpurityIds: ["imp-aspirin-ndma"],
+    severity: "critical",
+    officialUrl:
+      "https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/pharmacovigilance-post-authorisation/referral-procedures-human-medicines/nitrosamine-impurities",
+    sourceKey: "ema-nitrosamine",
+    demoLabel: true,
+  },
   {
     id: "ce-2024-ndma",
     date: "2024-11-12",
@@ -16,6 +50,22 @@ export const changeEvents: ChangeEvent[] = [
     relatedSubstanceIds: ["sub-aspirin"],
     severity: "critical",
     officialUrl: "https://database.ich.org/",
+    sourceKey: "ich-database",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2024-edqm-crs",
+    date: "2024-10-01",
+    pharmacopoeia: "EP",
+    titleZh: "EDQM CRS 目录批次变更提示（示例）",
+    titleEn: "EDQM CRS catalog batch change (demo)",
+    summaryZh:
+      "示例：EDQM 化学对照品（CRS）公开目录可能出现批次/状态变更。请通过 EDQM 官方商店核验。",
+    summaryEn: "Demo: EDQM CRS catalog status/batch changes — verify via official shop.",
+    relatedSubstanceIds: ["sub-aspirin", "sub-ibuprofen"],
+    severity: "info",
+    officialUrl: "https://crs.edqm.eu/",
+    sourceKey: "edqm-crs",
     demoLabel: true,
   },
   {
@@ -31,6 +81,22 @@ export const changeEvents: ChangeEvent[] = [
     relatedSubstanceIds: ["sub-aspirin"],
     severity: "watch",
     officialUrl: "https://ydz.chp.org.cn/",
+    sourceKey: "chp-portal",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2024-usp-pf",
+    date: "2024-04-22",
+    pharmacopoeia: "USP",
+    titleZh: "USP Pharmacopeial Forum 征求意见提示（示例）",
+    titleEn: "USP PF comment invitation (demo)",
+    summaryZh:
+      "示例：关注 USP-PF 中与杂质/对照品相关的拟修订条目。需授权订阅方可阅读全文。",
+    summaryEn: "Demo: watch USP-PF proposed revisions (license may be required).",
+    relatedSubstanceIds: ["sub-aspirin", "sub-ibuprofen"],
+    severity: "watch",
+    officialUrl: "https://www.uspnf.com/",
+    sourceKey: "usp-nf",
     demoLabel: true,
   },
   {
@@ -45,6 +111,7 @@ export const changeEvents: ChangeEvent[] = [
     relatedImpurityIds: ["imp-ibuprofen-imp-f", "imp-ibuprofen-imp-j"],
     severity: "info",
     officialUrl: "https://pheur-online.edqm.eu/",
+    sourceKey: "ep-online",
     demoLabel: true,
   },
   {
@@ -58,7 +125,8 @@ export const changeEvents: ChangeEvent[] = [
     relatedSubstanceIds: ["sub-aspirin"],
     relatedImpurityIds: ["imp-salicylic-acid"],
     severity: "info",
-    officialUrl: "https://www.uspnf.com/",
+    officialUrl: "https://store.usp.org/",
+    sourceKey: "usp-store",
     demoLabel: true,
   },
   {
@@ -72,6 +140,20 @@ export const changeEvents: ChangeEvent[] = [
     relatedSubstanceIds: ["sub-ibuprofen"],
     severity: "watch",
     officialUrl: "https://www.pharmacopoeia.com/",
+    sourceKey: "bp-portal",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2023-ich-q3d",
+    date: "2023-01-10",
+    pharmacopoeia: "ICH",
+    titleZh: "ICH Q3D 元素杂质指导原则索引（示例）",
+    titleEn: "ICH Q3D elemental impurities index (demo)",
+    summaryZh: "示例：提示核对 Q3D 现行版 PDE 表。本站限值页仅提供示例行。",
+    summaryEn: "Demo: verify current Q3D PDE tables via ICH database.",
+    severity: "info",
+    officialUrl: "https://database.ich.org/",
+    sourceKey: "ich-database",
     demoLabel: true,
   },
 ];

@@ -2,18 +2,26 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { referenceMaterials } from "@/data";
+import {
+  referenceMaterials,
+  REFERENCE_MATERIALS_LAST_SYNCED,
+} from "@/data";
 import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 
 export default function ReferenceStandardsPage() {
   const [q, setQ] = useState("");
+  const [issuer, setIssuer] = useState<string>("");
+  const [hasCas, setHasCas] = useState<"" | "yes" | "no">("");
 
   const filtered = useMemo(() => {
     const n = q.trim().toLowerCase();
-    if (!n) return referenceMaterials;
     return referenceMaterials.filter((r) => {
+      if (issuer && r.issuer !== issuer) return false;
+      if (hasCas === "yes" && !r.cas) return false;
+      if (hasCas === "no" && r.cas) return false;
+      if (!n) return true;
       const blob = [
         r.nameZh,
         r.nameEn,
@@ -26,7 +34,13 @@ export default function ReferenceStandardsPage() {
         .toLowerCase();
       return blob.includes(n);
     });
-  }, [q]);
+  }, [q, issuer, hasCas]);
+
+  const syncedLocal = REFERENCE_MATERIALS_LAST_SYNCED
+    ? new Date(REFERENCE_MATERIALS_LAST_SYNCED).toLocaleString("zh-CN", {
+        timeZone: "Asia/Shanghai",
+      }) + " (UTC+8)"
+    : "—";
 
   return (
     <div className="space-y-6">
@@ -35,18 +49,43 @@ export default function ReferenceStandardsPage() {
         <p className="mt-1 text-sm text-slate-500 font-latin">
           Reference standards · USP / EDQM / BPCRS-style demo catalog
         </p>
+        <p className="mt-1 text-xs text-slate-500">上次同步：{syncedLocal} · sync:rs</p>
       </div>
 
       <DisclaimerBanner compact />
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="搜索对照品名称、目录号、CAS、颁发机构…"
-          className="w-full sm:max-w-md rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-        />
-        <DemoBadge />
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="搜索对照品名称、目录号、CAS、颁发机构…"
+            className="w-full sm:max-w-md rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+          />
+          <DemoBadge />
+        </div>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <label className="flex items-center gap-2">
+            <span className="text-slate-600">来源</span>
+            <select value={issuer} onChange={(e) => setIssuer(e.target.value)} className="rounded-lg border border-slate-200 px-2 py-1.5 text-sm">
+              <option value="">全部</option>
+              <option value="USP">USP</option>
+              <option value="EDQM">EDQM</option>
+              <option value="BPCRS">BPCRS</option>
+              <option value="NIFDC">NIFDC</option>
+              <option value="other">other</option>
+            </select>
+          </label>
+          <label className="flex items-center gap-2">
+            <span className="text-slate-600">有 CAS</span>
+            <select value={hasCas} onChange={(e) => setHasCas(e.target.value as "" | "yes" | "no")} className="rounded-lg border border-slate-200 px-2 py-1.5 text-sm">
+              <option value="">全部</option>
+              <option value="yes">是</option>
+              <option value="no">否</option>
+            </select>
+          </label>
+          <span className="text-xs text-slate-400 self-center">{filtered.length} / {referenceMaterials.length}</span>
+        </div>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">

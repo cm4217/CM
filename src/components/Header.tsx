@@ -7,8 +7,11 @@ import { useState } from "react";
 const nav = [
   { href: "/", label: "首页" },
   { href: "/search", label: "检索" },
+  { href: "/structure", label: "结构检索" },
   { href: "/reference-standards", label: "对照品" },
+  { href: "/limits", label: "限值" },
   { href: "/alerts", label: "修订提醒" },
+  { href: "/ask", label: "问答" },
   { href: "/about", label: "关于 / 数据来源" },
 ];
 
@@ -19,16 +22,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="group flex items-baseline gap-2">
+        <Link href="/" className="group flex items-baseline gap-2 shrink-0">
           <span className="text-lg font-bold text-teal-800 tracking-tight">
             药典对照层
           </span>
-          <span className="hidden sm:inline text-xs text-slate-500 font-latin group-hover:text-teal-700">
+          <span className="hidden lg:inline text-xs text-slate-500 font-latin group-hover:text-teal-700">
             Pharmacopoeia Index
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-0.5 flex-wrap justify-end">
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -38,7 +41,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-lg px-3 py-1.5 text-sm transition ${
+                className={`rounded-lg px-2.5 py-1.5 text-sm transition ${
                   active
                     ? "bg-teal-50 text-teal-900 font-medium"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
