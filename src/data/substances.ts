@@ -1,7 +1,9 @@
 import type { Substance } from "@/lib/types";
 import { mkMonographs } from "./monographHelpers";
 
-/** 示例数据 — SAMPLE/DEMO only · 扩展示例库（约 30 条常见 API/辅料） */
+/** 示例数据 — SAMPLE/DEMO only · 扩展示例库（约 30 条常见 API/辅料）
+ *  部分条目含 epTextNumber / uspDoi 示例深链字段；编号为演示占位，可能 404，需核对官方。
+ */
 export const substances: Substance[] = [
   {
     id: "sub-aspirin",
@@ -10,6 +12,11 @@ export const substances: Substance[] = [
     inn: "Acetylsalicylic acid",
     cas: "50-78-2",
     unii: "R16CO5Y76E",
+    /** 真实 Ph. Eur. Acetylsalicylic acid text number（需订阅/登录） */
+    epTextNumber: "0309",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_aspirin_01_01",
+    phIntDocPath: "Jb.6.1.5", // 国际药典 acetylsalicylic acid 示例专论路径
     smiles: "CC(=O)OC1=CC=CC=C1C(=O)O",
     inchiKey: "BSYNRYMUTXBXSQ-UHFFFAOYSA-N",
     aliases: ["乙酰水杨酸", "ASA", "2-Acetoxybenzoic acid"],
@@ -34,6 +41,10 @@ export const substances: Substance[] = [
     inn: "Ibuprofen",
     cas: "15687-27-1",
     unii: "WK2XYI10QM",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/0721",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_ibuprofen_01_01",
     smiles: "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
     inchiKey: "HEFNNWSXXWATRW-UHFFFAOYSA-N",
     aliases: ["异丁苯丙酸", "(±)-2-(4-Isobutylphenyl)propionic acid"],
@@ -59,6 +70,10 @@ export const substances: Substance[] = [
     inn: "Paracetamol",
     cas: "103-90-2",
     unii: "362O9ITL9D",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/0049",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_paracetamol_01_01",
     smiles: "CC(=O)NC1=CC=C(O)C=C1",
     inchiKey: "RZVAJINKPMORJF-UHFFFAOYSA-N",
     aliases: ["扑热息痛", "Acetaminophen", "APAP", "对羟基乙酰苯胺"],
@@ -83,6 +98,10 @@ export const substances: Substance[] = [
     inn: "Omeprazole",
     cas: "73590-58-6",
     unii: "KG60484QX9",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2016/1031",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_omeprazole_01_01",
     smiles: "CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC",
     inchiKey: "SUBDBMMJDZJVOS-UHFFFAOYSA-N",
     aliases: ["洛赛克（商品名示例）", "Omeprazolum"],
@@ -108,6 +127,10 @@ export const substances: Substance[] = [
     inn: "Amoxicillin",
     cas: "26787-78-0",
     unii: "9EM05410Q9",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2008/0260",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_amoxicillin_01_01",
     smiles: "CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C",
     inchiKey: "LQSIAERXEHWSBT-UHFFFAOYSA-N",
     aliases: ["羟氨苄青霉素", "Amoxycillin"],
@@ -158,6 +181,10 @@ export const substances: Substance[] = [
     inn: "Metformin",
     cas: "657-24-9",
     unii: "9100L32L2N",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/0931",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_metformin_01_01",
     smiles: "CN(C)C(=N)N=C(N)N",
     inchiKey: "XZWYZXLIPXDOLR-UHFFFAOYSA-N",
     aliases: ["甲福明", "Metformin hydrochloride（盐型示例）"],
@@ -183,6 +210,8 @@ export const substances: Substance[] = [
     inn: "Atorvastatin",
     cas: "134523-00-5",
     unii: "A0JWA85V8F",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/04/2013/2191",
     smiles: "CC(C)C1=C(C(=C(N1CC[C@H](C[C@H](CC(=O)O)O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4",
     inchiKey: "XUKUURHRXDUEBC-UHFFFAOYSA-N",
     aliases: ["阿托伐他汀钙（盐型示例）", "Lipitor（商品名示例）"],
@@ -208,6 +237,10 @@ export const substances: Substance[] = [
     inn: "Amlodipine",
     cas: "88150-42-9",
     unii: "1J444QC288",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/1491",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_amlodipine_01_01",
     smiles: "CCOC(=O)C1=C(COCCN)NC(C)=C(C(=O)OC)C1C1=CC=CC=C1Cl",
     inchiKey: "HTIQEAQVCYTUBX-UHFFFAOYSA-N",
     aliases: ["络活喜（商品名示例）", "Amlodipine besilate（盐型示例）"],
@@ -233,6 +266,8 @@ export const substances: Substance[] = [
     inn: "Losartan",
     cas: "114798-26-4",
     unii: "JMS50MPO89",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_losartan_01_01",
     smiles: "CCCCC1=NC(Cl)=C(CO)N1CC1=CC=C(C=C1)C1=CC=CC=C1C1=NNN=N1",
     inchiKey: "PSIFNNKUMBGKDQ-UHFFFAOYSA-N",
     aliases: ["科素亚（商品名示例）", "Losartan potassium（盐型示例）"],
@@ -283,6 +318,10 @@ export const substances: Substance[] = [
     inn: "Carbamazepine",
     cas: "298-46-4",
     unii: "33CM23913M",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/0542",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_carbamazepine_01_01",
     smiles: "NC(=O)N1C2=CC=CC=C2C=CC2=CC=CC=C12",
     inchiKey: "FFGPTBGBLSHEPO-UHFFFAOYSA-N",
     aliases: ["酰胺咪嗪", "Tegretol（商品名示例）"],
@@ -408,6 +447,8 @@ export const substances: Substance[] = [
     inn: "Caffeine",
     cas: "58-08-2",
     unii: "3G6A5W338E",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/0267",
     smiles: "CN1C=NC2=C1C(=O)N(C)C(=O)N2C",
     inchiKey: "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
     aliases: ["咖啡碱", "1,3,7-Trimethylxanthine"],
@@ -533,6 +574,10 @@ export const substances: Substance[] = [
     inn: "Diclofenac",
     cas: "15307-86-5",
     unii: "144O8NH7AH",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2017/1002",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_diclofenac_01_01",
     smiles: "OC(=O)CC1=CC=CC=C1NC1=C(Cl)C=CC=C1Cl",
     inchiKey: "DCOPUUMXTXDBNB-UHFFFAOYSA-N",
     aliases: ["双氯灭痛", "Diclofenac sodium（盐型示例）"],
@@ -583,6 +628,10 @@ export const substances: Substance[] = [
     inn: "Ciprofloxacin",
     cas: "85721-33-1",
     unii: "5E8JL8G54B",
+    /** 示例编号需核对 — 可能 404，以官方为准 */
+    epTextNumber: "demo/01/2011/1081",
+    /** 示例 DOI，须核实；非真实 USP–NF 深链保证 */
+    uspDoi: "10.31003/USPNF_MDEMO_ciprofloxacin_01_01",
     smiles: "O=C(O)C1=CN(C2CC2)C2=CC(N3CCNCC3)=C(F)C=C2C1=O",
     inchiKey: "MYSWGUAQZAJSOK-UHFFFAOYSA-N",
     aliases: ["环丙氟哌酸", "Cipro（商品名示例）"],

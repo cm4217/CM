@@ -62,6 +62,9 @@ export default function SubstancePage({ params }: Props) {
             inn={s.inn}
             cas={s.cas}
             unii={s.unii}
+            epTextNumber={s.epTextNumber}
+            uspDoi={s.uspDoi}
+            phIntDocPath={s.phIntDocPath}
           />
         </div>
       </div>
@@ -73,9 +76,28 @@ export default function SubstancePage({ params }: Props) {
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <InfoCard label="INN" value={s.inn || "—"} />
         <InfoCard label="CAS" value={s.cas || "—"} latin />
-        <InfoCard label="UNII" value={s.unii || "—"} latin />
+        <InfoCard
+          label="UNII"
+          value={s.unii || "—"}
+          latin
+          href={
+            s.unii
+              ? `https://drugs.ncats.io/drug/${encodeURIComponent(s.unii)}`
+              : undefined
+          }
+        />
         <InfoCard label="别名" value={s.aliases.join(" · ")} />
       </section>
+      {(s.epTextNumber || s.uspDoi || s.phIntDocPath) && (
+        <p className="text-xs text-slate-500 font-latin">
+          {s.epTextNumber ? `Ph. Eur. text ${s.epTextNumber}` : ""}
+          {s.epTextNumber && s.uspDoi ? " · " : ""}
+          {s.uspDoi ? `USP DOI ${s.uspDoi}` : ""}
+          {(s.epTextNumber || s.uspDoi) && s.phIntDocPath ? " · " : ""}
+          {s.phIntDocPath ? `Ph.Int. ${s.phIntDocPath}` : ""}
+          <span className="ml-2 text-amber-700">示例编号需核对；可能 404</span>
+        </p>
+      )}
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold text-slate-900">
@@ -204,17 +226,30 @@ function InfoCard({
   label,
   value,
   latin,
+  href,
 }: {
   label: string;
   value: string;
   latin?: boolean;
+  href?: string;
 }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
       <p className="text-xs text-slate-500">{label}</p>
-      <p className={`mt-1 text-sm font-medium text-slate-900 ${latin ? "font-latin" : ""}`}>
-        {value}
-      </p>
+      {href && value !== "—" ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`mt-1 inline-block text-sm font-medium text-teal-800 hover:underline ${latin ? "font-latin" : ""}`}
+        >
+          {value} ↗
+        </a>
+      ) : (
+        <p className={`mt-1 text-sm font-medium text-slate-900 ${latin ? "font-latin" : ""}`}>
+          {value}
+        </p>
+      )}
     </div>
   );
 }

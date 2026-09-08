@@ -35,6 +35,12 @@ export interface MonographRef {
   officialUrl: string;
   copyrightStatus: CopyrightStatus;
   hasRS?: boolean;
+  /** Ph. Eur. text/monograph number for deep link (示例编号可能 404) */
+  epTextNumber?: string;
+  /** USP–NF DOI, e.g. 10.31003/USPNF_M… (示例需核对) */
+  uspDoi?: string;
+  /** Ph.Int. digicollections document path, e.g. Jb.6.1.5 */
+  phIntDocPath?: string;
   notes?: string;
 }
 
@@ -45,6 +51,12 @@ export interface Substance {
   inn?: string;
   cas?: string;
   unii?: string;
+  /** Ph. Eur. content id 示例 — 直达 pheur-online；需订阅，可能 404 */
+  epTextNumber?: string;
+  /** USP–NF DOI 示例 — 经 doi.org；需核对/订阅 */
+  uspDoi?: string;
+  /** Ph.Int. digicollections monograph path (e.g. Jb.6.1.5) */
+  phIntDocPath?: string;
   aliases: string[];
   type: SubstanceType;
   summaryZh: string;
@@ -130,6 +142,9 @@ export interface SearchHit {
   hasRS?: boolean;
   cas?: string;
   unii?: string;
+  epTextNumber?: string;
+  uspDoi?: string;
+  phIntDocPath?: string;
   /** 短摘要（物质/杂质） */
   summary?: string;
   /** 杂质类型 */

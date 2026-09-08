@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { PHARMACOPOEIA_FILTERS } from "@/lib/constants";
+import { SearchAutocomplete } from "./SearchAutocomplete";
 
 export function SearchFilters() {
   const router = useRouter();
@@ -12,14 +13,18 @@ export function SearchFilters() {
   const [type, setType] = useState(sp.get("type") || "");
   const [hasRS, setHasRS] = useState(sp.get("hasRS") || "");
 
-  function apply(e?: FormEvent) {
-    e?.preventDefault();
+  function pushParams(nextQ: string) {
     const params = new URLSearchParams();
-    if (q.trim()) params.set("q", q.trim());
+    if (nextQ.trim()) params.set("q", nextQ.trim());
     if (pharmacopoeia) params.set("pharmacopoeia", pharmacopoeia);
     if (type) params.set("type", type);
     if (hasRS) params.set("hasRS", hasRS);
     router.push(`/search?${params.toString()}`);
+  }
+
+  function apply(e?: FormEvent) {
+    e?.preventDefault();
+    pushParams(q);
   }
 
   function reset() {
@@ -31,20 +36,23 @@ export function SearchFilters() {
   }
 
   return (
-    <form
-      onSubmit={apply}
-      className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3"
-    >
+    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <label className="block text-sm">
+        <div className="block text-sm sm:col-span-2 lg:col-span-2">
           <span className="text-slate-600">关键词</span>
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="药名 / INN / CAS / 杂质名"
-            className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-          />
-        </label>
+          <div className="mt-1">
+            <SearchAutocomplete
+              inputId="search-q"
+              value={q}
+              onChange={setQ}
+              onSubmit={(query) => pushParams(query)}
+              onPickHref={(href) => router.push(href)}
+              placeholder="药名 / INN / CAS / 杂质名"
+              hideSubmit
+              inputClassName="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+            />
+          </div>
+        </div>
         <label className="block text-sm">
           <span className="text-slate-600">药典</span>
           <select
@@ -89,7 +97,8 @@ export function SearchFilters() {
       </div>
       <div className="flex gap-2">
         <button
-          type="submit"
+          type="button"
+          onClick={() => apply()}
           className="rounded-lg bg-teal-800 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
         >
           应用筛选
@@ -102,6 +111,6 @@ export function SearchFilters() {
           重置
         </button>
       </div>
-    </form>
+    </div>
   );
 }

@@ -62,3 +62,13 @@ Metadata only; no full text monographs
 - 检索结果卡片加厚：药典覆盖芯片、杂质数、hasRS、CAS/UNII、短摘要、官网查询。
 - 关注摘要：/watchlist 与 /alerts「生成关注摘要」→ 中文 Markdown 预览/复制/下载 .md|.txt。
 - /structure：Ketcher 按需加载（「打开结构画板」）；SMILES 检索无需打开画板；LiveEnrichment 加载/错误/重试与短缓存。
+
+## 检索增强（本轮）
+
+1. **文档直达**：物质可选 `epTextNumber` / `uspDoi` / `unii` / `phIntDocPath`。有值才显示「直达 Ph. Eur.」「直达 USP DOI」「直达 Inxight」等。阿司匹林使用真实 EP text **0309**；其余多为**示例**编号（可能 404，需订阅/登录，以官方为准）。
+2. **自动补全**：`GET /api/suggest?q=` 合并站内物质/杂质/同义词 + PubChem autocomplete（服务端代理）。首页与 `/search` 输入框支持下拉与键盘导航（防抖 ~250ms）。
+3. **RxNorm 提示**：`GET /api/resolve?q=` 调用 NLM approximateTerm / rxcui，映射站内种子；站内命中很少时展示「你是不是想找」。
+4. **站外可查**：本地 0/~很少结果时展示 PubChem/Inxight/GSRS/Ph.Int./site: 助手卡片（复用 `buildOfficialQueryLinks`），**不伪称药典全文**。
+5. **链接口径**：ChP 无关键词深链 → `#/database?bookId=2` + 复制中文名；Inxight 检索 `drugs.ncats.io/substances?q=`；Ph.Int. 优先 INN 的 Greenstone `fqv`；PubChem 另有 `/compound/{name}`。
+
+版权姿态不变：仅元数据与外链索引，不托管法定专论全文。

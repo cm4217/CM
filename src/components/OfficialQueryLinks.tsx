@@ -4,11 +4,13 @@ import { useCallback, useMemo, useState } from "react";
 import {
   buildOfficialQueryLinks,
   chinesePaste,
+  DOC_DEEP_LINK_DISCLAIMER,
   englishPaste,
   PORTAL_OPEN_URLS,
   type OfficialQueryInput,
   type OfficialQueryLink,
 } from "@/lib/officialQueryLinks";
+import { DocDeepLinks } from "./DocDeepLinks";
 
 type Props = OfficialQueryInput & {
   /** Section heading; default 「官网查询」 */
@@ -16,6 +18,8 @@ type Props = OfficialQueryInput & {
   /** Compact chip row for search cards */
   compact?: boolean;
   className?: string;
+  /** Hide DocDeepLinks block (when rendered separately) */
+  hideDeep?: boolean;
 };
 
 async function copyToClipboard(text: string): Promise<boolean> {
@@ -75,11 +79,15 @@ function Chip({
       title={link.note || link.labelZh}
       onClick={(e) => e.stopPropagation()}
       className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs no-underline transition ${
-        link.thirdParty
-          ? "border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-slate-100"
-          : link.carriesQuery
-            ? "border-teal-200 bg-teal-50 text-teal-900 hover:border-teal-400 hover:bg-teal-100"
-            : "border-amber-200 bg-amber-50 text-amber-950 hover:border-amber-400 hover:bg-amber-100"
+        link.group === "deep"
+          ? link.demoId
+            ? "border-amber-300 bg-amber-50 text-amber-950 hover:border-amber-400 hover:bg-amber-100"
+            : "border-indigo-200 bg-indigo-50 text-indigo-950 hover:border-indigo-400 hover:bg-indigo-100"
+          : link.thirdParty
+            ? "border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-slate-100"
+            : link.carriesQuery
+              ? "border-teal-200 bg-teal-50 text-teal-900 hover:border-teal-400 hover:bg-teal-100"
+              : "border-amber-200 bg-amber-50 text-amber-950 hover:border-amber-400 hover:bg-amber-100"
       }`}
     >
       <span className={link.thirdParty ? "" : "font-medium"}>{link.labelZh}</span>
@@ -92,7 +100,7 @@ function Chip({
 
 /**
  * Compact external chips linking to official pharmacopoeia / open DBs.
- * Primary: copy name / copy+open portals. Chips: with-query vs portal groups.
+ * Primary: copy name / copy+open portals. Chips: deep / with-query / portal groups.
  * Does not imply we host full text. stopPropagation so cards stay clickable.
  */
 export function OfficialQueryLinks({
@@ -101,13 +109,26 @@ export function OfficialQueryLinks({
   inn,
   cas,
   unii,
+  epTextNumber,
+  uspDoi,
+  phIntDocPath,
   title = "官网查询",
   compact = false,
   className = "",
+  hideDeep = false,
 }: Props) {
   const input = useMemo(
-    () => ({ nameZh, nameEn, inn, cas, unii }),
-    [nameZh, nameEn, inn, cas, unii]
+    () => ({
+      nameZh,
+      nameEn,
+      inn,
+      cas,
+      unii,
+      epTextNumber,
+      uspDoi,
+      phIntDocPath,
+    }),
+    [nameZh, nameEn, inn, cas, unii, epTextNumber, uspDoi, phIntDocPath]
   );
   const links = useMemo(() => buildOfficialQueryLinks(input), [input]);
   const [toast, setToast] = useState<string | null>(null);
@@ -162,6 +183,7 @@ export function OfficialQueryLinks({
 
   const withQuery = links.filter((l) => l.group === "withQuery");
   const portals = links.filter((l) => l.group === "portal");
+  const hasDeep = links.some((l) => l.group === "deep");
 
   const zh = chinesePaste(input);
   const en = englishPaste(input);
@@ -189,6 +211,10 @@ export function OfficialQueryLinks({
           </p>
         )}
       </div>
+
+      {!hideDeep && hasDeep ? (
+        <DocDeepLinks compact={compact} {...input} />
+      ) : null}
 
       {/* Primary copy / copy+open actions */}
       <div className="flex flex-wrap gap-1.5">
@@ -228,16 +254,28 @@ export function OfficialQueryLinks({
             复制 CAS
           </button>
         ) : null}
+        {unii?.trim() ? (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              void doCopy(unii.trim().toUpperCase());
+            }}
+            className="inline-flex items-center rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-700 hover:border-teal-300 hover:bg-teal-50 font-latin"
+          >
+            复制 UNII
+          </button>
+        ) : null}
         {zh ? (
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              void copyAndOpen(zh, PORTAL_OPEN_URLS.ChP, "中国药典");
+              void copyAndOpen(zh, PORTAL_OPEN_URLS.ChP, "中国药典二部");
             }}
             className="inline-flex items-center rounded-md border border-teal-300 bg-teal-600 px-2 py-0.5 text-xs font-medium text-white hover:bg-teal-700"
           >
-            复制并打开中国药典
+            复制并打开中国药典（二部）
           </button>
         ) : null}
         {en ? (
@@ -309,8 +347,8 @@ export function OfficialQueryLinks({
 
       {!compact && (
         <p className="text-[11px] leading-relaxed text-slate-400">
-          多数药典站点需订阅/登录后站内检索；「一键·」「Duck·」「Google·」为带关键词的站外检索助手（非官方）。官网入口点击会先复制药名再打开，便于 Ctrl+V
-          粘贴。
+          {DOC_DEEP_LINK_DISCLAIMER}{" "}
+          多数药典站点需订阅/登录后站内检索；「一键·」「Duck·」「Google·」为带关键词的站外检索助手（非官方）。中国药典无关键词深链，打开二部后粘贴中文名。
         </p>
       )}
     </div>

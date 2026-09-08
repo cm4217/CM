@@ -30,7 +30,7 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
   if (hits.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center text-slate-500">
-        未找到匹配结果。可尝试「对乙酰氨基酚」「二甲双胍」「NDMA」或 CAS 号。
+        未找到站内匹配结果。可尝试「对乙酰氨基酚」「二甲双胍」「NDMA」或 CAS 号；或查看下方「站外可查」。
       </div>
     );
   }
@@ -68,7 +68,6 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                 </span>
               </h3>
 
-              {/* Pharmacopoeia coverage chips (substance) */}
               {hit.kind === "substance" &&
                 hit.pharmacopoeias &&
                 hit.pharmacopoeias.length > 0 && (
@@ -93,10 +92,14 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                         有对照品
                       </span>
                     )}
+                    {(hit.epTextNumber || hit.uspDoi || hit.unii) && (
+                      <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-[11px] text-indigo-900">
+                        有文档直达
+                      </span>
+                    )}
                   </div>
                 )}
 
-              {/* Impurity: parents + ICH */}
               {hit.kind === "impurity" && (
                 <div
                   className="mt-2 flex flex-wrap gap-1.5"
@@ -124,7 +127,6 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                 </div>
               )}
 
-              {/* CAS / UNII */}
               {(hit.cas || hit.unii) && (
                 <p className="mt-1.5 text-xs text-slate-500 font-latin">
                   {hit.cas ? `CAS ${hit.cas}` : ""}
@@ -133,7 +135,6 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                 </p>
               )}
 
-              {/* Short summary */}
               {hit.summary && (
                 <p className="mt-1.5 text-sm text-slate-600 line-clamp-2">
                   {hit.summary}
@@ -159,6 +160,9 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
                   inn={hit.inn}
                   cas={hit.cas}
                   unii={hit.unii}
+                  epTextNumber={hit.epTextNumber}
+                  uspDoi={hit.uspDoi}
+                  phIntDocPath={hit.phIntDocPath}
                 />
               </div>
             )}

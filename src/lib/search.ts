@@ -60,6 +60,9 @@ type Doc = {
   impurityCount?: number;
   cas?: string;
   unii?: string;
+  epTextNumber?: string;
+  uspDoi?: string;
+  phIntDocPath?: string;
   summary?: string;
   impurityType?: ImpurityType;
   parentNames?: string[];
@@ -106,6 +109,9 @@ function buildDocs(): Doc[] {
       impurityCount: s.relatedImpurityIds.length,
       cas: s.cas,
       unii: s.unii,
+      epTextNumber: s.epTextNumber,
+      uspDoi: s.uspDoi,
+      phIntDocPath: s.phIntDocPath,
       summary: s.summaryZh,
       substanceType: s.type,
       inn: s.inn,
@@ -197,6 +203,9 @@ function toHit(d: Doc): SearchHit {
     hasRS: d.hasRS,
     cas: d.cas,
     unii: d.unii,
+    epTextNumber: d.epTextNumber,
+    uspDoi: d.uspDoi,
+    phIntDocPath: d.phIntDocPath,
     summary: d.summary,
     impurityType: d.impurityType,
     parentNames: d.parentNames,

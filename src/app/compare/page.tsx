@@ -83,6 +83,9 @@ function CompareColumn({ s }: { s: Substance }) {
         inn={s.inn}
         cas={s.cas}
         unii={s.unii}
+        epTextNumber={s.epTextNumber}
+        uspDoi={s.uspDoi}
+        phIntDocPath={s.phIntDocPath}
       />
       <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
         <table className="prose-table min-w-[520px] text-sm">
