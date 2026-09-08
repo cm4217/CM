@@ -33,6 +33,7 @@ import {
   type RankableDoc,
   type SearchFacets,
 } from "./search/rank";
+import { meiliSearchCandidates, meiliConfigured } from "./search/meili";
 
 function norm(s: string) {
   return s.trim().toLowerCase();
@@ -66,6 +67,13 @@ export interface SearchFilters {
   hasCAS?: "yes" | "no" | "";
   hasDeepLink?: "yes" | "no" | "";
   impurityType?: ImpurityType | "";
+  /** 杂质父品种 id */
+  parentId?: string;
+  /** 剂型分面（查询侧提示，可点击） */
+  dosageForm?: string;
+  molecularFormula?: string;
+  pharmaVersion?: string;
+  efficacy?: string;
   /** 放宽步骤：dosage | salt | fuzzy */
   relax?: string;
   /** 阻止自动放宽 */
@@ -159,6 +167,13 @@ function buildDocs(): Doc[] {
       inn: s.inn,
       impurityPreview: preview,
       description: s.summaryZh || "",
+      molecularFormula: s.molecularFormula,
+      pharmaVersions: Array.from(
+        new Set(s.monographRefs.map((m) => m.version).filter(Boolean))
+      ),
+      efficacyStatuses: Array.from(
+        new Set(s.monographRefs.map((m) => m.efficacy).filter(Boolean))
+      ),
     });
   }
   for (const i of impurities) {
@@ -202,9 +217,11 @@ function buildDocs(): Doc[] {
       unii: i.unii,
       summary: i.summaryZh,
       impurityType: i.type,
+      parentIds: i.parentSubstanceIds,
       parentNames,
       ichTags: i.ichTags,
       description: i.summaryZh || "",
+      molecularFormula: i.molecularFormula,
     });
   }
   for (const r of referenceMaterials) {
@@ -277,7 +294,11 @@ function toHit(
     phIntDocPath: d.phIntDocPath,
     summary: d.summary,
     impurityType: d.impurityType,
+    parentIds: d.parentIds,
     parentNames: d.parentNames,
+    molecularFormula: d.molecularFormula,
+    pharmaVersions: d.pharmaVersions,
+    efficacyStatuses: d.efficacyStatuses,
     ichTags: d.ichTags,
     substanceType: d.substanceType,
     inn: d.inn,
@@ -397,6 +418,29 @@ function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
     if (d.kind !== "impurity" || d.impurityType !== filters.impurityType) return false;
   }
 
+  if (filters.parentId) {
+    if (d.kind !== "impurity" || !(d.parentIds || []).includes(filters.parentId)) {
+      return false;
+    }
+  }
+
+  if (filters.molecularFormula) {
+    if (!d.molecularFormula || d.molecularFormula !== filters.molecularFormula) {
+      return false;
+    }
+  }
+
+  if (filters.pharmaVersion) {
+    if (!(d.pharmaVersions || []).includes(filters.pharmaVersion)) return false;
+  }
+
+  if (filters.efficacy) {
+    if (!(d.efficacyStatuses || []).includes(filters.efficacy)) return false;
+  }
+
+  // dosageForm：查询侧分面高亮；有剂型时不额外过滤文档（种子为原料索引）
+  // 保留 filters.dosageForm 供 UI / URL
+
   return true;
 }
 
@@ -415,6 +459,23 @@ export type SearchResponse = {
   /** 严格模式未放宽前的命中数 */
   strictHitCount: number;
 };
+
+
+/** 英文查询时用站内 EN/INN 扩展同义，配合 /api/resolve UI 面板 */
+function englishLocalExtras(q: string): string[] {
+  const raw = q.trim();
+  const latin = (raw.match(/[A-Za-z]/g) || []).length;
+  if (latin < Math.max(2, raw.length * 0.45)) return [];
+  const n = norm(raw);
+  const out: string[] = [];
+  for (const s of substances) {
+    const keys = [s.nameEn, s.inn, ...s.aliases].filter(Boolean) as string[];
+    if (keys.some((k) => norm(k) === n || norm(k).includes(n) || n.includes(norm(k)))) {
+      out.push(s.nameZh, s.nameEn, ...(s.inn ? [s.inn] : []));
+    }
+  }
+  return Array.from(new Set(out));
+}
 
 const FEW = 3;
 
@@ -530,7 +591,9 @@ function runOnce(
 export function searchWithMeta(filters: SearchFilters): SearchResponse {
   const qRaw = (filters.q || "").trim();
   const parsed = parseQuery(qRaw);
-  const synonymExtras = qRaw ? expandQueryWithSynonyms(qRaw) : [];
+  const synonymExtras = qRaw
+    ? Array.from(new Set([...expandQueryWithSynonyms(qRaw), ...englishLocalExtras(qRaw)]))
+    : [];
   const requested = parseRelaxParam(filters.relax);
   const strict = filters.strict === "1";
 
@@ -664,6 +727,121 @@ export function searchWithMeta(filters: SearchFilters): SearchResponse {
     facets,
     strictHitCount: strictHits.length,
   };
+}
+
+
+/**
+ * 异步检索：若配置 MEILI_HOST 则先取 Meili 候选再 rank；失败则与 searchWithMeta 相同（fuse）。
+ * 英文查询时可传入 rxnormExtras 作为额外同义扩展（由页面/resolve 注入）。
+ */
+export async function searchWithMetaAsync(
+  filters: SearchFilters,
+  opts?: { rxnormExtras?: string[] }
+): Promise<SearchResponse & { backend: "meili+rank" | "fuse+rank" }> {
+  const qRaw = (filters.q || "").trim();
+  let backend: "meili+rank" | "fuse+rank" = "fuse+rank";
+
+  if (qRaw && meiliConfigured()) {
+    const refs = await meiliSearchCandidates(qRaw, 50);
+    if (refs && refs.length) {
+      const byKey = new Map(ALL_DOCS.map((d) => [`${d.kind}:${d.id}`, d]));
+      // Meili docs use entityId in index but id field is kind:entityId — map both
+      const candDocs: Doc[] = [];
+      const seen = new Set<string>();
+      for (const r of refs) {
+        const k1 = `${r.kind}:${r.id}`;
+        // indexer stores id as "substance:sub-aspirin" and entityId separately;
+        // meili returns kind + id where id may be full key or entity id
+        let doc =
+          byKey.get(k1) ||
+          byKey.get(r.id) ||
+          ALL_DOCS.find((d) => d.kind === r.kind && d.id === r.id);
+        if (!doc && r.id.includes(":")) {
+          const [, eid] = r.id.split(":");
+          doc = byKey.get(`${r.kind}:${eid}`);
+        }
+        if (!doc) continue;
+        const k = `${doc.kind}:${doc.id}`;
+        if (seen.has(k)) continue;
+        seen.add(k);
+        if (applyTypeFilters(doc, filters)) candDocs.push(doc);
+      }
+      if (candDocs.length) {
+        const parsed = parseQuery(qRaw);
+        const synonymExtras = [
+          ...expandQueryWithSynonyms(qRaw),
+          ...(opts?.rxnormExtras || []),
+        ];
+        const synonymTerms = new Set(synonymExtras.map(norm));
+        const rankable: RankableDoc[] = candDocs.map((d) => ({ ...d }));
+        const ranked = rankDocs(rankable, {
+          parsed,
+          synonymTerms,
+          dosageMismatchPenalty: parsed.dosageForms.length > 0,
+          relaxed: false,
+        });
+        const hits = ranked.map((r) => {
+          const tier = classifyTier(r.doc, {
+            parsed,
+            synonymTerms,
+            dosageMismatchPenalty: parsed.dosageForms.length > 0,
+            relaxed: false,
+          });
+          return toHit(r.doc as Doc, {
+            matchTier: r.tier || tier,
+            matchReason: r.reason,
+          });
+        });
+        const outHits =
+          filters.titleOnly === "1"
+            ? hits.map((h) => ({ ...h, summary: undefined, subtitle: undefined }))
+            : hits;
+        const facets = buildFacets(outHits, parsed);
+        backend = "meili+rank";
+        return {
+          hits: outHits,
+          parsed,
+          appliedRelax: [],
+          availableRelax: [],
+          facets,
+          strictHitCount: outHits.length,
+          backend,
+        };
+      }
+    }
+  }
+
+  // fuse path — merge rxnorm extras into synonym expansion via filters.q augmentation
+  const base = searchWithMeta(
+    opts?.rxnormExtras?.length
+      ? {
+          ...filters,
+          // extras applied by re-running with expanded q terms inside runOnce via synonym
+        }
+      : filters
+  );
+  if (opts?.rxnormExtras?.length && qRaw) {
+    // Re-run with extras injected
+    const parsed = parseQuery(qRaw);
+    const synonymExtras = [
+      ...expandQueryWithSynonyms(qRaw),
+      ...opts.rxnormExtras,
+    ];
+    const hits = runOnce(
+      filters,
+      parsed,
+      { stripDosage: true, stripSalt: true, looseFuzzy: false },
+      synonymExtras
+    );
+    const facets = buildFacets(hits, parsed);
+    return {
+      ...base,
+      hits,
+      facets,
+      backend: "fuse+rank",
+    };
+  }
+  return { ...base, backend };
 }
 
 /** 兼容旧调用：仅返回 hits */

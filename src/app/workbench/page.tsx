@@ -12,6 +12,7 @@ import {
   loadCompareQueue,
 } from "@/lib/compareQueueStorage";
 import { showToast } from "@/lib/toastBus";
+import { SynonymGapExportButton } from "@/components/SynonymGapExportButton";
 
 export default function WorkbenchPage() {
   const [history, setHistory] = useState<string[]>([]);
@@ -64,6 +65,8 @@ export default function WorkbenchPage() {
           </Link>
         ))}
       </section>
+
+      <SynonymGapExportButton />
 
       <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-4 space-y-2">
         <h2 className="text-sm font-semibold text-teal-950">快捷键</h2>

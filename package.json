@@ -9,7 +9,9 @@
     "lint": "next lint",
     "sync:rs": "node scripts/sync-reference-standards.mjs",
     "fetch:alerts": "node scripts/fetch-alert-sources.mjs",
-    "test:search": "tsx --tsconfig tsconfig.json scripts/search-eval.ts"
+    "test:search": "tsx --tsconfig tsconfig.json scripts/search-eval.ts",
+    "synonym:gap": "node scripts/synonym-gap.mjs",
+    "meili:index": "node scripts/meili-index.mjs"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",

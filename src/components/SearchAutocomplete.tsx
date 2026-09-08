@@ -6,13 +6,14 @@ import {
   useCallback,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
 } from "react";
 
 export type SuggestItem = {
   source: "local" | "pubchem";
-  kind?: "substance" | "impurity" | "synonym";
+  kind?: "substance" | "impurity" | "synonym" | "cas";
   id?: string;
   label: string;
   labelZh?: string;
@@ -20,6 +21,11 @@ export type SuggestItem = {
   href?: string;
   cas?: string;
   unii?: string;
+};
+
+export type SuggestGroup = {
+  type: string;
+  items: SuggestItem[];
 };
 
 type Props = {
@@ -56,38 +62,45 @@ export function SearchAutocomplete({
   const wrapRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<SuggestItem[]>([]);
+  const [groups, setGroups] = useState<SuggestGroup[]>([]);
   const [active, setActive] = useState(-1);
   const abortRef = useRef<AbortController | null>(null);
 
-  const fetchSuggest = useCallback(
-    async (q: string) => {
-      abortRef.current?.abort();
-      const t = q.trim();
-      if (t.length < 1) {
-        setItems([]);
-        setLoading(false);
-        return;
-      }
-      const ac = new AbortController();
-      abortRef.current = ac;
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/suggest?q=${encodeURIComponent(t)}`, {
-          signal: ac.signal,
-        });
-        if (!res.ok) throw new Error("suggest failed");
-        const json = await res.json();
-        setItems((json.suggestions || []) as SuggestItem[]);
-        setActive(-1);
-      } catch (e) {
-        if ((e as Error).name !== "AbortError") setItems([]);
-      } finally {
-        if (!ac.signal.aborted) setLoading(false);
-      }
-    },
-    []
+  const flatItems = useMemo(
+    () => groups.flatMap((g) => g.items.map((item) => ({ group: g.type, item }))),
+    [groups]
   );
+
+  const fetchSuggest = useCallback(async (q: string) => {
+    abortRef.current?.abort();
+    const t = q.trim();
+    if (t.length < 1) {
+      setGroups([]);
+      setLoading(false);
+      return;
+    }
+    const ac = new AbortController();
+    abortRef.current = ac;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/suggest?q=${encodeURIComponent(t)}`, {
+        signal: ac.signal,
+      });
+      if (!res.ok) throw new Error("suggest failed");
+      const json = await res.json();
+      if (Array.isArray(json.groups) && json.groups.length) {
+        setGroups(json.groups as SuggestGroup[]);
+      } else {
+        const suggestions = (json.suggestions || []) as SuggestItem[];
+        setGroups(suggestions.length ? [{ type: "建议", items: suggestions }] : []);
+      }
+      setActive(-1);
+    } catch (e) {
+      if ((e as Error).name !== "AbortError") setGroups([]);
+    } finally {
+      if (!ac.signal.aborted) setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const t = window.setTimeout(() => fetchSuggest(value), debounceMs);
@@ -122,20 +135,20 @@ export function SearchAutocomplete({
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp") && items.length) {
+    if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp") && flatItems.length) {
       setOpen(true);
       return;
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActive((i) => Math.min(i + 1, items.length - 1));
+      setActive((i) => Math.min(i + 1, flatItems.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setActive((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
-      if (open && active >= 0 && items[active]) {
+      if (open && active >= 0 && flatItems[active]) {
         e.preventDefault();
-        pick(items[active]);
+        pick(flatItems[active].item);
       }
     } else if (e.key === "Escape") {
       setOpen(false);
@@ -148,7 +161,9 @@ export function SearchAutocomplete({
     onSubmit(value);
   }
 
-  const show = open && (items.length > 0 || loading);
+  const show = open && (flatItems.length > 0 || loading);
+
+  let flatIdx = -1;
 
   return (
     <div ref={wrapRef} className={`relative ${className}`}>
@@ -197,57 +212,66 @@ export function SearchAutocomplete({
       </form>
 
       {show ? (
-        <ul
+        <div
           id={listId}
           role="listbox"
-          className={`absolute z-30 mt-1 max-h-72 w-full overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg ${
+          className={`absolute z-30 mt-1 max-h-80 w-full overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg ${
             variant === "hero" ? "sm:max-w-xl" : ""
           }`}
         >
-          {loading && items.length === 0 ? (
-            <li className="px-3 py-2 text-xs text-slate-400">加载建议…</li>
+          {loading && flatItems.length === 0 ? (
+            <div className="px-3 py-2 text-xs text-slate-400">加载建议…</div>
           ) : null}
-          {items.map((item, idx) => (
-            <li
-              key={`${item.source}-${item.id || item.label}-${idx}`}
-              id={`${listId}-opt-${idx}`}
-              role="option"
-              aria-selected={idx === active}
-              className={`cursor-pointer px-3 py-2 text-sm ${
-                idx === active ? "bg-teal-50 text-teal-950" : "text-slate-800"
-              }`}
-              onMouseEnter={() => setActive(idx)}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                pick(item);
-              }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span>
-                  {item.labelZh && item.labelEn ? (
-                    <>
-                      {item.labelZh}{" "}
-                      <span className="text-slate-500 font-latin text-xs">
-                        {item.labelEn}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="font-latin">{item.label}</span>
-                  )}
-                </span>
-                <span className="shrink-0 text-[10px] uppercase tracking-wide text-slate-400">
-                  {item.source === "local"
-                    ? item.kind === "impurity"
-                      ? "杂质"
-                      : item.kind === "synonym"
-                        ? "同义"
-                        : "站内"
-                    : "PubChem"}
-                </span>
+          {groups.map((g) => (
+            <div key={g.type} className="border-b border-slate-100 last:border-0">
+              <div className="sticky top-0 bg-slate-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+                {g.type}
               </div>
-            </li>
+              <ul>
+                {g.items.map((item) => {
+                  flatIdx += 1;
+                  const idx = flatIdx;
+                  return (
+                    <li
+                      key={`${g.type}-${item.source}-${item.id || item.label}-${idx}`}
+                      id={`${listId}-opt-${idx}`}
+                      role="option"
+                      aria-selected={idx === active}
+                      className={`cursor-pointer px-3 py-2 text-sm ${
+                        idx === active ? "bg-teal-50 text-teal-950" : "text-slate-800"
+                      }`}
+                      onMouseEnter={() => setActive(idx)}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        pick(item);
+                      }}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span>
+                          {item.labelZh && item.labelEn ? (
+                            <>
+                              {item.labelZh}{" "}
+                              <span className="text-slate-500 font-latin text-xs">
+                                {item.labelEn}
+                              </span>
+                            </>
+                          ) : (
+                            <span className="font-latin">{item.label}</span>
+                          )}
+                          {item.cas ? (
+                            <span className="ml-2 font-latin text-[10px] text-slate-400">
+                              CAS {item.cas}
+                            </span>
+                          ) : null}
+                        </span>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : null}
     </div>
   );

@@ -8,3 +8,4 @@ export const LS_WEBHOOK_URL = "pharm_mvp_webhook_url_v1";
 export const LS_WEBHOOK_TYPE = "pharm_mvp_webhook_type_v1"; // generic | dingtalk
 export const LS_WEBHOOK_SECRET = "pharm_mvp_webhook_secret_v1"; // optional DingTalk sign secret
 export const LS_COMPARE_QUEUE = "pharm_mvp_compare_queue_v1";
+export const LS_QUERY_LOG_QUEUE = "pharm_mvp_query_log_queue_v1";

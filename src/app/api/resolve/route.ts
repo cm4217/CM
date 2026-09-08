@@ -4,14 +4,20 @@ import { cachedFetch, ONE_HOUR } from "@/lib/cache";
 
 export const revalidate = 3600;
 
+/** RxNorm approximateTerm score is 0–100 style; keep modest threshold */
+const MIN_APPROX_SCORE = 40;
+
 export type ResolveSuggestion = {
   name: string;
   rxcui?: string;
   score?: number;
+  /** 0–1 confidence for UI */
+  confidence?: number;
   localSubstanceId?: string;
   localNameZh?: string;
   localNameEn?: string;
   href?: string;
+  source?: "rxcui" | "approximate" | "local";
 };
 
 function norm(s: string) {
@@ -34,6 +40,14 @@ function mapToLocal(name: string): Omit<ResolveSuggestion, "name"> | null {
   return null;
 }
 
+function scoreToConfidence(score?: number, exactRxcui = false): number {
+  if (exactRxcui) return 0.95;
+  if (score == null || Number.isNaN(score)) return 0.5;
+  // approximateTerm scores often 0–100
+  const c = Math.min(1, Math.max(0, score / 100));
+  return Math.round(c * 100) / 100;
+}
+
 type RxApprox = {
   approximateGroup?: {
     candidate?: Array<{
@@ -44,7 +58,7 @@ type RxApprox = {
   };
 };
 
-async function rxnormApproximate(term: string, maxEntries = 5): Promise<ResolveSuggestion[]> {
+async function rxnormApproximate(term: string, maxEntries = 8): Promise<ResolveSuggestion[]> {
   const url = `https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${encodeURIComponent(term)}&maxEntries=${maxEntries}`;
   try {
     const data = await cachedFetch(
@@ -62,6 +76,8 @@ async function rxnormApproximate(term: string, maxEntries = 5): Promise<ResolveS
     for (const c of cands) {
       const name = (c.name || "").trim();
       if (!name) continue;
+      const score = c.score != null ? Number(c.score) : undefined;
+      if (typeof score === "number" && score < MIN_APPROX_SCORE) continue;
       const key = norm(name);
       if (seen.has(key)) continue;
       seen.add(key);
@@ -69,7 +85,9 @@ async function rxnormApproximate(term: string, maxEntries = 5): Promise<ResolveS
       out.push({
         name,
         rxcui: c.rxcui != null ? String(c.rxcui) : undefined,
-        score: c.score != null ? Number(c.score) : undefined,
+        score,
+        confidence: scoreToConfidence(score),
+        source: "approximate",
         ...(local || {}),
       });
     }
@@ -80,9 +98,10 @@ async function rxnormApproximate(term: string, maxEntries = 5): Promise<ResolveS
 }
 
 async function findRxcuiByString(term: string): Promise<ResolveSuggestion[]> {
+  // search=1 enables approximate matching on findRxcuiByString
   const url = `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${encodeURIComponent(term)}&search=1`;
   try {
-    const data = await cachedFetch(`rxnorm:rxcui:${term.toLowerCase()}`, ONE_HOUR, async () => {
+    const data = await cachedFetch(`rxnorm:rxcui:s1:${term.toLowerCase()}`, ONE_HOUR, async () => {
       const res = await fetch(url, { next: { revalidate: 3600 } });
       if (!res.ok) throw new Error(`RxNorm rxcui HTTP ${res.status}`);
       return res.json() as Promise<{
@@ -96,6 +115,8 @@ async function findRxcuiByString(term: string): Promise<ResolveSuggestion[]> {
       {
         name: term,
         rxcui: ids[0],
+        confidence: scoreToConfidence(undefined, true),
+        source: "rxcui",
         ...(local || {}),
       },
     ];
@@ -106,6 +127,7 @@ async function findRxcuiByString(term: string): Promise<ResolveSuggestion[]> {
 
 export async function GET(req: NextRequest) {
   const q = (req.nextUrl.searchParams.get("q") || "").trim();
+  const minScore = Number(req.nextUrl.searchParams.get("minScore") || MIN_APPROX_SCORE);
   if (!q) {
     return NextResponse.json({ q, suggestions: [] as ResolveSuggestion[] });
   }
@@ -113,10 +135,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "q too long" }, { status: 400 });
   }
 
-  const [approx, byString] = await Promise.all([
-    rxnormApproximate(q, 5),
+  const [approxRaw, byString] = await Promise.all([
+    rxnormApproximate(q, 8),
     findRxcuiByString(q),
   ]);
+  const approx = approxRaw.filter(
+    (s) => s.score == null || s.score >= (Number.isFinite(minScore) ? minScore : MIN_APPROX_SCORE)
+  );
 
   const merged: ResolveSuggestion[] = [];
   const seen = new Set<string>();
@@ -139,6 +164,8 @@ export async function GET(req: NextRequest) {
       localNameZh: s.nameZh,
       localNameEn: s.nameEn,
       href: `/substances/${s.id}`,
+      confidence: 0.9,
+      source: "local" as const,
     }));
 
   for (const s of localDirect) {
@@ -148,10 +175,13 @@ export async function GET(req: NextRequest) {
     merged.unshift(s);
   }
 
+  merged.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+
   return NextResponse.json({
     q,
     suggestions: merged.slice(0, 8),
-    source: "RxNorm approximateTerm + findRxcuiByString (NLM) · local map",
-    note: "英文名 / RxCUI 提示；映射到站内种子时提供链接。非药典全文。",
+    minScore: Number.isFinite(minScore) ? minScore : MIN_APPROX_SCORE,
+    source: "RxNorm search=1 + approximateTerm (NLM) · local map",
+    note: "英文名 / RxCUI 名称归一；映射到站内种子时提供链接。非药典全文。",
   });
 }

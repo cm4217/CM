@@ -5,3 +5,6 @@ out
 .env*.local
 .DS_Store
 *.tsbuildinfo
+data/query-log.jsonl
+data/synonym-gap-report.md
+scripts/_meili-dump.tmp.ts

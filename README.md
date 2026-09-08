@@ -100,3 +100,8 @@ See docs/excel-integration.md and /tools pages.
 6. **溯源徽章**：CAS/UNII 来源；EP/USP 文档编号 `verified|demo|unverified`（阿司匹林 EP **0309** = 已核验；示例 DOI = 示例）；LiveEnrichment 标注 PubChem/GSRS。
 
 版权姿态不变：仅元数据与外链索引。
+
+
+## Search backlog (this round)
+
+See package scripts test:search, synonym:gap, meili:index. Autocomplete groups, parent/dosage/advanced facets, NDCG metrics, RxNorm panel, optional Meilisearch via MEILI_HOST + docker-compose.meili.yml.

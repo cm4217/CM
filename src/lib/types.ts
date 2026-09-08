@@ -74,6 +74,8 @@ export interface Substance {
   /** Optional SMILES for local structure search (demo) */
   smiles?: string;
   inchiKey?: string;
+  /** Optional molecular formula (demo) */
+  molecularFormula?: string;
   /** Optional per-field provenance (CAS/UNII/EP/USP ids …) */
   fieldProvenance?: Partial<
     Record<
@@ -110,6 +112,8 @@ export interface ImpurityNode {
   summaryEn: string;
   smiles?: string;
   inchiKey?: string;
+  /** Optional molecular formula (demo) */
+  molecularFormula?: string;
   demoLabel: true;
 }
 
@@ -167,8 +171,16 @@ export interface SearchHit {
   summary?: string;
   /** 杂质类型 */
   impurityType?: ImpurityType;
+  /** 杂质父物质 id */
+  parentIds?: string[];
   /** 杂质父物质中文名 */
   parentNames?: string[];
+  /** 分子式 */
+  molecularFormula?: string;
+  /** 药典版本串（物质专论） */
+  pharmaVersions?: string[];
+  /** 效力/官方状态（物质专论） */
+  efficacyStatuses?: string[];
   /** ICH 标签 */
   ichTags?: string[];
   /** 物质类型 API/excipient… */

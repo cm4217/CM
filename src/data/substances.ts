@@ -19,6 +19,7 @@ export const substances: Substance[] = [
     phIntDocPath: "Jb.6.1.5", // 国际药典 acetylsalicylic acid 示例专论路径
     smiles: "CC(=O)OC1=CC=CC=C1C(=O)O",
     inchiKey: "BSYNRYMUTXBXSQ-UHFFFAOYSA-N",
+    molecularFormula: "C9H8O4",
     aliases: ["乙酰水杨酸", "ASA", "2-Acetoxybenzoic acid"],
     type: "API",
     summaryZh:
@@ -65,6 +66,7 @@ export const substances: Substance[] = [
     uspDoi: "10.31003/USPNF_MDEMO_ibuprofen_01_01",
     smiles: "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
     inchiKey: "HEFNNWSXXWATRW-UHFFFAOYSA-N",
+    molecularFormula: "C13H18O2",
     aliases: ["异丁苯丙酸", "(±)-2-(4-Isobutylphenyl)propionic acid"],
     type: "API",
     summaryZh:
@@ -94,6 +96,7 @@ export const substances: Substance[] = [
     uspDoi: "10.31003/USPNF_MDEMO_paracetamol_01_01",
     smiles: "CC(=O)NC1=CC=C(O)C=C1",
     inchiKey: "RZVAJINKPMORJF-UHFFFAOYSA-N",
+    molecularFormula: "C8H9NO2",
     aliases: ["扑热息痛", "Acetaminophen", "APAP", "对羟基乙酰苯胺"],
     type: "API",
     summaryZh:
@@ -205,6 +208,7 @@ export const substances: Substance[] = [
     uspDoi: "10.31003/USPNF_MDEMO_metformin_01_01",
     smiles: "CN(C)C(=N)N=C(N)N",
     inchiKey: "XZWYZXLIPXDOLR-UHFFFAOYSA-N",
+    molecularFormula: "C4H11N5",
     aliases: ["甲福明", "Metformin hydrochloride（盐型示例）"],
     type: "API",
     summaryZh:

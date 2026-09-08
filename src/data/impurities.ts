@@ -11,6 +11,7 @@ export const impurities: ImpurityNode[] = [
     unii: "O414PZ4LPZ",
     smiles: "OC(=O)C1=CC=CC=C1O",
     inchiKey: "YGSDEFSMJLZEOE-UHFFFAOYSA-N",
+    molecularFormula: "C7H6O3",
     type: "degradation",
     parentSubstanceIds: ["sub-aspirin"],
     namingCrosswalk: [
@@ -56,6 +57,7 @@ export const impurities: ImpurityNode[] = [
     cas: "62-75-9",
     smiles: "CN(C)N=O",
     inchiKey: "UYVYSYJQQZJNKJ-UHFFFAOYSA-N",
+    molecularFormula: "C2H6N2O",
     type: "nitrosamine",
     parentSubstanceIds: ["sub-aspirin"],
     namingCrosswalk: [
@@ -162,6 +164,7 @@ export const impurities: ImpurityNode[] = [
     cas: "123-30-8",
     smiles: "NC1=CC=C(O)C=C1",
     inchiKey: "PLIKAWJENQZMHA-UHFFFAOYSA-N",
+    molecularFormula: "C6H7NO",
     type: "degradation",
     parentSubstanceIds: ["sub-paracetamol"],
     namingCrosswalk: [

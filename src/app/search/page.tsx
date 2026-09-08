@@ -7,7 +7,9 @@ import { DidYouMean } from "@/components/DidYouMean";
 import { ExternalSearchCards } from "@/components/ExternalSearchCards";
 import { SearchRelaxChips } from "@/components/SearchRelaxChips";
 import { SearchFacetBar } from "@/components/SearchFacetBar";
-import { searchWithMeta } from "@/lib/search";
+import { NameNormalizePanel } from "@/components/NameNormalizePanel";
+import { SearchLogBeacon } from "@/components/SearchLogBeacon";
+import { searchWithMetaAsync } from "@/lib/search";
 import type { ImpurityType, PharmacopoeiaCode } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -24,6 +26,11 @@ type Props = {
     hasCAS?: string;
     hasDeepLink?: string;
     impurityType?: string;
+    parentId?: string;
+    dosageForm?: string;
+    molecularFormula?: string;
+    pharmaVersion?: string;
+    efficacy?: string;
     relax?: string;
     strict?: string;
     titleOnly?: string;
@@ -33,8 +40,9 @@ type Props = {
 
 const FEW_HITS = 3;
 
-export default function SearchPage({ searchParams }: Props) {
-  const result = searchWithMeta({
+export default async function SearchPage({ searchParams }: Props) {
+  const rxnormExtras: string[] = [];
+  const result = await searchWithMetaAsync({
     q: searchParams.q,
     pharmacopoeia: (searchParams.pharmacopoeia || "") as PharmacopoeiaCode | "",
     type: searchParams.type || "",
@@ -42,10 +50,15 @@ export default function SearchPage({ searchParams }: Props) {
     hasCAS: (searchParams.hasCAS || "") as "yes" | "no" | "",
     hasDeepLink: (searchParams.hasDeepLink || "") as "yes" | "no" | "",
     impurityType: (searchParams.impurityType || "") as ImpurityType | "",
+    parentId: searchParams.parentId || "",
+    dosageForm: searchParams.dosageForm || "",
+    molecularFormula: searchParams.molecularFormula || "",
+    pharmaVersion: searchParams.pharmaVersion || "",
+    efficacy: searchParams.efficacy || "",
     relax: searchParams.relax,
     strict: (searchParams.strict || "") as "1" | "",
     titleOnly: (searchParams.titleOnly || "") as "1" | "",
-  });
+  }, { rxnormExtras });
 
   const hits = result.hits;
   const q = (searchParams.q || "").trim();
@@ -58,7 +71,7 @@ export default function SearchPage({ searchParams }: Props) {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">检索结果</h1>
         <p className="mt-1 text-sm text-slate-500 font-latin">
-          Search · parse · rank · facets · external helpers
+          Search · parse · rank · facets · RxNorm · external helpers
         </p>
       </div>
 
@@ -95,13 +108,23 @@ export default function SearchPage({ searchParams }: Props) {
         ) : null}
       </p>
 
+      {q ? <SearchLogBeacon q={q} hitCount={hits.length} /> : null}
+
+      {q ? (
+        <Suspense fallback={null}>
+          <NameNormalizePanel q={q} force={fewLocal} />
+        </Suspense>
+      ) : null}
+
       {result.appliedRelax.length > 0 ? (
         <Suspense fallback={null}>
           <SearchRelaxChips applied={result.appliedRelax} />
         </Suspense>
       ) : null}
 
-      {hits.length > 0 || result.facets.dosageForm.length > 0 ? (
+      {hits.length > 0 ||
+      result.facets.dosageForm.length > 0 ||
+      result.facets.parentDrug.length > 0 ? (
         <Suspense fallback={null}>
           <SearchFacetBar facets={result.facets} />
         </Suspense>

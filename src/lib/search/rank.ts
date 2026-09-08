@@ -33,6 +33,11 @@ export type RankableDoc = {
   impurityType?: ImpurityType;
   fuseScore?: number; // lower better (fuse)
   matchedVia?: MatchTier;
+  parentIds?: string[];
+  parentNames?: string[];
+  molecularFormula?: string;
+  pharmaVersions?: string[];
+  efficacyStatuses?: string[];
 };
 
 export type RankContext = {
@@ -195,6 +200,11 @@ export type SearchFacets = {
   hasCAS: FacetBucket[];
   hasDeepLink: FacetBucket[];
   impurityType: FacetBucket[];
+  /** 杂质结果：父品种 */
+  parentDrug: FacetBucket[];
+  molecularFormula: FacetBucket[];
+  pharmaVersion: FacetBucket[];
+  efficacy: FacetBucket[];
 };
 
 const IMPURITY_TYPE_LABEL: Record<string, string> = {
@@ -205,6 +215,16 @@ const IMPURITY_TYPE_LABEL: Record<string, string> = {
   elemental: "元素杂质",
   other: "其他",
 };
+
+function countMapToBuckets(
+  map: Map<string, { label: string; count: number }>,
+  limit = 12
+): FacetBucket[] {
+  return Array.from(map.entries())
+    .map(([value, v]) => ({ value, label: v.label, count: v.count }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "zh"))
+    .slice(0, limit);
+}
 
 export function buildFacets(
   hits: SearchHit[],
@@ -221,11 +241,15 @@ export function buildFacets(
   let withDeep = 0;
   let withoutDeep = 0;
   const impTypeCounts = new Map<string, number>();
+  const parentMap = new Map<string, { label: string; count: number }>();
+  const formulaMap = new Map<string, { label: string; count: number }>();
+  const versionMap = new Map<string, { label: string; count: number }>();
+  const efficacyMap = new Map<string, { label: string; count: number }>();
 
   for (const h of hits) {
     if (h.cas) withCas++;
     else withoutCas++;
-    const deep = !!(h.epTextNumber || h.uspDoi || h.phIntDocPath || h.unii);
+    const deep = !!(h.epTextNumber || h.uspDoi || h.phIntDocPath || h.unii || h.hasDeepLink);
     if (deep) withDeep++;
     else withoutDeep++;
     if (h.kind === "impurity" && h.impurityType) {
@@ -233,6 +257,34 @@ export function buildFacets(
         h.impurityType,
         (impTypeCounts.get(h.impurityType) || 0) + 1
       );
+    }
+    if (h.kind === "impurity") {
+      const ids = h.parentIds || [];
+      const names = h.parentNames || [];
+      for (let i = 0; i < Math.max(ids.length, names.length); i++) {
+        const id = ids[i] || names[i];
+        const label = names[i] || ids[i] || id;
+        if (!id) continue;
+        const prev = parentMap.get(id);
+        if (prev) prev.count++;
+        else parentMap.set(id, { label: `父品种：${label}`, count: 1 });
+      }
+    }
+    if (h.molecularFormula) {
+      const f = h.molecularFormula;
+      const prev = formulaMap.get(f);
+      if (prev) prev.count++;
+      else formulaMap.set(f, { label: f, count: 1 });
+    }
+    for (const v of h.pharmaVersions || []) {
+      const prev = versionMap.get(v);
+      if (prev) prev.count++;
+      else versionMap.set(v, { label: v, count: 1 });
+    }
+    for (const e of h.efficacyStatuses || []) {
+      const prev = efficacyMap.get(e);
+      if (prev) prev.count++;
+      else efficacyMap.set(e, { label: e, count: 1 });
     }
   }
 
@@ -251,6 +303,10 @@ export function buildFacets(
       label: IMPURITY_TYPE_LABEL[value] || value,
       count,
     })),
+    parentDrug: countMapToBuckets(parentMap),
+    molecularFormula: countMapToBuckets(formulaMap),
+    pharmaVersion: countMapToBuckets(versionMap),
+    efficacy: countMapToBuckets(efficacyMap),
   };
 }
 
