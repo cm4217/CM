@@ -320,19 +320,31 @@ export default function WatchlistPage() {
                   <td className="font-latin text-xs">{it.query}</td>
                   <td>
                     {r.status === "matched" ? (
-                      <Link
-                        href={
-                          r.kind === "substance"
-                            ? `/substances/${r.id}`
-                            : `/impurities/${r.id}`
-                        }
-                        className="text-teal-800 hover:underline font-medium"
-                      >
-                        {r.nameZh}{" "}
-                        <span className="text-slate-500 font-normal font-latin text-xs">
-                          {r.nameEn}
-                        </span>
-                      </Link>
+                      <div className="space-y-1">
+                        <Link
+                          href={
+                            r.kind === "substance"
+                              ? `/substances/${r.id}`
+                              : `/impurities/${r.id}`
+                          }
+                          className="text-teal-800 hover:underline font-medium"
+                        >
+                          {r.nameZh}{" "}
+                          <span className="text-slate-500 font-normal font-latin text-xs">
+                            {r.nameEn}
+                          </span>
+                        </Link>
+                        {r.kind === "substance" ? (
+                          <div>
+                            <Link
+                              href={`/checklist?substance=${encodeURIComponent(r.id)}`}
+                              className="text-[11px] text-indigo-700 hover:underline"
+                            >
+                              核查清单
+                            </Link>
+                          </div>
+                        ) : null}
+                      </div>
                     ) : r.status === "external" ? (
                       <span>
                         {r.nameHint}{" "}

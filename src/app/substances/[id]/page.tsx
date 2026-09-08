@@ -14,7 +14,16 @@ import { LiveEnrichment } from "@/components/LiveEnrichment";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { SubstanceExtras } from "@/components/SubstanceExtras";
 import { ImpurityExportPanel } from "@/components/ImpurityExportPanel";
+import { IdStatusBadge, ProvenanceBadge } from "@/components/ProvenanceBadge";
+import { SubstanceQuickActions } from "@/components/SubstanceQuickActions";
+import {
+  fieldProvenanceOf,
+  resolveEpIdStatus,
+  resolvePhIntIdStatus,
+  resolveUspDoiStatus,
+} from "@/lib/provenance";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 type Props = { params: { id: string } };
 
@@ -48,12 +57,16 @@ export default function SubstancePage({ params }: Props) {
             {s.type}
           </span>
         </div>
-        <h1 className="text-3xl font-bold text-slate-900">
+        <h1
+          className="text-3xl font-bold text-slate-900"
+          data-pharm-primary-name={s.nameZh}
+        >
           {s.nameZh}{" "}
           <span className="text-xl font-normal text-slate-500 font-latin">
             {s.nameEn}
           </span>
         </h1>
+        <SubstanceQuickActions substanceId={s.id} nameZh={s.nameZh} />
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">{s.summaryZh}</p>
         <p className="text-xs text-slate-400 font-latin max-w-3xl">{s.summaryEn}</p>
         <div className="pt-2 max-w-4xl">
@@ -76,7 +89,16 @@ export default function SubstancePage({ params }: Props) {
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <InfoCard label="INN" value={s.inn || "—"} />
-        <InfoCard label="CAS" value={s.cas || "—"} latin />
+        <InfoCard
+          label="CAS"
+          value={s.cas || "—"}
+          latin
+          badges={
+            s.cas ? (
+              <ProvenanceBadge source={fieldProvenanceOf(s, "cas")} />
+            ) : null
+          }
+        />
         <InfoCard
           label="UNII"
           value={s.unii || "—"}
@@ -86,18 +108,35 @@ export default function SubstancePage({ params }: Props) {
               ? `https://drugs.ncats.io/drug/${encodeURIComponent(s.unii)}`
               : undefined
           }
+          badges={
+            s.unii ? (
+              <ProvenanceBadge source={fieldProvenanceOf(s, "unii")} />
+            ) : null
+          }
         />
         <InfoCard label="别名" value={s.aliases.join(" · ")} />
       </section>
       {(s.epTextNumber || s.uspDoi || s.phIntDocPath) && (
-        <p className="text-xs text-slate-500 font-latin">
-          {s.epTextNumber ? `Ph. Eur. text ${s.epTextNumber}` : ""}
-          {s.epTextNumber && s.uspDoi ? " · " : ""}
-          {s.uspDoi ? `USP DOI ${s.uspDoi}` : ""}
-          {(s.epTextNumber || s.uspDoi) && s.phIntDocPath ? " · " : ""}
-          {s.phIntDocPath ? `Ph.Int. ${s.phIntDocPath}` : ""}
-          <span className="ml-2 text-amber-700">示例编号需核对；可能 404</span>
-        </p>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 font-latin">
+          {s.epTextNumber ? (
+            <span className="inline-flex items-center gap-1.5">
+              Ph. Eur. text {s.epTextNumber}
+              <IdStatusBadge status={resolveEpIdStatus(s)} />
+            </span>
+          ) : null}
+          {s.uspDoi ? (
+            <span className="inline-flex items-center gap-1.5">
+              USP DOI {s.uspDoi}
+              <IdStatusBadge status={resolveUspDoiStatus(s)} />
+            </span>
+          ) : null}
+          {s.phIntDocPath ? (
+            <span className="inline-flex items-center gap-1.5">
+              Ph.Int. {s.phIntDocPath}
+              <IdStatusBadge status={resolvePhIntIdStatus(s)} />
+            </span>
+          ) : null}
+        </div>
       )}
 
       <section className="space-y-3">
@@ -114,6 +153,7 @@ export default function SubstancePage({ params }: Props) {
                 <th>效力</th>
                 <th>RS</th>
                 <th>版权</th>
+                <th>编号状态</th>
                 <th>官方</th>
               </tr>
             </thead>
@@ -126,12 +166,20 @@ export default function SubstancePage({ params }: Props) {
                     <div className="text-xs text-slate-400 font-latin">
                       {m.monographTitle}
                     </div>
+                    {m.epTextNumber || m.uspDoi || m.phIntDocPath ? (
+                      <div className="text-[11px] text-slate-400 font-latin mt-0.5">
+                        {m.epTextNumber || m.uspDoi || m.phIntDocPath}
+                      </div>
+                    ) : null}
                   </td>
                   <td className="font-latin text-xs">{m.version}</td>
                   <td className="text-xs">{m.efficacy}</td>
                   <td>{m.hasRS ? "有" : "—"}</td>
                   <td>
                     <CopyrightBadge status={m.copyrightStatus} />
+                  </td>
+                  <td>
+                    <IdStatusBadge status={m.idStatus} />
                   </td>
                   <td>
                     <a
@@ -230,15 +278,20 @@ function InfoCard({
   value,
   latin,
   href,
+  badges,
 }: {
   label: string;
   value: string;
   latin?: boolean;
   href?: string;
+  badges?: ReactNode;
 }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-      <p className="text-xs text-slate-500">{label}</p>
+      <div className="flex flex-wrap items-center gap-1.5">
+        <p className="text-xs text-slate-500">{label}</p>
+        {badges}
+      </div>
       {href && value !== "—" ? (
         <a
           href={href}

@@ -102,6 +102,14 @@ export function SearchAutocomplete({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
+  useEffect(() => {
+    function onClose() {
+      setOpen(false);
+    }
+    window.addEventListener("pharm:close-autocomplete", onClose);
+    return () => window.removeEventListener("pharm:close-autocomplete", onClose);
+  }, []);
+
   function pick(item: SuggestItem) {
     const q = item.labelZh || item.labelEn || item.label;
     onChange(q);
@@ -150,6 +158,7 @@ export function SearchAutocomplete({
         </label>
         <input
           id={inputId}
+          data-pharm-search
           role="combobox"
           aria-expanded={show}
           aria-controls={listId}

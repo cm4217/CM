@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { SearchHit } from "@/lib/types";
 import { DemoBadge } from "./DemoBadge";
 import { OfficialQueryLinks } from "./OfficialQueryLinks";
+import { SearchCardActions } from "./SearchCardActions";
 
 function hrefFor(hit: SearchHit) {
   if (hit.kind === "substance") return `/substances/${hit.id}`;
@@ -150,9 +151,10 @@ export function SearchResults({ hits }: { hits: SearchHit[] }) {
 
             {hit.kind === "substance" && (
               <div
-                className="border-t border-slate-100 bg-slate-50/60 px-4 py-2.5"
+                className="border-t border-slate-100 bg-slate-50/60 px-4 py-2.5 space-y-2"
                 onClick={(e) => e.stopPropagation()}
               >
+                <SearchCardActions substanceId={hit.id} />
                 <OfficialQueryLinks
                   compact
                   nameZh={hit.titleZh}

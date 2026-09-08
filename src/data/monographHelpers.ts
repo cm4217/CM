@@ -1,4 +1,9 @@
-import type { CopyrightStatus, MonographRef, PharmacopoeiaCode } from "@/lib/types";
+import type {
+  CopyrightStatus,
+  IdVerificationStatus,
+  MonographRef,
+  PharmacopoeiaCode,
+} from "@/lib/types";
 
 const PORTALS: Record<
   PharmacopoeiaCode,
@@ -47,14 +52,23 @@ export function mkMonographs(
   titleEn: string,
   titleZh: string,
   codes: PharmacopoeiaCode[],
-  opts?: { hasRS?: Partial<Record<PharmacopoeiaCode, boolean>>; epTitle?: string }
+  opts?: {
+    hasRS?: Partial<Record<PharmacopoeiaCode, boolean>>;
+    epTitle?: string;
+    idStatus?: Partial<Record<PharmacopoeiaCode, IdVerificationStatus>>;
+    epTextNumber?: string;
+    uspDoi?: string;
+    phIntDocPath?: string;
+  }
 ): MonographRef[] {
   return codes.map((code) => {
     const p = PORTALS[code];
-    const hasRS = opts?.hasRS?.[code] ?? (code === "ChP" || code === "USP" || code === "EP" || code === "BP");
+    const hasRS =
+      opts?.hasRS?.[code] ??
+      (code === "ChP" || code === "USP" || code === "EP" || code === "BP");
     const monographTitle =
       code === "EP" && opts?.epTitle ? opts.epTitle : titleEn;
-    return {
+    const ref: MonographRef = {
       id: `mr-${slug}-${code.toLowerCase().replace(".", "")}`,
       pharmacopoeia: code,
       monographTitle,
@@ -71,5 +85,21 @@ export function mkMonographs(
             ? "官方深链至中国药典查询平台"
             : undefined,
     };
+    if (code === "EP" && opts?.epTextNumber) {
+      ref.epTextNumber = opts.epTextNumber;
+      ref.idStatus = opts.idStatus?.EP ?? "demo";
+    }
+    if (code === "USP" && opts?.uspDoi) {
+      ref.uspDoi = opts.uspDoi;
+      ref.idStatus = opts.idStatus?.USP ?? "demo";
+    }
+    if (code === "Ph.Int." && opts?.phIntDocPath) {
+      ref.phIntDocPath = opts.phIntDocPath;
+      ref.idStatus = opts.idStatus?.["Ph.Int."] ?? "demo";
+    }
+    if (opts?.idStatus?.[code] && !ref.idStatus) {
+      ref.idStatus = opts.idStatus[code];
+    }
+    return ref;
   });
 }

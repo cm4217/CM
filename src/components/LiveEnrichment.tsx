@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ProvenanceBadge } from "@/components/ProvenanceBadge";
 
 type Props = {
   name?: string;
@@ -232,7 +233,10 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2 min-h-[120px]">
-          <h3 className="text-sm font-semibold text-slate-800">PubChem</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-800">PubChem</h3>
+            <ProvenanceBadge source="pubchem" />
+          </div>
           {loading && !pubchem && (
             <div className="space-y-2 animate-pulse">
               <div className="mx-auto h-24 w-24 rounded bg-slate-100" />
@@ -290,7 +294,10 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
         </div>
 
         <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2 min-h-[120px]">
-          <h3 className="text-sm font-semibold text-slate-800">FDA GSRS</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-800">FDA GSRS</h3>
+            <ProvenanceBadge source="gsrs" />
+          </div>
           {loading && !gsrs && (
             <div className="space-y-2 animate-pulse">
               <div className="h-3 w-3/4 rounded bg-slate-100" />

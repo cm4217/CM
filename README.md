@@ -18,13 +18,15 @@ npm run dev
 ## 页面路由
 
 - / 首页
+- /workbench 工作台
 - /search 检索
-- /compare 对比
+- /compare 对比（队列 / 差集 / 导出）
+- /checklist 核查清单
 - /graph 图谱
 - /structure 结构检索
 - /reference-standards 对照品
 - /limits 限值
-- /alerts 修订提醒
+- /alerts 修订提醒（影响分析）
 - /watchlist 关注
 - /notes 备注
 - /ask 问答
@@ -87,3 +89,14 @@ See docs/excel-integration.md and /tools pages.
 5. Vercel：Import GitHub cm4217/CM；未登录 CLI 则网页部署；勿虚构公开 URL
 
 导航新增「工具」。版权姿态不变（仅元数据索引）。
+
+## UX 工作流增强（本轮）
+
+1. **检索卡片**：物质结果「加关注」「加入对比」（localStorage；对比队列最多 4）；Toast 反馈。
+2. **/compare**：读取对比队列、勾选填充、药典覆盖**差集高亮**、导出 CSV/Markdown。
+3. **/alerts**：每条事件「影响分析」— 关注列表名称/别名/CAS 与事件标题摘要重叠。
+4. **/checklist**：选物质 + ChP/USP/EP/JP/BP → 可打印核查清单（官方链/杂质/RS 提示，**无**接受标准数值）。物质详情与关注可直达。
+5. **/workbench**：检索历史、关注快照、提醒摘要、对比队列入口；快捷键 `/` 聚焦检索、`c` 复制主药名、`Esc` 关补全。
+6. **溯源徽章**：CAS/UNII 来源；EP/USP 文档编号 `verified|demo|unverified`（阿司匹林 EP **0309** = 已核验；示例 DOI = 示例）；LiveEnrichment 标注 PubChem/GSRS。
+
+版权姿态不变：仅元数据与外链索引。

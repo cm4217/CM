@@ -9,6 +9,11 @@ export type PharmacopoeiaCode =
 
 export type CopyrightStatus = "usable" | "needs_license" | "link_only";
 
+export type ProvenanceSource = "seed" | "pubchem" | "gsrs" | "user";
+
+export type IdVerificationStatus = "verified" | "demo" | "unverified";
+
+
 export type SubstanceType =
   | "API"
   | "excipient"
@@ -41,6 +46,8 @@ export interface MonographRef {
   uspDoi?: string;
   /** Ph.Int. digicollections document path, e.g. Jb.6.1.5 */
   phIntDocPath?: string;
+  /** Document ID verification: verified | demo | unverified */
+  idStatus?: IdVerificationStatus;
   notes?: string;
 }
 
@@ -67,6 +74,17 @@ export interface Substance {
   /** Optional SMILES for local structure search (demo) */
   smiles?: string;
   inchiKey?: string;
+  /** Optional per-field provenance (CAS/UNII/EP/USP ids …) */
+  fieldProvenance?: Partial<
+    Record<
+      "cas" | "unii" | "epTextNumber" | "uspDoi" | "phIntDocPath" | "nameEn" | "nameZh",
+      ProvenanceSource
+    >
+  >;
+  /** Optional doc id verification for substance-level deep-link fields */
+  epIdStatus?: IdVerificationStatus;
+  uspDoiStatus?: IdVerificationStatus;
+  phIntIdStatus?: IdVerificationStatus;
   demoLabel: true;
 }
 

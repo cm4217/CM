@@ -29,9 +29,27 @@ export const substances: Substance[] = [
       "asp",
       "Aspirin",
       "阿司匹林",
-      ["ChP", "USP", "EP", "JP", "BP"], { epTitle: "Acetylsalicylic acid" }),
+      ["ChP", "USP", "EP", "JP", "BP"],
+      {
+        epTitle: "Acetylsalicylic acid",
+        epTextNumber: "0309",
+        uspDoi: "10.31003/USPNF_MDEMO_aspirin_01_01",
+        idStatus: { EP: "verified", USP: "demo" },
+      }
+    ),
     relatedImpurityIds: ["imp-salicylic-acid", "imp-aspirin-imp-b", "imp-aspirin-ndma", "imp-methanol", "imp-lead"],
     relatedRSIds: ["rs-usp-aspirin", "rs-edqm-asa", "rs-usp-salicylic", "rs-nifdc-aspirin", "rs-bpcrs-aspirin"],
+    fieldProvenance: {
+      cas: "seed",
+      unii: "seed",
+      epTextNumber: "seed",
+      uspDoi: "seed",
+      nameZh: "seed",
+      nameEn: "seed",
+    },
+    epIdStatus: "verified",
+    uspDoiStatus: "demo",
+    phIntIdStatus: "demo",
     demoLabel: true,
   },
   {

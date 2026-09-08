@@ -33,7 +33,7 @@ export default function HomePage() {
           </div>
           <div className="space-y-3">
             {alerts.map((e) => (
-              <AlertCard key={e.id} event={e} />
+              <AlertCard key={e.id} event={e} showImpact={false} />
             ))}
           </div>
         </div>

@@ -6,8 +6,10 @@ import { useState } from "react";
 
 const nav = [
   { href: "/", label: "首页" },
+  { href: "/workbench", label: "工作台" },
   { href: "/search", label: "检索" },
   { href: "/compare", label: "对比" },
+  { href: "/checklist", label: "核查清单" },
   { href: "/graph", label: "图谱" },
   { href: "/structure", label: "结构检索" },
   { href: "/reference-standards", label: "对照品" },
