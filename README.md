@@ -55,3 +55,10 @@ Optional LLM keys; Domains
 Meilisearch deferred; offline alerts seed
 ## 版权
 Metadata only; no full text monographs
+
+## 本轮增强（DEMO）
+
+- 扩展示例库：约 30 条常见 API/辅料 + 扩展杂质（亚硝胺/残留溶剂/元素杂质示例节点）与对照品；首页 Stats 自动更新。
+- 检索结果卡片加厚：药典覆盖芯片、杂质数、hasRS、CAS/UNII、短摘要、官网查询。
+- 关注摘要：/watchlist 与 /alerts「生成关注摘要」→ 中文 Markdown 预览/复制/下载 .md|.txt。
+- /structure：Ketcher 按需加载（「打开结构画板」）；SMILES 检索无需打开画板；LiveEnrichment 加载/错误/重试与短缓存。

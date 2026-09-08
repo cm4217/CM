@@ -122,6 +122,25 @@ export interface SearchHit {
   titleEn: string;
   subtitle?: string;
   badges: string[];
+  /** 药典覆盖芯片（物质） */
+  pharmacopoeias?: PharmacopoeiaCode[];
+  /** 关联杂质数（物质） */
+  impurityCount?: number;
+  /** 是否有对照品关联 */
+  hasRS?: boolean;
+  cas?: string;
+  unii?: string;
+  /** 短摘要（物质/杂质） */
+  summary?: string;
+  /** 杂质类型 */
+  impurityType?: ImpurityType;
+  /** 杂质父物质中文名 */
+  parentNames?: string[];
+  /** ICH 标签 */
+  ichTags?: string[];
+  /** 物质类型 API/excipient… */
+  substanceType?: SubstanceType;
+  inn?: string;
 }
 
 /** ICH / 监管限值示例行（非法定正文） */

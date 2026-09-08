@@ -5,7 +5,12 @@ import {
   impurities,
   referenceMaterials,
 } from "@/data";
-import type { PharmacopoeiaCode, SearchHit } from "./types";
+import type {
+  ImpurityType,
+  PharmacopoeiaCode,
+  SearchHit,
+  SubstanceType,
+} from "./types";
 import {
   expandQueryWithSynonyms,
   matchPinyinInitials,
@@ -52,14 +57,28 @@ type Doc = {
   pharmacopoeias: string[];
   hasRS: boolean;
   type?: string;
+  impurityCount?: number;
+  cas?: string;
+  unii?: string;
+  summary?: string;
+  impurityType?: ImpurityType;
+  parentNames?: string[];
+  ichTags?: string[];
+  substanceType?: SubstanceType;
+  inn?: string;
 };
 
 function buildDocs(): Doc[] {
   const docs: Doc[] = [];
+  const substanceById = new Map(substances.map((s) => [s.id, s]));
+
   for (const s of substances) {
     const initials = zhInitials(s.nameZh);
     const anyRS =
       s.monographRefs.some((m) => m.hasRS) || s.relatedRSIds.length > 0;
+    const pharmas = Array.from(
+      new Set(s.monographRefs.map((m) => m.pharmacopoeia))
+    ) as PharmacopoeiaCode[];
     docs.push({
       kind: "substance",
       id: s.id,
@@ -68,11 +87,7 @@ function buildDocs(): Doc[] {
       subtitle: [s.inn, s.cas ? `CAS ${s.cas}` : null]
         .filter(Boolean)
         .join(" · "),
-      badges: [
-        "示例数据",
-        s.type,
-        ...Array.from(new Set(s.monographRefs.map((m) => m.pharmacopoeia))),
-      ],
+      badges: ["示例数据", s.type, ...pharmas],
       blob: [
         s.nameZh,
         s.nameEn,
@@ -85,13 +100,22 @@ function buildDocs(): Doc[] {
         .filter(Boolean)
         .join(" "),
       initials,
-      pharmacopoeias: s.monographRefs.map((m) => m.pharmacopoeia),
+      pharmacopoeias: pharmas,
       hasRS: anyRS,
       type: s.type,
+      impurityCount: s.relatedImpurityIds.length,
+      cas: s.cas,
+      unii: s.unii,
+      summary: s.summaryZh,
+      substanceType: s.type,
+      inn: s.inn,
     });
   }
   for (const i of impurities) {
     const initials = zhInitials(i.nameZh);
+    const parentNames = i.parentSubstanceIds
+      .map((id) => substanceById.get(id)?.nameZh)
+      .filter(Boolean) as string[];
     docs.push({
       kind: "impurity",
       id: i.id,
@@ -108,6 +132,7 @@ function buildDocs(): Doc[] {
         i.cas,
         i.type,
         ...i.namingCrosswalk.map((n) => n.name),
+        ...parentNames,
         initials,
       ]
         .filter(Boolean)
@@ -116,6 +141,12 @@ function buildDocs(): Doc[] {
       pharmacopoeias: i.namingCrosswalk.map((n) => n.system),
       hasRS: i.relatedRSIds.length > 0,
       type: "impurity",
+      cas: i.cas,
+      unii: i.unii,
+      summary: i.summaryZh,
+      impurityType: i.type,
+      parentNames,
+      ichTags: i.ichTags,
     });
   }
   for (const r of referenceMaterials) {
@@ -133,6 +164,7 @@ function buildDocs(): Doc[] {
       pharmacopoeias: [],
       hasRS: true,
       type: "rs",
+      cas: r.cas,
     });
   }
   return docs;
@@ -151,6 +183,28 @@ const fuse = new Fuse(ALL_DOCS, {
   ignoreLocation: true,
   includeScore: true,
 });
+
+function toHit(d: Doc): SearchHit {
+  return {
+    kind: d.kind,
+    id: d.id,
+    titleZh: d.titleZh,
+    titleEn: d.titleEn,
+    subtitle: d.subtitle,
+    badges: d.badges,
+    pharmacopoeias: d.pharmacopoeias as PharmacopoeiaCode[] | undefined,
+    impurityCount: d.impurityCount,
+    hasRS: d.hasRS,
+    cas: d.cas,
+    unii: d.unii,
+    summary: d.summary,
+    impurityType: d.impurityType,
+    parentNames: d.parentNames,
+    ichTags: d.ichTags,
+    substanceType: d.substanceType,
+    inn: d.inn,
+  };
+}
 
 export function searchAll(filters: SearchFilters): SearchHit[] {
   const qRaw = (filters.q || "").trim();
@@ -172,7 +226,6 @@ export function searchAll(filters: SearchFilters): SearchHit[] {
         const k = `${r.item.kind}:${r.item.id}`;
         if (!seen.has(k)) seen.set(k, r.item);
       }
-      // pinyin initials exact-ish
       for (const d of ALL_DOCS) {
         if (
           matchPinyinInitials(d.titleZh, term) ||
@@ -182,7 +235,6 @@ export function searchAll(filters: SearchFilters): SearchHit[] {
           if (!seen.has(k)) seen.set(k, d);
         }
       }
-      // substring fallback
       const n = norm(term);
       for (const d of ALL_DOCS) {
         if (includes(d.blob, n) || includes(d.titleZh, n) || includes(d.titleEn, n)) {
@@ -220,14 +272,7 @@ export function searchAll(filters: SearchFilters): SearchHit[] {
     if (filters.hasRS === "yes" && !d.hasRS) continue;
     if (filters.hasRS === "no" && d.hasRS) continue;
 
-    hits.push({
-      kind: d.kind,
-      id: d.id,
-      titleZh: d.titleZh,
-      titleEn: d.titleEn,
-      subtitle: d.subtitle,
-      badges: d.badges,
-    });
+    hits.push(toHit(d));
   }
 
   return hits;

@@ -7,6 +7,7 @@ import { LS_ALERT_KEYWORDS, LS_ALERT_WATCH_TYPES } from "@/lib/storageKeys";
 import { AlertCard } from "@/components/AlertCard";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { DemoBadge } from "@/components/DemoBadge";
+import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
 
 export default function AlertsPage() {
   const [source, setSource] = useState<string>("");
@@ -89,6 +90,8 @@ export default function AlertsPage() {
       </div>
 
       <DisclaimerBanner />
+
+      <WatchlistDigestPanel />
 
       <section className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
         <h2 className="text-sm font-semibold text-slate-900">订阅说明</h2>

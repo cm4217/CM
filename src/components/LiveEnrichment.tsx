@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   name?: string;
@@ -32,15 +32,48 @@ type GsrsData = {
   relationships?: unknown[];
 };
 
+const memCache = new Map<string, { at: number; pubchem?: PubChemData; gsrs?: GsrsData }>();
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
+function cacheKey(name?: string, cas?: string, unii?: string) {
+  return `${cas || ""}|${unii || ""}|${name || ""}`;
+}
+
 export function LiveEnrichment({ name, cas, unii }: Props) {
   const [pubchem, setPubchem] = useState<PubChemData | null>(null);
   const [gsrs, setGsrs] = useState<GsrsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [retryToken, setRetryToken] = useState(0);
+  const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      setLoading(true);
+  const run = useCallback(async () => {
+    if (!cas && !name && !unii) return;
+
+    const key = cacheKey(name, cas, unii);
+    const cached = memCache.get(key);
+    if (cached && Date.now() - cached.at < CACHE_TTL_MS && retryToken === 0) {
+      setPubchem(cached.pubchem ?? null);
+      setGsrs(cached.gsrs ?? null);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
+
+    setLoading(true);
+    setError(null);
+    setPubchem(null);
+    setGsrs(null);
+
+    let pub: PubChemData | undefined;
+    let gs: GsrsData | undefined;
+    const failures: string[] = [];
+
+    try {
       const tasks: Promise<void>[] = [];
 
       if (cas || name) {
@@ -48,66 +81,114 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
           ? `cas=${encodeURIComponent(cas)}`
           : `name=${encodeURIComponent(name!)}`;
         tasks.push(
-          fetch(`/api/pubchem/compound?${qs}`)
+          fetch(`/api/pubchem/compound?${qs}`, { signal: ac.signal })
             .then(async (r) => {
               const j = await r.json();
-              if (!cancelled) setPubchem(j);
-            })
-            .catch(() => {
-              if (!cancelled)
-                setPubchem({
+              if (!r.ok) {
+                pub = {
                   live: false,
-                  message: "PubChem 请求失败，保留站内种子数据。",
-                });
+                  message: j.message || j.error || `PubChem HTTP ${r.status}`,
+                };
+                failures.push("PubChem");
+              } else {
+                pub = j;
+                if (j.live === false) failures.push("PubChem");
+              }
+            })
+            .catch((e) => {
+              if ((e as Error).name === "AbortError") return;
+              pub = {
+                live: false,
+                message: "PubChem 请求失败，保留站内种子数据。",
+              };
+              failures.push("PubChem");
             })
         );
       }
 
       if (unii) {
         tasks.push(
-          fetch(`/api/gsrs/substance/${encodeURIComponent(unii)}`)
+          fetch(`/api/gsrs/substance/${encodeURIComponent(unii)}`, {
+            signal: ac.signal,
+          })
             .then(async (r) => {
               const j = await r.json();
-              if (!cancelled) setGsrs(j);
-            })
-            .catch(() => {
-              if (!cancelled)
-                setGsrs({
+              if (!r.ok) {
+                gs = {
                   live: false,
-                  message: "GSRS 请求失败，保留站内种子数据。",
-                });
+                  message: j.message || j.error || `GSRS HTTP ${r.status}`,
+                };
+                failures.push("GSRS");
+              } else {
+                gs = j;
+                if (j.live === false) failures.push("GSRS");
+              }
+            })
+            .catch((e) => {
+              if ((e as Error).name === "AbortError") return;
+              gs = {
+                live: false,
+                message: "GSRS 请求失败，保留站内种子数据。",
+              };
+              failures.push("GSRS");
             })
         );
       } else if (name) {
         tasks.push(
-          fetch(`/api/gsrs/search?q=${encodeURIComponent(name)}`)
+          fetch(`/api/gsrs/search?q=${encodeURIComponent(name)}`, {
+            signal: ac.signal,
+          })
             .then(async (r) => {
               const j = await r.json();
-              if (!cancelled)
-                setGsrs({
-                  live: j.live,
-                  message: j.message,
-                  error: j.error,
-                  relationships: j.data?.content || [],
-                });
+              gs = {
+                live: j.live,
+                message: j.message,
+                error: j.error,
+                relationships: j.data?.content || [],
+              };
+              if (!r.ok || j.live === false) failures.push("GSRS");
             })
-            .catch(() => {
-              if (!cancelled)
-                setGsrs({ live: false, message: "GSRS 搜索失败。" });
+            .catch((e) => {
+              if ((e as Error).name === "AbortError") return;
+              gs = { live: false, message: "GSRS 搜索失败。" };
+              failures.push("GSRS");
             })
         );
       }
 
       await Promise.all(tasks);
-      if (!cancelled) setLoading(false);
+      if (ac.signal.aborted) return;
+
+      setPubchem(pub ?? null);
+      setGsrs(gs ?? null);
+      memCache.set(key, { at: Date.now(), pubchem: pub, gsrs: gs });
+      if (failures.length === 2 || (failures.length === 1 && !pub && !gs)) {
+        setError("实时富化暂时不可用，请稍后重试。站内种子数据仍有效。");
+      } else {
+        setError(null);
+      }
+    } finally {
+      if (!ac.signal.aborted) setLoading(false);
     }
-    run();
+  }, [name, cas, unii, retryToken]);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      run();
+    }, 280); // debounce mount / prop churn
     return () => {
-      cancelled = true;
+      clearTimeout(t);
+      abortRef.current?.abort();
     };
-  }, [name, cas, unii]);
+  }, [run]);
 
   if (!cas && !name && !unii) return null;
+
+  function onRetry() {
+    const key = cacheKey(name, cas, unii);
+    memCache.delete(key);
+    setRetryToken((n) => n + 1);
+  }
 
   return (
     <section className="space-y-3 rounded-xl border border-teal-200 bg-teal-50/40 p-4">
@@ -117,18 +198,52 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
           GSRS / PubChem · 公开 API
         </span>
         {loading && (
-          <span className="text-xs text-slate-500">加载中…</span>
+          <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
+            <span className="h-3 w-3 animate-spin rounded-full border border-teal-600 border-t-transparent" />
+            加载中…
+          </span>
+        )}
+        {!loading && (
+          <button
+            type="button"
+            onClick={onRetry}
+            className="text-xs rounded-md border border-teal-300 px-2 py-0.5 text-teal-800 hover:bg-teal-100"
+          >
+            重试
+          </button>
         )}
       </div>
       <p className="text-xs text-slate-600">
-        演示/实时富化已标注；失败时保留站内种子数据。不替代药典正文。
+        演示/实时富化已标注；失败时保留站内种子数据。不替代药典正文。结果缓存约 5 分钟，避免频繁请求。
       </p>
 
+      {error && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900 flex flex-wrap items-center justify-between gap-2">
+          <span>{error}</span>
+          <button
+            type="button"
+            onClick={onRetry}
+            className="rounded border border-amber-300 px-2 py-0.5 hover:bg-amber-100"
+          >
+            重试
+          </button>
+        </div>
+      )}
+
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2">
+        <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2 min-h-[120px]">
           <h3 className="text-sm font-semibold text-slate-800">PubChem</h3>
-          {!pubchem && !loading && (
-            <p className="text-xs text-slate-500">无查询条件</p>
+          {loading && !pubchem && (
+            <div className="space-y-2 animate-pulse">
+              <div className="mx-auto h-24 w-24 rounded bg-slate-100" />
+              <div className="h-3 w-2/3 rounded bg-slate-100" />
+              <div className="h-3 w-1/2 rounded bg-slate-100" />
+            </div>
+          )}
+          {!loading && !pubchem && (
+            <p className="text-xs text-slate-500">
+              无 PubChem 结果。可核对 CAS/名称后重试，或仅使用站内种子。
+            </p>
           )}
           {pubchem?.live === false && (
             <p className="text-xs text-amber-800">
@@ -174,8 +289,15 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
           )}
         </div>
 
-        <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2">
+        <div className="rounded-lg border border-slate-200 bg-white p-3 space-y-2 min-h-[120px]">
           <h3 className="text-sm font-semibold text-slate-800">FDA GSRS</h3>
+          {loading && !gsrs && (
+            <div className="space-y-2 animate-pulse">
+              <div className="h-3 w-3/4 rounded bg-slate-100" />
+              <div className="h-3 w-1/2 rounded bg-slate-100" />
+              <div className="h-3 w-2/3 rounded bg-slate-100" />
+            </div>
+          )}
           {gsrs?.live === false && (
             <p className="text-xs text-amber-800">
               {gsrs.message || gsrs.error || "GSRS 暂不可用"}
@@ -200,12 +322,14 @@ export function LiveEnrichment({ name, cas, unii }: Props) {
             </div>
           ) : gsrs?.relationships && Array.isArray(gsrs.relationships) ? (
             <p className="text-xs text-slate-500">
-              返回 {gsrs.relationships.length} 条关系/检索结果（详见 API）
+              {gsrs.relationships.length > 0
+                ? `返回 ${gsrs.relationships.length} 条关系/检索结果（详见 API）`
+                : "检索无关系摘要"}
             </p>
           ) : (
             !loading && (
               <p className="text-xs text-slate-500">
-                暂无关系摘要或未提供 UNII
+                暂无关系摘要或未提供 UNII。可点击重试，或仅依赖站内种子。
               </p>
             )
           )}

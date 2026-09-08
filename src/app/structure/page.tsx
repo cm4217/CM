@@ -14,8 +14,10 @@ const KetcherSketcher = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-[520px] items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-sm text-slate-500">
-        正在加载结构画板…
+      <div className="flex h-[520px] flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-teal-200 bg-slate-50 text-sm text-slate-500">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-teal-600 border-t-transparent" />
+        <p>正在加载结构画板（Ketcher）…</p>
+        <p className="text-xs text-slate-400">首次加载包体较大，请稍候</p>
       </div>
     ),
   }
@@ -49,12 +51,15 @@ type SearchResult = {
 const EXAMPLES = [
   { label: "Aspirin", smiles: "CC(=O)OC1=CC=CC=C1C(=O)O" },
   { label: "Ibuprofen", smiles: "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O" },
+  { label: "Paracetamol", smiles: "CC(=O)NC1=CC=C(O)C=C1" },
   { label: "NDMA", smiles: "CN(C)N=O" },
   { label: "Salicylic acid", smiles: "OC(=O)C1=CC=CC=C1O" },
+  { label: "Metformin", smiles: "CN(C)C(=N)N=C(N)N" },
 ];
 
 export default function StructurePage() {
   const ketcherRef = useRef<KetcherHandle>(null);
+  const [sketcherOpen, setSketcherOpen] = useState(false);
   const [smiles, setSmiles] = useState(EXAMPLES[0].smiles);
   const [molfile, setMolfile] = useState<string | null>(null);
   const [mode, setMode] = useState<"identity" | "similarity" | "substructure">("identity");
@@ -69,13 +74,13 @@ export default function StructurePage() {
       ...substances.filter((s) => s.smiles).map((s) => s.nameZh),
       ...impurities.filter((i) => i.smiles).map((i) => i.nameZh),
     ];
-    return withSmiles.join("、");
+    return withSmiles.slice(0, 12).join("、") + (withSmiles.length > 12 ? "…" : "");
   }, []);
 
   async function onSearch(overrideSmiles?: string) {
     const q = (overrideSmiles ?? smiles).trim();
     if (!q) {
-      setError("请先从画板获取 SMILES，或在文本框中输入 SMILES");
+      setError("请输入 SMILES，或打开画板绘制后获取");
       return;
     }
     setLoading(true);
@@ -100,7 +105,7 @@ export default function StructurePage() {
     setError(null);
     try {
       const handle = ketcherRef.current;
-      if (!handle) throw new Error("画板未就绪");
+      if (!handle) throw new Error("画板未就绪，请稍候再试");
       const s = await handle.getSmiles();
       if (!s) throw new Error("画板为空，请先绘制结构");
       setSmiles(s);
@@ -136,7 +141,7 @@ export default function StructurePage() {
     setError(null);
     try {
       const handle = ketcherRef.current;
-      if (!handle) throw new Error("画板未就绪");
+      if (!handle) throw new Error("画板未就绪，请稍候再试");
       const s = await handle.getSmiles();
       if (!s) throw new Error("画板为空，请先绘制结构");
       setSmiles(s);
@@ -160,7 +165,7 @@ export default function StructurePage() {
         <div>
           <h1 className="text-2xl font-bold text-slate-900">结构检索</h1>
           <p className="mt-1 text-sm text-slate-500 font-latin">
-            Ketcher 画板 · SMILES / MOL · PubChem
+            SMILES · 可选 Ketcher 画板 · PubChem
           </p>
         </div>
         <DemoBadge />
@@ -171,61 +176,25 @@ export default function StructurePage() {
       <aside className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 space-y-2">
         <p>
           <strong>用法：</strong>
-          在画板中绘制分子，点击「从画板获取 SMILES」填入文本框，再「检索」；或直接点「检索」从画板取 SMILES
-          并查询。文本框仍可作为备用输入。结构图与 identity/similarity 由
-          PubChem 提供；站内种子含 SMILES/InChIKey 时可精确命中。
+          可直接在下方输入 SMILES 并检索，无需打开画板。需要绘制时再点击「打开结构画板」按需加载
+          Ketcher（惰性加载，减轻首屏）。
         </p>
         <p className="text-xs text-slate-500">
           本地含结构：{localSeedHint || "—"}
         </p>
-        <p className="text-xs text-slate-500">
-          Ketcher 仅在浏览器加载（关闭 SSR）；首次打开包体较大，请稍候。
-        </p>
       </aside>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-medium text-slate-800">结构画板（Ketcher）</h2>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={fromBoard}
-              disabled={boardBusy}
-              className="rounded-lg border border-teal-600 px-3 py-1.5 text-sm text-teal-800 hover:bg-teal-50 disabled:opacity-50"
-            >
-              从画板获取 SMILES
-            </button>
-            <button
-              type="button"
-              onClick={clearBoard}
-              disabled={boardBusy}
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-            >
-              清空
-            </button>
-            <button
-              type="button"
-              onClick={fromBoardAndSearch}
-              disabled={boardBusy || loading}
-              className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-50"
-            >
-              {loading ? "检索中…" : "检索"}
-            </button>
-          </div>
-        </div>
-        <KetcherSketcher ref={ketcherRef} />
-      </div>
-
+      {/* SMILES search first — works without sketcher */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
         <label className="block text-sm font-medium text-slate-800">
-          SMILES（文本备用输入）
+          SMILES 检索（无需打开画板）
         </label>
         <textarea
           value={smiles}
           onChange={(e) => setSmiles(e.target.value)}
           rows={3}
           className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-latin focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-          placeholder="输入 SMILES，或从上方画板获取，例如 CC(=O)OC1=CC=CC=C1C(=O)O"
+          placeholder="输入 SMILES，例如 CC(=O)OC1=CC=CC=C1C(=O)O"
         />
         {molfile && (
           <details className="text-xs text-slate-600">
@@ -295,6 +264,64 @@ export default function StructurePage() {
             {loading ? "检索中…" : "检索结构"}
           </button>
         </div>
+      </div>
+
+      {/* Lazy Ketcher */}
+      <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-sm font-medium text-slate-800">结构画板（Ketcher · 按需加载）</h2>
+          {!sketcherOpen ? (
+            <button
+              type="button"
+              onClick={() => setSketcherOpen(true)}
+              className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+            >
+              打开结构画板
+            </button>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={fromBoard}
+                disabled={boardBusy}
+                className="rounded-lg border border-teal-600 px-3 py-1.5 text-sm text-teal-800 hover:bg-teal-50 disabled:opacity-50"
+              >
+                从画板获取 SMILES
+              </button>
+              <button
+                type="button"
+                onClick={clearBoard}
+                disabled={boardBusy}
+                className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+              >
+                清空
+              </button>
+              <button
+                type="button"
+                onClick={fromBoardAndSearch}
+                disabled={boardBusy || loading}
+                className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-50"
+              >
+                {loading ? "检索中…" : "检索"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setSketcherOpen(false)}
+                className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+              >
+                收起画板
+              </button>
+            </div>
+          )}
+        </div>
+        {!sketcherOpen ? (
+          <div className="flex h-40 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-200 bg-slate-50 text-sm text-slate-500">
+            <p>画板未加载，以加快页面打开速度</p>
+            <p className="text-xs text-slate-400">SMILES 检索已可在上方独立使用</p>
+          </div>
+        ) : (
+          <KetcherSketcher ref={ketcherRef} />
+        )}
       </div>
 
       {error && (

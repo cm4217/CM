@@ -12,6 +12,7 @@ import {
   type WatchlistItem,
 } from "@/lib/watchlistStorage";
 import { expandQueryWithSynonyms } from "@/lib/synonyms";
+import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
 
 function coverageOfSubstance(id: string): string {
   const s = substances.find((x) => x.id === id);
@@ -228,6 +229,8 @@ export default function WatchlistPage() {
       </div>
 
       <DisclaimerBanner compact />
+
+      <WatchlistDigestPanel items={items} />
 
       <section className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
         <h2 className="text-sm font-semibold">批量导入（每行一个药名或 CAS）</h2>
