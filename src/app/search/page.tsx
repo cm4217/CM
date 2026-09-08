@@ -65,6 +65,13 @@ export default async function SearchPage({ searchParams }: Props) {
   const fewLocal = !!q && hits.length < FEW_HITS;
   const titleOnly = searchParams.titleOnly === "1";
   const compact = searchParams.view === "compact";
+  const nSub = hits.filter((h) => h.kind === "substance").length;
+  const nImp = hits.filter((h) => h.kind === "impurity").length;
+  const nRs = hits.filter((h) => h.kind === "rs").length;
+  const topHit = hits[0];
+  const topLabel = topHit
+    ? `${topHit.titleZh}${topHit.matchReason ? `（${topHit.matchReason}）` : ""}`
+    : "无";
 
   return (
     <div className="space-y-6">
@@ -81,32 +88,40 @@ export default async function SearchPage({ searchParams }: Props) {
         <SearchFilters />
       </Suspense>
 
-      <p className="text-sm text-slate-600">
-        共 <span className="font-semibold text-teal-800">{hits.length}</span> 条结果
-        {q ? (
-          <>
-            {" "}
-            · 关键词「<span className="font-medium">{q}</span>」
-            {result.parsed.core && result.parsed.core !== q ? (
-              <>
-                {" "}
-                · 核心词「
-                <span className="font-medium font-latin">{result.parsed.core}</span>」
-              </>
-            ) : null}
-            {result.parsed.cas ? (
-              <>
-                {" "}
-                · CAS{" "}
-                <span className="font-latin">
-                  {result.parsed.cas}
-                  {result.parsed.casValid === false ? "（校验失败）" : ""}
-                </span>
-              </>
-            ) : null}
-          </>
+      <div className="space-y-2">
+        <p className="text-sm text-slate-600">
+          共 <span className="font-semibold text-teal-800">{hits.length}</span> 条结果
+          {q ? (
+            <>
+              {" "}
+              · 关键词「<span className="font-medium">{q}</span>」
+              {result.parsed.core && result.parsed.core !== q ? (
+                <>
+                  {" "}
+                  · 核心词「
+                  <span className="font-medium font-latin">{result.parsed.core}</span>」
+                </>
+              ) : null}
+              {result.parsed.cas ? (
+                <>
+                  {" "}
+                  · CAS{" "}
+                  <span className="font-latin">
+                    {result.parsed.cas}
+                    {result.parsed.casValid === false ? "（校验失败）" : ""}
+                  </span>
+                </>
+              ) : null}
+            </>
+          ) : null}
+        </p>
+        {hits.length > 0 ? (
+          <p className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm">
+            物质 {nSub} · 杂质 {nImp} · 对照品 {nRs} · 主命中：
+            <span className="font-medium text-slate-900">{topLabel}</span>
+          </p>
         ) : null}
-      </p>
+      </div>
 
       {q ? <SearchLogBeacon q={q} hitCount={hits.length} /> : null}
 
@@ -143,7 +158,15 @@ export default async function SearchPage({ searchParams }: Props) {
         </div>
       ) : null}
 
-      <SearchResults hits={hits} titleOnly={titleOnly} compact={compact} />
+      <SearchResults
+        hits={hits}
+        titleOnly={titleOnly}
+        compact={compact}
+        q={q}
+        core={result.parsed.core}
+        tokens={result.parsed.tokens}
+        cas={result.parsed.cas || ""}
+      />
 
       <ExternalSearchCards q={q} show={fewLocal} />
     </div>

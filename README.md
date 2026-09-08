@@ -105,3 +105,13 @@ See docs/excel-integration.md and /tools pages.
 ## Search backlog (this round)
 
 See package scripts test:search, synonym:gap, meili:index. Autocomplete groups, parent/dosage/advanced facets, NDCG metrics, RxNorm panel, optional Meilisearch via MEILI_HOST + docker-compose.meili.yml.
+
+## 检索结果展示 UX（本轮）
+
+- **最佳匹配 Hero**：顶命中为 exact / cas / synonym 时，PubChem 风格主卡（打开详情、加关注、加入对比、核查清单、复制 CAS/中文名）。
+- **按类型分组**：物质 / 杂质 / 对照品分区与计数锚点；物质组内保持排序。
+- **命中高亮**：查询词 / 核心词 / CAS 在标题与匹配原因中安全高亮（React 节点，无 HTML 注入）。
+- **低相关折叠**：fuzzy / relaxed 超出前几条收入「更多相关结果」；精确类始终展开。
+- **卡片抛光**：一键复制 CAS / UNII / 中文名；更清晰层级与键盘 focus ring。
+- **概览条**：`物质 x · 杂质 y · 对照品 z · 主命中：…`；`titleOnly` 与杂质 compact 表兼容。
+
