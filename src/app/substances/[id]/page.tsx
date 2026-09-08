@@ -10,6 +10,7 @@ import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { LiveEnrichment } from "@/components/LiveEnrichment";
+import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import type { Metadata } from "next";
 
 type Props = { params: { id: string } };
@@ -52,6 +53,14 @@ export default function SubstancePage({ params }: Props) {
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">{s.summaryZh}</p>
         <p className="text-xs text-slate-400 font-latin max-w-3xl">{s.summaryEn}</p>
+        <div className="pt-2 max-w-4xl">
+          <OfficialQueryLinks
+            nameZh={s.nameZh}
+            nameEn={s.nameEn}
+            inn={s.inn}
+            cas={s.cas}
+          />
+        </div>
       </div>
 
       <DisclaimerBanner />

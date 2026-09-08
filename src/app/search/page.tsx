@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SearchResults } from "@/components/SearchResults";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { searchAll } from "@/lib/search";
 import type { PharmacopoeiaCode } from "@/lib/types";
 import type { Metadata } from "next";
@@ -51,6 +52,16 @@ export default function SearchPage({ searchParams }: Props) {
           </>
         ) : null}
       </p>
+
+      {searchParams.q?.trim() ? (
+        <div className="rounded-xl border border-teal-200 bg-teal-50/50 px-4 py-3">
+          <OfficialQueryLinks
+            title="用当前关键词直接查官网"
+            nameZh={searchParams.q}
+            nameEn={searchParams.q}
+          />
+        </div>
+      ) : null}
 
       <SearchResults hits={hits} />
     </div>
