@@ -1,0 +1,77 @@
+import type { ChangeEvent } from "@/lib/types";
+
+/** 示例数据 — SAMPLE/DEMO revision alerts */
+export const changeEvents: ChangeEvent[] = [
+  {
+    id: "ce-2024-ndma",
+    date: "2024-11-12",
+    pharmacopoeia: "ICH",
+    titleZh: "亚硝胺杂质控制更新提示（示例）",
+    titleEn: "Nitrosamine control update notice (demo)",
+    summaryZh:
+      "示例变更事件：提示关注亚硝胺相关限度与检测方法更新。请以 ICH / 各国药监现行文件为准。",
+    summaryEn:
+      "Demo alert: watch nitrosamine limit and method updates. Follow current ICH/agency texts.",
+    relatedImpurityIds: ["imp-aspirin-ndma"],
+    relatedSubstanceIds: ["sub-aspirin"],
+    severity: "critical",
+    officialUrl: "https://database.ich.org/",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2024-chp-aspirin",
+    date: "2024-06-01",
+    pharmacopoeia: "ChP",
+    titleZh: "阿司匹林专论修订索引（示例）",
+    titleEn: "Aspirin monograph revision index (demo)",
+    summaryZh:
+      "示例：中国药典相关专论版本/效力索引更新。本站仅提供索引，不含专论全文。",
+    summaryEn:
+      "Demo: ChP monograph version/efficacy index refresh. Index only; no full text.",
+    relatedSubstanceIds: ["sub-aspirin"],
+    severity: "watch",
+    officialUrl: "https://ydz.chp.org.cn/",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2024-ep-ibu",
+    date: "2024-03-15",
+    pharmacopoeia: "EP",
+    titleZh: "布洛芬有关物质命名对照更新（示例）",
+    titleEn: "Ibuprofen related-substance naming update (demo)",
+    summaryZh: "示例：Ph. Eur. 杂质字母命名与化学名交叉表刷新。",
+    summaryEn: "Demo: Ph. Eur. impurity letter ↔ chemical name crosswalk refresh.",
+    relatedSubstanceIds: ["sub-ibuprofen"],
+    relatedImpurityIds: ["imp-ibuprofen-imp-f", "imp-ibuprofen-imp-j"],
+    severity: "info",
+    officialUrl: "https://pheur-online.edqm.eu/",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2023-usp-rs",
+    date: "2023-09-20",
+    pharmacopoeia: "USP",
+    titleZh: "USP 对照品目录条目变更（示例）",
+    titleEn: "USP RS catalog entry change (demo)",
+    summaryZh: "示例：阿司匹林/水杨酸相关对照品目录状态变更提示。",
+    summaryEn: "Demo: catalog status change for aspirin/salicylic acid RS entries.",
+    relatedSubstanceIds: ["sub-aspirin"],
+    relatedImpurityIds: ["imp-salicylic-acid"],
+    severity: "info",
+    officialUrl: "https://www.uspnf.com/",
+    demoLabel: true,
+  },
+  {
+    id: "ce-2023-bp-ibu",
+    date: "2023-05-08",
+    pharmacopoeia: "BP",
+    titleZh: "BP 布洛芬专论效力说明（示例）",
+    titleEn: "BP ibuprofen monograph efficacy note (demo)",
+    summaryZh: "示例变更时间线条目，演示多药典修订提醒流。",
+    summaryEn: "Demo timeline item for multi-pharmacopoeia revision alerts.",
+    relatedSubstanceIds: ["sub-ibuprofen"],
+    severity: "watch",
+    officialUrl: "https://www.pharmacopoeia.com/",
+    demoLabel: true,
+  },
+];

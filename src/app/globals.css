@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+.font-latin {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+a {
+  @apply underline-offset-2;
+}
+
+/* calm tables */
+.prose-table {
+  @apply w-full text-sm border-collapse;
+}
+.prose-table th {
+  @apply bg-slate-100 text-left font-semibold text-slate-700 px-3 py-2 border-b border-slate-200;
+}
+.prose-table td {
+  @apply px-3 py-2 border-b border-slate-100 align-top;
+}
+.prose-table tr:hover td {
+  @apply bg-teal-50/40;
+}
