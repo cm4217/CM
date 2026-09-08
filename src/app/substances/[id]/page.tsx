@@ -24,6 +24,7 @@ import {
   resolveUspDoiStatus,
 } from "@/lib/provenance";
 import type { Metadata } from "next";
+import { resolveLightIdentity } from "@/lib/identityResolve";
 import type { ReactNode } from "react";
 
 type Props = { params: { id: string } };
@@ -34,13 +35,47 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const s = getSubstance(params.id);
-  if (!s) return { title: "物质未找到" };
-  return { title: `${s.nameZh} / ${s.nameEn}` };
+  if (s) return { title: `${s.nameZh} / ${s.nameEn}` };
+  const light = resolveLightIdentity(params.id);
+  if (light) return { title: `${light.nameZh} / ${light.nameEn}` };
+  return { title: "物质未找到" };
 }
 
 export default function SubstancePage({ params }: Props) {
   const s = getSubstance(params.id);
-  if (!s) notFound();
+  if (!s) {
+    const light = resolveLightIdentity(params.id);
+    if (!light) notFound();
+    const badge =
+      light.indexLayer === "open"
+        ? "开放索引"
+        : light.indexLayer === "draft"
+          ? "缓存草稿"
+          : "用户导入";
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap gap-2 items-center">
+          <DemoBadge />
+          <span className="text-xs rounded-md bg-violet-50 text-violet-900 px-2 py-0.5">{badge}</span>
+        </div>
+        <h1 className="text-3xl font-bold text-slate-900">
+          {light.nameZh}{" "}
+          <span className="text-xl font-normal text-slate-500 font-latin">{light.nameEn}</span>
+        </h1>
+        <p className="text-sm text-slate-600">{light.sourceNote}。本页仅身份元数据，不含药典全文。</p>
+        <dl className="grid gap-2 sm:grid-cols-2 text-sm">
+          {light.cas ? (<div><dt className="text-slate-500">CAS</dt><dd className="font-latin">{light.cas}</dd></div>) : null}
+          {light.unii ? (<div><dt className="text-slate-500">UNII</dt><dd className="font-latin">{light.unii}</dd></div>) : null}
+          {light.cid ? (<div><dt className="text-slate-500">PubChem CID</dt><dd className="font-latin">{String(light.cid)}</dd></div>) : null}
+        </dl>
+        {light.synonyms.length ? (
+          <p className="text-xs text-slate-500">同义词：{light.synonyms.join(" · ")}</p>
+        ) : null}
+        <OfficialQueryLinks nameZh={light.nameZh} nameEn={light.nameEn} cas={light.cas} unii={light.unii} />
+        <p className="text-sm"><Link href="/tools/index" className="text-teal-800 hover:underline">索引缓存 / 晋升说明</Link></p>
+      </div>
+    );
+  }
 
   const relatedImpurities = s.relatedImpurityIds
     .map((id) => getImpurity(id))

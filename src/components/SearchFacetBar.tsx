@@ -55,6 +55,7 @@ export function SearchFacetBar({ facets }: { facets: SearchFacets }) {
   const efficacy = sp.get("efficacy") || "";
   const titleOnly = sp.get("titleOnly") === "1";
   const compact = sp.get("view") === "compact";
+  const indexSource = sp.get("indexSource") || "";
 
   const hasAdvanced =
     facets.molecularFormula.length > 0 ||
@@ -65,6 +66,35 @@ export function SearchFacetBar({ facets }: { facets: SearchFacets }) {
     <div className="space-y-2 rounded-xl border border-slate-200 bg-white px-3 py-3 shadow-sm">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-medium text-slate-600">分面</span>
+        <FacetChip
+          active={indexSource === "curated"}
+          onClick={() =>
+            setParam("indexSource", indexSource === "curated" ? null : "curated")
+          }
+          label="仅精选种子"
+          count={facets.indexSource?.find((x) => x.value === "curated")?.count || 0}
+        />
+        <FacetChip
+          active={!indexSource || indexSource === "all"}
+          onClick={() => setParam("indexSource", null)}
+          label="含开放索引"
+          count={(facets.indexSource || []).reduce((n, b) => n + b.count, 0)}
+          activeClass="border-indigo-600 bg-indigo-50 text-indigo-950"
+        />
+        {(facets.indexSource || [])
+          .filter((b) => b.value !== "curated")
+          .map((b) => (
+            <FacetChip
+              key={`ix-${b.value}`}
+              active={indexSource === b.value}
+              onClick={() =>
+                setParam("indexSource", indexSource === b.value ? null : b.value)
+              }
+              label={b.label}
+              count={b.count}
+              activeClass="border-violet-600 bg-violet-50 text-violet-950"
+            />
+          ))}
         {facets.dosageForm.map((b) => (
           <FacetChip
             key={`df-${b.value}`}

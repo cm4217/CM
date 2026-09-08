@@ -18,6 +18,7 @@ const nav = [
   { href: "/watchlist", label: "关注" },
   { href: "/notes", label: "备注" },
   { href: "/ask", label: "问答" },
+  { href: "/tools/import", label: "扩库" },
   { href: "/tools/bookmarklet", label: "工具" },
   { href: "/about", label: "关于 / 数据来源" },
 ];

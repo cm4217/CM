@@ -200,6 +200,8 @@ export interface SearchHit {
   rankScore?: number;
   /** 结构化证据行（仅自有元数据，无专论正文） */
   evidence?: { field: string; value: string; reasonCode: string }[];
+  /** 索引层：精选 / 用户导入 / 草稿 / 开放 */
+  indexLayer?: "curated" | "user" | "draft" | "open";
 }
 
 /** ICH / 监管限值示例行（非法定正文） */

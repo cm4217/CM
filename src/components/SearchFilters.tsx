@@ -33,6 +33,7 @@ export function SearchFilters() {
       "view",
       "relax",
       "strict",
+      "indexSource",
     ]) {
       const v = sp.get(key);
       if (v) params.set(key, v);

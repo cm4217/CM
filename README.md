@@ -55,6 +55,37 @@ npm run build | sync:rs | fetch:alerts
 Vercel Import cm4217/CM Next.js build
 Optional LLM keys; Domains
 Meilisearch deferred; offline alerts seed
+
+
+## 扩库
+
+三通道扩展可搜身份层（不含药典全文）：
+
+### 1. 开放索引（UNII / open identity）
+
+- 将 FDA UNII dump（CSV/ZIP）放入 data/incoming/open/（precision.fda.gov uniisearch archive）
+- 执行包脚本 import:open（别名 import:unii）
+- 离线：自动使用 bundled-seed.csv
+- 环境变量：OPEN_IMPORT_LIMIT、OPEN_IMPORT_REQUIRE_CAS、OPEN_IMPORT_URL
+- 生成：src/data/openSubstances.generated.ts；检索徽章「开放索引」
+
+### 2. 缓存草稿（站外 miss）
+
+- 检索结果很少时，「站外可查」按钮将站外结果加入本地可搜缓存
+- 写入 data/cache/draft-substances.json（API POST /api/index/draft）
+- 管理页：/tools/index
+- 检索徽章「缓存草稿」
+
+### 3. CSV 批量导入
+
+- 页面：/tools/import（上传或粘贴，校验 CAS，下载模板）
+- 合并至 data/cache/user-import.json
+- 检索徽章「用户导入」
+
+### 检索合并与分面
+
+优先级：精选种子 > 用户导入 > 缓存草稿 > 开放 bulk。分面可切换「仅精选种子」/「含开放索引」。
+
 ## 版权
 Metadata only; no full text monographs
 

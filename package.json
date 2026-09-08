@@ -11,7 +11,10 @@
     "fetch:alerts": "node scripts/fetch-alert-sources.mjs",
     "test:search": "tsx --tsconfig tsconfig.json scripts/search-eval.ts",
     "synonym:gap": "node scripts/synonym-gap.mjs",
-    "meili:index": "node scripts/meili-index.mjs"
+    "meili:index": "node scripts/meili-index.mjs",
+    "import:open": "node scripts/import-open-substances.mjs",
+    "import:unii": "node scripts/import-open-substances.mjs",
+    "seed:open": "node scripts/generate-open-seed.mjs"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",

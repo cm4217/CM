@@ -8,10 +8,11 @@ export function StatsCards() {
     { label: "专论引用", value: stats.monographRefs, en: "Monograph refs" },
     { label: "对照品", value: stats.referenceMaterials, en: "RS catalog" },
     { label: "修订事件", value: stats.changeEvents, en: "Change events" },
+    { label: "开放索引", value: stats.openSubstances, en: "Open identity" },
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       {items.map((item) => (
         <div
           key={item.label}

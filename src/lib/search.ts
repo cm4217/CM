@@ -5,6 +5,12 @@ import {
   impurities,
   referenceMaterials,
 } from "@/data";
+import { openSubstances } from "@/data/openSubstances.generated";
+import {
+  loadDrafts,
+  loadUserImports,
+  type IndexLayer,
+} from "./runtimeIndex";
 import type {
   ImpurityType,
   PharmacopoeiaCode,
@@ -80,6 +86,8 @@ export interface SearchFilters {
   /** 阻止自动放宽 */
   strict?: "1" | "";
   titleOnly?: "1" | "";
+  /** curated = 仅精选种子；空/all = 含开放索引等 */
+  indexSource?: "curated" | "open" | "user" | "draft" | "all" | "";
 }
 
 type Doc = RankableDoc & {
@@ -99,6 +107,7 @@ type Doc = RankableDoc & {
   impurityPreview?: string[];
   description: string;
   inchiKey?: string;
+  indexLayer: IndexLayer;
 };
 
 function buildDocs(): Doc[] {
@@ -177,6 +186,7 @@ function buildDocs(): Doc[] {
       efficacyStatuses: Array.from(
         new Set(s.monographRefs.map((m) => m.efficacy).filter(Boolean))
       ),
+      indexLayer: "curated",
     });
   }
   for (const i of impurities) {
@@ -226,6 +236,7 @@ function buildDocs(): Doc[] {
       inchiKey: i.inchiKey,
       description: i.summaryZh || "",
       molecularFormula: i.molecularFormula,
+      indexLayer: "curated",
     });
   }
   for (const r of referenceMaterials) {
@@ -248,12 +259,143 @@ function buildDocs(): Doc[] {
       type: "rs",
       cas: r.cas,
       description: r.notes || "",
+      indexLayer: "curated",
+    });
+  }
+
+  // Open identity bulk (dedup vs curated by cas/unii/nameEn)
+  const curatedKeys = new Set<string>();
+  for (const s of substances) {
+    if (s.cas) curatedKeys.add("cas:" + norm(s.cas));
+    if (s.unii) curatedKeys.add("unii:" + norm(s.unii));
+    curatedKeys.add("en:" + norm(s.nameEn));
+    curatedKeys.add("zh:" + norm(s.nameZh));
+  }
+  for (const o of openSubstances) {
+    const keys = [
+      o.cas ? "cas:" + norm(o.cas) : "",
+      o.unii ? "unii:" + norm(o.unii) : "",
+      "en:" + norm(o.nameEn),
+      o.nameZh ? "zh:" + norm(o.nameZh) : "",
+    ].filter(Boolean);
+    if (keys.some((k) => curatedKeys.has(k))) continue;
+    const titleZh = o.nameZh || o.nameEn;
+    const initials = zhInitials(titleZh);
+    const synonyms = [...(o.synonyms || [])];
+    docs.push({
+      kind: "substance",
+      id: o.id,
+      titleZh,
+      titleEn: o.nameEn,
+      subtitle: [o.cas ? `CAS ${o.cas}` : null, o.unii ? `UNII ${o.unii}` : null]
+        .filter(Boolean)
+        .join(" · "),
+      badges: ["开放索引", "identity"],
+      blob: [titleZh, o.nameEn, o.cas, o.unii, ...synonyms, initials]
+        .filter(Boolean)
+        .join(" "),
+      synonyms,
+      initials,
+      pharmacopoeias: [],
+      hasRS: false,
+      hasVerifiedDocId: false,
+      hasDeepLink: !!o.unii,
+      type: "other",
+      cas: o.cas,
+      unii: o.unii,
+      summary: "开放身份索引（UNII/seed）· 非药典全文",
+      substanceType: "other",
+      description: "开放身份索引（UNII/seed）· 非药典全文",
+      indexLayer: "open",
     });
   }
   return docs;
 }
 
-const ALL_DOCS = buildDocs();
+function buildRuntimeDocs(): Doc[] {
+  const docs: Doc[] = [];
+  try {
+    for (const d of loadDrafts()) {
+      const titleZh = d.nameZh || d.name;
+      const titleEn = d.nameEn || d.name;
+      const initials = zhInitials(titleZh);
+      docs.push({
+        kind: "substance",
+        id: d.id,
+        titleZh,
+        titleEn,
+        subtitle: [d.cas ? `CAS ${d.cas}` : null, d.unii ? `UNII ${d.unii}` : null]
+          .filter(Boolean)
+          .join(" · "),
+        badges: ["缓存草稿", d.source || "draft"],
+        blob: [titleZh, titleEn, d.cas, d.unii, d.smiles, initials]
+          .filter(Boolean)
+          .join(" "),
+        synonyms: [d.name, d.nameEn, d.nameZh].filter(Boolean) as string[],
+        initials,
+        pharmacopoeias: [],
+        hasRS: false,
+        hasVerifiedDocId: false,
+        hasDeepLink: !!(d.unii || d.cid),
+        type: "other",
+        cas: d.cas,
+        unii: d.unii,
+        summary: "站外解析缓存草稿 · 可晋升为种子",
+        substanceType: "other",
+        description: "站外解析缓存草稿 · 可晋升为种子",
+        indexLayer: "draft",
+      });
+    }
+  } catch {
+    /* ignore fs errors (edge) */
+  }
+  try {
+    for (const u of loadUserImports()) {
+      const titleZh = u.nameZh || u.nameEn || u.id;
+      const titleEn = u.nameEn || u.nameZh || u.id;
+      const initials = zhInitials(titleZh);
+      const synonyms = [...(u.synonyms || [])];
+      docs.push({
+        kind: "substance",
+        id: u.id,
+        titleZh,
+        titleEn,
+        subtitle: [u.cas ? `CAS ${u.cas}` : null, u.unii ? `UNII ${u.unii}` : null]
+          .filter(Boolean)
+          .join(" · "),
+        badges: ["用户导入"],
+        blob: [titleZh, titleEn, u.cas, u.unii, ...synonyms, initials]
+          .filter(Boolean)
+          .join(" "),
+        synonyms,
+        initials,
+        pharmacopoeias: [],
+        hasRS: false,
+        hasVerifiedDocId: false,
+        hasDeepLink: !!u.unii,
+        type: "other",
+        cas: u.cas,
+        unii: u.unii,
+        summary: "用户 CSV 导入 · 身份层",
+        substanceType: "other",
+        description: "用户 CSV 导入 · 身份层",
+        indexLayer: "user",
+      });
+    }
+  } catch {
+    /* ignore */
+  }
+  return docs;
+}
+
+const STATIC_DOCS = buildDocs();
+
+function getAllDocs(): Doc[] {
+  return [...STATIC_DOCS, ...buildRuntimeDocs()];
+}
+
+/** @deprecated use getAllDocs — kept for sync fuse base */
+const ALL_DOCS = STATIC_DOCS;
 
 const FUSE_KEYS = [
   { name: "titleZh", weight: 0.32 },
@@ -331,12 +473,13 @@ function toHit(
     inchiKey: d.inchiKey,
     rankScore: extra?.rankScore,
     evidence,
+    indexLayer: d.indexLayer,
   };
 }
 
 function casFastPath(cas: string): Doc[] {
   const n = norm(cas);
-  return ALL_DOCS.filter(
+  return getAllDocs().filter(
     (d) =>
       (d.kind === "substance" || d.kind === "impurity") &&
       d.cas &&
@@ -349,6 +492,7 @@ function collectCandidates(
   fuse: Fuse<Doc>
 ): Map<string, { doc: Doc; fuseScore?: number; via?: MatchTier }> {
   const seen = new Map<string, { doc: Doc; fuseScore?: number; via?: MatchTier }>();
+  const allDocs = getAllDocs();
 
   const put = (d: Doc, fuseScore?: number, via?: MatchTier) => {
     const k = `${d.kind}:${d.id}`;
@@ -369,11 +513,11 @@ function collectCandidates(
   };
 
   for (const term of terms) {
-    const results = fuse.search(term, { limit: 50 });
+    const results = fuse.search(term, { limit: 80 });
     for (const r of results) {
       put(r.item, r.score, undefined);
     }
-    for (const d of ALL_DOCS) {
+    for (const d of allDocs) {
       if (
         matchPinyinInitials(d.titleZh, term) ||
         (d.initials && d.initials.includes(norm(term).replace(/\s+/g, "")))
@@ -382,7 +526,7 @@ function collectCandidates(
       }
     }
     const n = norm(term);
-    for (const d of ALL_DOCS) {
+    for (const d of allDocs) {
       if (
         includes(d.blob, n) ||
         includes(d.titleZh, n) ||
@@ -465,6 +609,16 @@ function applyTypeFilters(d: Doc, filters: SearchFilters): boolean {
 
   // dosageForm：查询侧分面高亮；有剂型时不额外过滤文档（种子为原料索引）
   // 保留 filters.dosageForm 供 UI / URL
+
+  const src = (filters.indexSource || "").trim();
+  if (src && src !== "all") {
+    const layer = d.indexLayer || "curated";
+    if (src === "curated") {
+      if (layer !== "curated") return false;
+    } else if (layer !== src) {
+      return false;
+    }
+  }
 
   return true;
 }
@@ -565,9 +719,14 @@ function runOnce(
   );
 
   if (!filters.q?.trim()) {
-    return ALL_DOCS.filter((d) => applyTypeFilters(d, filters)).map((d) =>
-      toHit(d)
-    );
+    const src = (filters.indexSource || "").trim();
+    const docs = getAllDocs().filter((d) => {
+      if (!applyTypeFilters(d, filters)) return false;
+      // 无关键词时默认不倾倒开放 bulk，除非显式 indexSource=open|all
+      if (d.indexLayer === "open" && src !== "open" && src !== "all") return false;
+      return true;
+    });
+    return docs.map((d) => toHit(d));
   }
 
   const seen = collectCandidates(terms, fuse);

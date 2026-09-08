@@ -17,6 +17,8 @@ export const MATCH_REASON_ZH: Record<MatchTier, string> = {
   relaxed: "放宽匹配",
 };
 
+export type IndexLayer = "curated" | "user" | "draft" | "open";
+
 export type RankableDoc = {
   kind: SearchHit["kind"];
   id: string;
@@ -38,6 +40,8 @@ export type RankableDoc = {
   molecularFormula?: string;
   pharmaVersions?: string[];
   efficacyStatuses?: string[];
+  /** curated > user > draft > open */
+  indexLayer?: IndexLayer;
 };
 
 export type RankContext = {
@@ -141,6 +145,15 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
   else if (doc.kind === "impurity") score += 4;
   else if (doc.kind === "rs") score -= 30;
 
+  // 索引层：精选种子优先，保证 golden / 精选不被开放库盖过
+  const layerBoost: Record<string, number> = {
+    curated: 200,
+    user: 100,
+    draft: 50,
+    open: 0,
+  };
+  score += layerBoost[doc.indexLayer || "curated"] ?? 0;
+
   if (ctx.dosageMismatchPenalty && ctx.parsed.dosageForms.length > 0) {
     // 种子库为原料药索引，剂型查询命中原料 → 轻罚
     score -= 40;
@@ -205,6 +218,8 @@ export type SearchFacets = {
   molecularFormula: FacetBucket[];
   pharmaVersion: FacetBucket[];
   efficacy: FacetBucket[];
+  /** 索引来源：精选 / 开放等 */
+  indexSource: FacetBucket[];
 };
 
 const IMPURITY_TYPE_LABEL: Record<string, string> = {
@@ -245,8 +260,17 @@ export function buildFacets(
   const formulaMap = new Map<string, { label: string; count: number }>();
   const versionMap = new Map<string, { label: string; count: number }>();
   const efficacyMap = new Map<string, { label: string; count: number }>();
+  let curatedN = 0;
+  let openN = 0;
+  let userN = 0;
+  let draftN = 0;
 
   for (const h of hits) {
+    const layer = h.indexLayer || "curated";
+    if (layer === "open") openN++;
+    else if (layer === "user") userN++;
+    else if (layer === "draft") draftN++;
+    else curatedN++;
     if (h.cas) withCas++;
     else withoutCas++;
     const deep = !!(h.epTextNumber || h.uspDoi || h.phIntDocPath || h.unii || h.hasDeepLink);
@@ -307,6 +331,12 @@ export function buildFacets(
     molecularFormula: countMapToBuckets(formulaMap),
     pharmaVersion: countMapToBuckets(versionMap),
     efficacy: countMapToBuckets(efficacyMap),
+    indexSource: [
+      { value: "curated", label: "仅精选种子", count: curatedN },
+      { value: "open", label: "开放索引", count: openN },
+      { value: "user", label: "用户导入", count: userN },
+      { value: "draft", label: "缓存草稿", count: draftN },
+    ].filter((b) => b.count > 0),
   };
 }
 

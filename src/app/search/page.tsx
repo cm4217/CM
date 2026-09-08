@@ -36,6 +36,7 @@ type Props = {
     titleOnly?: string;
     view?: string;
     tab?: string;
+    indexSource?: string;
   };
 };
 
@@ -59,6 +60,13 @@ export default async function SearchPage({ searchParams }: Props) {
     relax: searchParams.relax,
     strict: (searchParams.strict || "") as "1" | "",
     titleOnly: (searchParams.titleOnly || "") as "1" | "",
+    indexSource: (searchParams.indexSource || "") as
+      | "curated"
+      | "open"
+      | "user"
+      | "draft"
+      | "all"
+      | "",
   }, { rxnormExtras });
 
   const hits = result.hits;

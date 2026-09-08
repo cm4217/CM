@@ -8,3 +8,6 @@ out
 data/query-log.jsonl
 data/synonym-gap-report.md
 scripts/_meili-dump.tmp.ts
+data/incoming/open/_unzipped/
+data/incoming/open/*.zip
+!data/incoming/open/bundled-seed.csv

@@ -58,6 +58,8 @@ export default function WorkbenchPage() {
         {[
           { href: "/search", label: "检索", desc: "药名 / CAS / 杂质" },
           { href: "/compare", label: "对比队列", desc: `队列 ${queue.length}/${COMPARE_QUEUE_MAX}` },
+          { href: "/tools/import", label: "CSV 导入", desc: "用户批量扩库" },
+          { href: "/tools/index", label: "索引缓存", desc: "草稿 · 晋升说明" },
           { href: "/checklist", label: "核查清单", desc: "市场勾选 · 打印" },
           { href: "/alerts", label: "修订提醒", desc: "影响分析" },
         ].map((c) => (

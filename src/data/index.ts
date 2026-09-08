@@ -1,3 +1,4 @@
+export { openSubstances, OPEN_SUBSTANCES_META } from "./openSubstances.generated";
 export { substances } from "./substances";
 export { impurities } from "./impurities";
 export { referenceMaterials, REFERENCE_MATERIALS_LAST_SYNCED } from "./referenceMaterials";
@@ -16,6 +17,7 @@ import { referenceMaterials } from "./referenceMaterials";
 import { changeEvents } from "./changeEvents";
 import { generatedChangeEvents } from "./changeEvents.generated";
 import { ichLimits } from "./ichLimits";
+import { openSubstances } from "./openSubstances.generated";
 
 export function getSubstance(id: string) {
   return substances.find((s) => s.id === id);
@@ -45,6 +47,7 @@ export function getStats() {
     changeEvents: mergedChangeEvents().length,
     ichLimits: ichLimits.length,
     monographRefs: substances.reduce((n, s) => n + s.monographRefs.length, 0),
+    openSubstances: openSubstances.length,
   };
 }
 
