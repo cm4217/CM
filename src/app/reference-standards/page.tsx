@@ -9,6 +9,7 @@ import {
 import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { RsImportNote } from "@/components/RsImportNote";
 
 export default function ReferenceStandardsPage() {
   const [q, setQ] = useState("");
@@ -53,6 +54,8 @@ export default function ReferenceStandardsPage() {
       </div>
 
       <DisclaimerBanner compact />
+
+      <RsImportNote syncedLocal={syncedLocal} />
 
       <div className="flex flex-col gap-3">
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">

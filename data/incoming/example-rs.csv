@@ -1,0 +1,4 @@
+issuer,catalogNo,nameEn,nameZh,cas,relatedSubstanceId,status,notes
+EDQM,Y0000999,Example CRS Alpha,Example RS Jia,50-00-0,sub-aspirin,current,example import row
+USP,USP-EX-1001,Example RS Beta,Example RS Yi,51-21-8,,current,example import row
+BPCRS,BPCRS-EX-01,Paracetamol Impurity Example,Paracetamol Imp Ex,103-90-2,,current,example import

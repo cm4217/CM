@@ -13,6 +13,7 @@ import { DisclaimerBanner } from "@/components/Disclaimer";
 import { LiveEnrichment } from "@/components/LiveEnrichment";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { SubstanceExtras } from "@/components/SubstanceExtras";
+import { ImpurityExportPanel } from "@/components/ImpurityExportPanel";
 import type { Metadata } from "next";
 
 type Props = { params: { id: string } };
@@ -153,6 +154,8 @@ export default function SubstancePage({ params }: Props) {
       </section>
 
       <SubstanceExtras substance={s} impurities={allImpurities} />
+
+      <ImpurityExportPanel mode="substance" substance={s} />
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-3">

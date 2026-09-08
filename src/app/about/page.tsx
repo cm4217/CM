@@ -73,6 +73,21 @@ export default function AboutPage() {
         </ul>
       </section>
 
+
+      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold">工具</h2>
+        <ul className="text-sm text-slate-600 space-y-2">
+          <li>
+            <a href="/tools/bookmarklet" className="text-teal-700 hover:underline">书签小工具</a>
+            — 复制药名并打开 ChP / USP / EP
+          </li>
+          <li>
+            <a href="/tools/sheets" className="text-teal-700 hover:underline">Excel / 表格集成</a>
+            — lookup API 与从 Web 取数
+          </li>
+        </ul>
+      </section>
+
       <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold">演示数据说明</h2>
         <p className="text-sm text-slate-600 leading-relaxed">

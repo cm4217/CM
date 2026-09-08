@@ -2,10 +2,10 @@ import type { ReferenceMaterial } from "@/lib/types";
 
 /**
  * 由 scripts/sync-reference-standards.mjs 生成/维护的扩展对照品种子。
- * lastSynced: 2026-09-08T02:40:00.000Z（扩展示例库同步）（本地种子刷新；公开批量 API 不可用时保留扩展示例）
+ * lastSynced: 2026-09-08T03:27:55.392Z (merged data/incoming)
  * 目录号均为示例/演示风格，非正式订购信息。
  */
-export const REFERENCE_MATERIALS_LAST_SYNCED = "2026-09-08T02:40:00.000Z";
+export const REFERENCE_MATERIALS_LAST_SYNCED = "2026-09-08T03:27:55.392Z";
 
 export const generatedReferenceMaterials: ReferenceMaterial[] = [
   {
@@ -1064,6 +1064,46 @@ export const generatedReferenceMaterials: ReferenceMaterial[] = [
     copyrightStatus: "link_only",
     officialUrl: "https://crs.edqm.eu/",
     notes: "扩展示例目录号，非正式订购信息",
+    demoLabel: true,
+  },
+  {
+    id: "rs-import-edqm-y0000999",
+    catalogCode: "Y0000999",
+    nameZh: "Example RS Jia",
+    nameEn: "Example CRS Alpha",
+    issuer: "EDQM",
+    linkedSubstanceId: "sub-aspirin",
+    cas: "50-00-0",
+    status: "current",
+    copyrightStatus: "link_only",
+    officialUrl: "https://crs.edqm.eu/",
+    notes: "example import row",
+    demoLabel: true,
+  },
+  {
+    id: "rs-import-usp-usp-ex-1001",
+    catalogCode: "USP-EX-1001",
+    nameZh: "Example RS Yi",
+    nameEn: "Example RS Beta",
+    issuer: "USP",
+    cas: "51-21-8",
+    status: "current",
+    copyrightStatus: "link_only",
+    officialUrl: "https://store.usp.org/",
+    notes: "example import row",
+    demoLabel: true,
+  },
+  {
+    id: "rs-import-bpcrs-bpcrs-ex-01",
+    catalogCode: "BPCRS-EX-01",
+    nameZh: "Paracetamol Imp Ex",
+    nameEn: "Paracetamol Impurity Example",
+    issuer: "BPCRS",
+    cas: "103-90-2",
+    status: "current",
+    copyrightStatus: "link_only",
+    officialUrl: "https://crs.edqm.eu/",
+    notes: "example import",
     demoLabel: true,
   },
 ];

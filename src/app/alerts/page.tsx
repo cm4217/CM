@@ -8,6 +8,7 @@ import { AlertCard } from "@/components/AlertCard";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { DemoBadge } from "@/components/DemoBadge";
 import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
+import { WebhookDigestPanel } from "@/components/WebhookDigestPanel";
 
 export default function AlertsPage() {
   const [source, setSource] = useState<string>("");
@@ -91,6 +92,7 @@ export default function AlertsPage() {
 
       <DisclaimerBanner />
 
+      <WebhookDigestPanel />
       <WatchlistDigestPanel />
 
       <section className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">

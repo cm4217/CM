@@ -72,3 +72,18 @@ Metadata only; no full text monographs
 5. **链接口径**：ChP 无关键词深链 → `#/database?bookId=2` + 复制中文名；Inxight 检索 `drugs.ncats.io/substances?q=`；Ph.Int. 优先 INN 的 Greenstone `fqv`；PubChem 另有 `/compound/{name}`。
 
 版权姿态不变：仅元数据与外链索引，不托管法定专论全文。
+
+
+## Extra features
+
+See docs/excel-integration.md and /tools pages.
+
+## 本轮五大能力（摘要）
+
+1. RS 导入：data/incoming CSV/TSV/XML + package script sync:rs；杂质清单导出（物质页/关注）；FHIR-ish 草稿标为非正式申报件
+2. Webhook：关注摘要通用 JSON 与钉钉 markdown（localStorage；可选加签；关键词可用「关注摘要」）
+3. /tools/bookmarklet 书签：复制药名打开 ChP/USP/EP
+4. /api/lookup 与 /api/lookup.csv；/tools/sheets；docs/excel-integration.md
+5. Vercel：Import GitHub cm4217/CM；未登录 CLI 则网页部署；勿虚构公开 URL
+
+导航新增「工具」。版权姿态不变（仅元数据索引）。

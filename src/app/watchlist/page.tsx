@@ -13,6 +13,8 @@ import {
 } from "@/lib/watchlistStorage";
 import { expandQueryWithSynonyms } from "@/lib/synonyms";
 import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
+import { WebhookDigestPanel } from "@/components/WebhookDigestPanel";
+import { ImpurityExportPanel } from "@/components/ImpurityExportPanel";
 
 function coverageOfSubstance(id: string): string {
   const s = substances.find((x) => x.id === id);
@@ -231,6 +233,15 @@ export default function WatchlistPage() {
       <DisclaimerBanner compact />
 
       <WatchlistDigestPanel items={items} />
+      <WebhookDigestPanel items={items} />
+      <ImpurityExportPanel
+        mode="watchlist"
+        substanceIds={items.flatMap((it) =>
+          it.resolved.status === "matched" && it.resolved.kind === "substance"
+            ? [it.resolved.id]
+            : []
+        )}
+      />
 
       <section className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm">
         <h2 className="text-sm font-semibold">批量导入（每行一个药名或 CAS）</h2>
