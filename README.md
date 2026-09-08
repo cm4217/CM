@@ -6,13 +6,55 @@
 
 ## 快速开始
 
+仓库地址：https://github.com/cm4217/CM
+
+本地开发服务器启动后访问：http://localhost:3000
+
+| 页面 | 本地 URL |
+| --- | --- |
+| 首页 | http://localhost:3000/ |
+| 检索 | http://localhost:3000/search |
+| 结构检索 | http://localhost:3000/structure |
+| ICH 限值 | http://localhost:3000/limits |
+| 智能问答 | http://localhost:3000/ask |
+| 对照品 | http://localhost:3000/reference-standards |
+| 修订提醒 | http://localhost:3000/alerts |
+| 关于 | http://localhost:3000/about |
+
+需要先安装 [Node.js LTS](https://nodejs.org/)。
+
+### 首次克隆（bash）
+
 ```bash
+git clone https://github.com/cm4217/CM.git
+cd CM
 npm install
 npm run dev
+```
+
+### 首次克隆（Windows PowerShell）
+
+```powershell
+git clone https://github.com/cm4217/CM.git
+cd CM
+npm install
+npm run dev
+```
+
+### 已有本地仓库
+
+```bash
+cd /path/to/CM
+npm install
+npm run dev
+```
+
+### 其他命令
+
+```bash
 npm run build
 npm run sync:rs
 ```
-
 
 ## 技术栈
 
