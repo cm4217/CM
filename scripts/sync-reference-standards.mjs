@@ -6,6 +6,10 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = join(root, "src/data/referenceMaterials.generated.ts");
 const now = new Date().toISOString();
+const incomingDir = join(root, "data/incoming");
+async function probe(url){ try { const c=new AbortController(); const t=setTimeout(()=>c.abort(),6000); const res=await fetch(url,{method:"GET",redirect:"follow",signal:c.signal}); clearTimeout(t); return {ok:res.ok,status:res.status}; } catch(e){ return {ok:false,error:String(e.message||e)}; } }
+const probes = { edqm: await probe("https://crs.edqm.eu/"), usp: await probe("https://store.usp.org/") };
+console.log("probes", probes);
 let text = readFileSync(src, "utf8");
 text = text.replace(/REFERENCE_MATERIALS_LAST_SYNCED = "[^"]*"/, `REFERENCE_MATERIALS_LAST_SYNCED = "${now}"`);
 text = text.replace(/lastSynced: [^\n]*/, `lastSynced: ${now}（本地种子刷新；公开批量 API 不可用时保留扩展示例）`);

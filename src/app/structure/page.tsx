@@ -24,6 +24,7 @@ const KetcherSketcher = dynamic(
 type SearchResult = {
   smiles: string;
   mode: string;
+  threshold?: number;
   local: {
     kind: string;
     id: string;
@@ -39,7 +40,7 @@ type SearchResult = {
     formula?: string;
     imageUrl?: string;
     pubchemUrl?: string;
-    similar?: { cid: number }[];
+    similar?: { cid: number; score?: number }[];
     error?: string;
   };
   note?: string;
@@ -56,7 +57,8 @@ export default function StructurePage() {
   const ketcherRef = useRef<KetcherHandle>(null);
   const [smiles, setSmiles] = useState(EXAMPLES[0].smiles);
   const [molfile, setMolfile] = useState<string | null>(null);
-  const [mode, setMode] = useState<"identity" | "similarity">("identity");
+  const [mode, setMode] = useState<"identity" | "similarity" | "substructure">("identity");
+  const [threshold, setThreshold] = useState(90);
   const [loading, setLoading] = useState(false);
   const [boardBusy, setBoardBusy] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
@@ -80,7 +82,7 @@ export default function StructurePage() {
     setError(null);
     try {
       const res = await fetch(
-        `/api/structure/search?smiles=${encodeURIComponent(q)}&mode=${mode}`
+        `/api/structure/search?smiles=${encodeURIComponent(q)}&mode=${mode}&threshold=${threshold}`
       );
       const j = await res.json();
       if (!res.ok) throw new Error(j.error || "检索失败");
@@ -264,6 +266,26 @@ export default function StructurePage() {
             />
             相似 / Similarity
           </label>
+          <label className="text-sm text-slate-700 flex items-center gap-2">
+            <input
+              type="radio"
+              checked={mode === "substructure"}
+              onChange={() => setMode("substructure")}
+            />
+            子结构 / Substructure
+          </label>
+          {mode === "similarity" && (
+            <label className="text-sm text-slate-700 flex items-center gap-2">
+              阈值 {threshold}%
+              <input
+                type="range"
+                min={60}
+                max={100}
+                value={threshold}
+                onChange={(e) => setThreshold(Number(e.target.value))}
+              />
+            </label>
+          )}
           <button
             type="button"
             onClick={() => onSearch()}
@@ -359,7 +381,11 @@ export default function StructurePage() {
                         rel="noopener noreferrer"
                         className="text-teal-700 hover:underline"
                       >
-                        {s.cid} ↗
+                        {s.cid}
+                        {typeof (s as { score?: number }).score === "number"
+                          ? ` · Tanimoto/score ${(s as { score?: number }).score}`
+                          : ""}{" "}
+                        ↗
                       </a>
                     </li>
                   ))}

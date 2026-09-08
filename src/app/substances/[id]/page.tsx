@@ -5,12 +5,14 @@ import {
   getImpurity,
   getReferenceMaterial,
   substances,
+  impurities as allImpurities,
 } from "@/data";
 import { CopyrightBadge } from "@/components/CopyrightBadge";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { LiveEnrichment } from "@/components/LiveEnrichment";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
+import { SubstanceExtras } from "@/components/SubstanceExtras";
 import type { Metadata } from "next";
 
 type Props = { params: { id: string } };
@@ -126,6 +128,8 @@ export default function SubstancePage({ params }: Props) {
           不含专论全文。版权标记：可用摘要 / 需授权 / 仅深链。
         </p>
       </section>
+
+      <SubstanceExtras substance={s} impurities={allImpurities} />
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-3">

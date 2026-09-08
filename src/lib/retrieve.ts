@@ -4,10 +4,11 @@ import {
   referenceMaterials,
   changeEvents,
   ichLimits,
+  knowledgeSnippets,
 } from "@/data";
 
 export interface RetrievedSnippet {
-  kind: "substance" | "impurity" | "rs" | "limit" | "alert";
+  kind: "substance" | "impurity" | "rs" | "limit" | "alert" | "faq";
   id: string;
   titleZh: string;
   titleEn?: string;
@@ -175,6 +176,31 @@ export function retrieveLocal(query: string, limit = 8): RetrievedSnippet[] {
         officialUrls: e.officialUrl
           ? [{ label: String(e.pharmacopoeia), url: e.officialUrl }]
           : undefined,
+      });
+    }
+  }
+
+
+  for (const ks of knowledgeSnippets) {
+    const score = scoreText(tokens, [
+      ks.titleZh,
+      ks.titleEn,
+      ks.bodyZh,
+      ...ks.tags,
+      "对比",
+      "用法",
+      "免责",
+    ]);
+    if (score > 0) {
+      hits.push({
+        kind: "faq",
+        id: ks.id,
+        titleZh: ks.titleZh,
+        titleEn: ks.titleEn,
+        snippetZh: ks.bodyZh,
+        href: ks.href,
+        score: score + 1,
+        officialUrls: ks.officialUrls,
       });
     }
   }

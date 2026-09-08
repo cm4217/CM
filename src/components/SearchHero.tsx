@@ -1,16 +1,34 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import {
+  clearSearchHistory,
+  loadSearchHistory,
+  pushSearchHistory,
+} from "@/lib/searchHistory";
 
 export function SearchHero() {
   const router = useRouter();
   const [q, setQ] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+
+  useEffect(() => {
+    setHistory(loadSearchHistory());
+  }, []);
+
+  function go(query: string) {
+    const t = query.trim();
+    if (t) {
+      pushSearchHistory(t);
+      setHistory(loadSearchHistory());
+    }
+    router.push(t ? `/search?q=${encodeURIComponent(t)}` : "/search");
+  }
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    const query = q.trim();
-    router.push(query ? `/search?q=${encodeURIComponent(query)}` : "/search");
+    go(q);
   }
 
   return (
@@ -24,18 +42,16 @@ export function SearchHero() {
           以索引与对照连接多药典
         </h1>
         <p className="mt-3 max-w-2xl text-teal-50/90 text-sm sm:text-base leading-relaxed">
-          按药名 / INN / CAS / 杂质名检索物质、杂质与对照品交叉关系。限度与方法以现行官方药典为准。
+          按药名 / INN / CAS / 杂质名检索。支持同义词、拼音首字母与模糊容错。限度与方法以现行官方药典为准。
         </p>
 
         <form onSubmit={onSubmit} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
-          <label className="sr-only" htmlFor="hero-q">
-            检索
-          </label>
+          <label className="sr-only" htmlFor="hero-q">检索</label>
           <input
             id="hero-q"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="药名 / INN / CAS / 杂质名，如 阿司匹林、50-78-2、NDMA"
+            placeholder="药名 / INN / CAS / 杂质名 / 拼音首字母，如 aspl、ASA"
             className="flex-1 rounded-xl border-0 px-4 py-3 text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-300"
           />
           <button
@@ -47,17 +63,43 @@ export function SearchHero() {
         </form>
 
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-teal-100/90">
-          {["阿司匹林", "布洛芬", "水杨酸", "NDMA", "15687-27-1"].map((t) => (
+          {["阿司匹林", "乙酰水杨酸", "布洛芬", "NDMA", "aspl", "15687-27-1"].map((t) => (
             <button
               key={t}
               type="button"
-              onClick={() => router.push(`/search?q=${encodeURIComponent(t)}`)}
+              onClick={() => go(t)}
               className="rounded-full bg-white/10 px-3 py-1 hover:bg-white/20 transition font-latin"
             >
               {t}
             </button>
           ))}
         </div>
+
+        {history.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-teal-200/80">最近检索：</span>
+            {history.map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => go(t)}
+                className="rounded-full bg-black/20 px-3 py-1 hover:bg-black/30 font-latin"
+              >
+                {t}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                clearSearchHistory();
+                setHistory([]);
+              }}
+              className="text-teal-200/70 hover:text-white underline"
+            >
+              清除
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -11,6 +11,7 @@ import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { LiveEnrichment } from "@/components/LiveEnrichment";
 import { LimitCards } from "@/components/LimitCards";
+import { ImpurityNotes } from "@/components/SubstanceExtras";
 import { getLimitsForImpurityType } from "@/data";
 import type { Metadata } from "next";
 
@@ -66,6 +67,8 @@ export default function ImpurityPage({ params }: Props) {
       </div>
 
       <DisclaimerBanner />
+
+      <ImpurityNotes impurityId={i.id} titleZh={i.nameZh} />
 
       <LiveEnrichment name={i.nameEn} cas={i.cas} unii={i.unii} />
 

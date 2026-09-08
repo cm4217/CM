@@ -8,7 +8,8 @@ const PUG = "https://pubchem.ncbi.nlm.nih.gov/rest/pug";
 
 export async function GET(req: NextRequest) {
   const smiles = (req.nextUrl.searchParams.get("smiles") || "").trim();
-  const mode = (req.nextUrl.searchParams.get("mode") || "identity").trim(); // identity | similarity
+  const mode = (req.nextUrl.searchParams.get("mode") || "identity").trim(); // identity | similarity | substructure
+  const threshold = Math.min(100, Math.max(50, Number(req.nextUrl.searchParams.get("threshold") || "90") || 90));
   if (!smiles) {
     return NextResponse.json({ error: "请提供 smiles 参数" }, { status: 400 });
   }
@@ -62,7 +63,7 @@ export async function GET(req: NextRequest) {
 
   try {
     pubchem = await cachedFetch(
-      `struct:${mode}:${smiles}`,
+      `struct:${mode}:${threshold}:${smiles}`,
       ONE_HOUR,
       async () => {
         const propRes = await fetch(
@@ -79,11 +80,23 @@ export async function GET(req: NextRequest) {
         let similar: { cid: number; score?: number }[] = [];
         if (mode === "similarity" && cid) {
           const simRes = await fetch(
-            `${PUG}/compound/fastsimilarity_2d/cid/${cid}/cids/JSON?Threshold=90&MaxRecords=10`,
+            `${PUG}/compound/fastsimilarity_2d/cid/${cid}/cids/JSON?Threshold=${threshold}&MaxRecords=10`,
             { next: { revalidate: 3600 } }
           );
           if (simRes.ok) {
             const sj = await simRes.json();
+            const cids: number[] = sj?.IdentifierList?.CID || [];
+            // PubChem list endpoint may not return Tanimoto; keep optional score undefined
+            similar = cids.slice(0, 10).map((c) => ({ cid: c, score: undefined }));
+          }
+        }
+        if (mode === "substructure" && smiles) {
+          const subRes = await fetch(
+            `${PUG}/compound/fastsubstructure/smiles/${encodeURIComponent(smiles)}/cids/JSON?MaxRecords=10`,
+            { next: { revalidate: 3600 } }
+          );
+          if (subRes.ok) {
+            const sj = await subRes.json();
             const cids: number[] = sj?.IdentifierList?.CID || [];
             similar = cids.slice(0, 10).map((c) => ({ cid: c }));
           }
@@ -151,8 +164,9 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     smiles,
     mode,
+    threshold,
     local,
     pubchem,
-    note: "结构检索：Ketcher 画板 / SMILES + PubChem。结构图来自 PubChem 公开服务。",
+    note: "结构检索：Ketcher / SMILES + PubChem identity|similarity|substructure。阈值用于 similarity（Tanimoto%）。结构图来自 PubChem。",
   });
 }

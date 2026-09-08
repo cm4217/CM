@@ -7,10 +7,14 @@ import { useState } from "react";
 const nav = [
   { href: "/", label: "首页" },
   { href: "/search", label: "检索" },
+  { href: "/compare", label: "对比" },
+  { href: "/graph", label: "图谱" },
   { href: "/structure", label: "结构检索" },
   { href: "/reference-standards", label: "对照品" },
   { href: "/limits", label: "限值" },
   { href: "/alerts", label: "修订提醒" },
+  { href: "/watchlist", label: "关注" },
+  { href: "/notes", label: "备注" },
   { href: "/ask", label: "问答" },
   { href: "/about", label: "关于 / 数据来源" },
 ];

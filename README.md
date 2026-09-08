@@ -6,24 +6,7 @@
 
 ## 快速开始
 
-仓库地址：https://github.com/cm4217/CM
-
-本地开发服务器启动后访问：http://localhost:3000
-
-| 页面 | 本地 URL |
-| --- | --- |
-| 首页 | http://localhost:3000/ |
-| 检索 | http://localhost:3000/search |
-| 结构检索 | http://localhost:3000/structure |
-| ICH 限值 | http://localhost:3000/limits |
-| 智能问答 | http://localhost:3000/ask |
-| 对照品 | http://localhost:3000/reference-standards |
-| 修订提醒 | http://localhost:3000/alerts |
-| 关于 | http://localhost:3000/about |
-
-需要先安装 [Node.js LTS](https://nodejs.org/)。
-
-### 首次克隆（bash）
+仓库：https://github.com/cm4217/CM
 
 ```bash
 git clone https://github.com/cm4217/CM.git
@@ -32,91 +15,43 @@ npm install
 npm run dev
 ```
 
-### 首次克隆（Windows PowerShell）
+## 页面路由
 
-```powershell
-git clone https://github.com/cm4217/CM.git
-cd CM
-npm install
-npm run dev
-```
-
-### 已有本地仓库
-
-```bash
-cd /path/to/CM
-npm install
-npm run dev
-```
-
-### 其他命令
-
-```bash
-npm run build
-npm run sync:rs
-```
-
-## 技术栈
-
-- Next.js 14 App Router + TypeScript + Tailwind
-- 本地种子数据；可选 GSRS / PubChem 富化（约 1h 缓存）
-- **Ketcher 3.7**（ketcher-react + ketcher-standalone + ketcher-core）结构画板
+- / 首页
+- /search 检索
+- /compare 对比
+- /graph 图谱
+- /structure 结构检索
+- /reference-standards 对照品
+- /limits 限值
+- /alerts 修订提醒
+- /watchlist 关注
+- /notes 备注
+- /ask 问答
+- /about 关于
 
 ## 本版能力
 
-1. GSRS + PubChem 实时富化
-2. 对照品 sync:rs 脚本
-3. ICH 限值示例 /limits
-4. 结构检索 /structure（Ketcher 画板 + SMILES 备用输入 + PubChem）
-5. 修订提醒来源筛选与订阅说明
-6. 智能问答 /ask（本地检索；可选云端润色）
+1. 跨药典对比 /compare
+2. 杂质图谱 /graph
+3. 修订提醒 /alerts + fetch:alerts
+4. 对照品 sync:rs
+5. 关注列表 /watchlist
+6. 检索 同义词/拼音/fuse
+7. 结构 identity|similarity|substructure
+8. 问答 knowledgeSnippets
+9. 备注 /notes
+10. 部署 vercel.json
 
+## 技术栈与脚本
 
-## Ketcher 结构画板
+Next.js 14 · fuse.js · pinyin-pro · Ketcher 3.7
 
-`/structure` 页客户端动态加载 EPAM Ketcher（Apache-2.0）。
-
-| 包 | 版本 | 作用 |
-| --- | --- | --- |
-| ketcher-react | 3.7.0 | React Editor UI |
-| ketcher-standalone | 3.7.0 | 浏览器内 Indigo（WASM） |
-| ketcher-core | 3.7.0 | getSmiles / getMolfile / setMolecule |
-
-接入要点：
-
-- client-only：next/dynamic(..., { ssr: false }) + useEffect 内 import()，避免 SSR 碰 window/Worker
-- StandaloneStructServiceProvider 从 ketcher-standalone/dist/binaryWasm 引入
-- CSS：ketcher-react/dist/index.css（动态加载）；.ketcher-host 固定高度
-- next.config.mjs：transpilePackages + asyncWebAssembly + .wasm asset/resource
-- Peer：react / react-dom ^18.2（本项目 18.3）；MUI/draft-js 等由 ketcher-react 拉取
-
-页面按钮：「从画板获取 SMILES」「清空」「检索」；下方 SMILES 文本框备用，可展开 MOL。
-
-注意：首次打开 /structure 包体较大（standalone + WASM），仅浏览器加载。
-
-## 环境变量（可选）
-
-- OPENAI_API_KEY / OPENAI_MODEL
-- ANTHROPIC_API_KEY / ANTHROPIC_MODEL
-- 无 Key 即可本地问答；勿提交密钥
-
-## API
-
-- GET /api/gsrs/search?q=
-- GET /api/gsrs/substance/[unii]
-- GET /api/pubchem/compound?name=|cid=|cas=
-- GET /api/structure/search?smiles=
-- GET /api/alerts/sources
-- GET|POST /api/ask
-
-## 页面
-
-/ /search /structure /substances/[id] /impurities/[id] /reference-standards /limits /alerts /ask /about
-
+npm run build | sync:rs | fetch:alerts
+## deploy
+## 部署上线
+Vercel Import cm4217/CM Next.js build
+Optional LLM keys; Domains
+Meilisearch deferred; offline alerts seed
 ## 版权
-
-不抓取 USP/EP/BP 专论全文；实时富化与示例数据明确标注；对照品仅元数据。徽章：usable / needs_license / link_only。
-
-## 许可
-
-产品演示 MVP。第三方名称归各自权利人。Ketcher 为 Apache-2.0（EPAM）。详见 scripts/SYNC_RS_README.md（运行 sync:rs 生成）。
+Metadata only; no full text monographs
