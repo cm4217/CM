@@ -87,8 +87,14 @@ function CompareColumn({ s }: { s: Substance }) {
         <p className="text-xs text-slate-400 font-latin mt-1">
           {[s.inn, s.cas ? `CAS ${s.cas}` : null].filter(Boolean).join(" · ")}
         </p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           <DemoBadge />
+          <Link
+            href={`/substances/${s.id}/compendial`}
+            className="rounded-lg border border-sky-500 bg-white px-2 py-0.5 text-[11px] font-medium text-sky-900 hover:bg-sky-50 no-underline"
+          >
+            详细对照
+          </Link>
         </div>
       </div>
       <OfficialQueryLinks

@@ -295,12 +295,22 @@ function ResultCard({
           onClick={(e) => e.stopPropagation()}
         >
           {hero ? (
-            <Link
-              href={hrefFor(hit)}
-              className="inline-flex rounded-lg border border-teal-600 bg-teal-600 px-2.5 py-1 text-xs font-medium text-white no-underline hover:bg-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-            >
-              打开详情
-            </Link>
+            <>
+              <Link
+                href={hrefFor(hit)}
+                className="inline-flex rounded-lg border border-teal-600 bg-teal-600 px-2.5 py-1 text-xs font-medium text-white no-underline hover:bg-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+              >
+                打开详情
+              </Link>
+              {hit.kind === "substance" ? (
+                <Link
+                  href={`/substances/${encodeURIComponent(hit.id)}/compendial`}
+                  className="inline-flex rounded-lg border border-sky-600 bg-white px-2.5 py-1 text-xs font-medium text-sky-900 no-underline hover:bg-sky-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+                >
+                  详细对照
+                </Link>
+              ) : null}
+            </>
           ) : null}
           <SearchCardActions
             substanceId={hit.id}

@@ -10,6 +10,12 @@ export {
 export { ichLimits, getLimitsForImpurityType, getLimit } from "./ichLimits";
 export { alertSources } from "./alertSources";
 export { knowledgeSnippets } from "./knowledgeSnippets";
+export {
+  getCompendialMatrix,
+  hasRichCompendialMatrix,
+  RICH_COMPENDIAL_IDS,
+  COMPENDIAL_COLUMNS,
+} from "./compendialMatrices";
 
 import { substances } from "./substances";
 import { impurities } from "./impurities";

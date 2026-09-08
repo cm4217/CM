@@ -45,6 +45,13 @@ export function SearchCardActions({
         加入对比
       </button>
       <Link
+        href={`/substances/${encodeURIComponent(substanceId)}/compendial`}
+        className={`${btn} border-sky-500 text-sky-900 hover:bg-sky-50 no-underline`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        详细对照
+      </Link>
+      <Link
         href={`/checklist?substance=${encodeURIComponent(substanceId)}`}
         className={`${btn} border-slate-300 text-slate-800 hover:bg-slate-50 no-underline`}
         onClick={(e) => e.stopPropagation()}

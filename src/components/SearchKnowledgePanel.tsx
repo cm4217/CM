@@ -153,6 +153,15 @@ export function SearchKnowledgePanel({ hit, defaultCollapsed = true }: Props) {
           })}
         </div>
       </div>
+
+      {hit.kind === "substance" ? (
+        <Link
+          href={`/substances/${encodeURIComponent(hit.id)}/compendial`}
+          className="inline-flex w-full items-center justify-center rounded-lg border border-sky-500 bg-sky-50 px-2.5 py-1.5 text-xs font-medium text-sky-900 no-underline hover:bg-sky-100"
+        >
+          详细对照 · 多药典矩阵
+        </Link>
+      ) : null}
     </div>
   );
 

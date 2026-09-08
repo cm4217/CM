@@ -94,3 +94,28 @@ html[data-density="comfortable"] .density-card h3 {
     box-shadow: none !important;
   }
 }
+
+/* —— Compendial compare matrix —— */
+.compendial-matrix th {
+  @apply whitespace-nowrap;
+}
+.compendial-row:hover td {
+  background-color: rgb(224 242 254 / 0.85) !important; /* sky-100 */
+}
+.compendial-row:hover td.sticky {
+  background-color: rgb(186 230 253 / 0.95) !important; /* sky-200-ish */
+}
+@media print {
+  .compendial-matrix {
+    font-size: 10pt;
+  }
+  .compendial-matrix th {
+    background: #0369a1 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .compendial-row:hover td {
+    background: transparent !important;
+  }
+}

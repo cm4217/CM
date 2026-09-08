@@ -21,6 +21,7 @@ npm run dev
 - /workbench 工作台
 - /search 检索
 - /compare 对比（队列 / 差集 / 导出）
+- /substances/[id]/compendial 多药典详细对照（示例矩阵 · DEMO）
 - /checklist 核查清单
 - /graph 图谱
 - /structure 结构检索
@@ -85,6 +86,15 @@ Meilisearch deferred; offline alerts seed
 ### 检索合并与分面
 
 优先级：精选种子 > 用户导入 > 缓存草稿 > 开放 bulk。分面可切换「仅精选种子」/「含开放索引」。
+
+
+## 多药典详细对照（DEMO）
+
+- 路由：`/substances/[id]/compendial`，中文标题「多药典详细对照」。
+- 矩阵：行=属性，列=ChP/USP/EP/BP/JP/Ph.Int.；页头有粘性免责声明。
+- 数据：`src/data/compendialMatrices.ts`。阿司匹林等精选物质含 DEMO 叙述/检查项；其余多为「有此项」/「—」元数据 + 官方「查看原文」（免费/订阅标记）。
+- **版权**：不粘贴 USP/EP/BP/ChP 法定性状、含量测定接受标准原文；单元格均为示例或元数据。
+- 入口：物质详情快捷操作、检索 Best Match / 卡片「详细对照」、知识面板、对比页。
 
 ## 版权
 Metadata only; no full text monographs

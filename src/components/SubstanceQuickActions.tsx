@@ -35,6 +35,12 @@ export function SubstanceQuickActions({
         加入对比
       </button>
       <Link
+        href={`/substances/${encodeURIComponent(substanceId)}/compendial`}
+        className="rounded-lg border border-sky-500 bg-white px-2.5 py-1 text-xs font-medium text-sky-900 hover:bg-sky-50"
+      >
+        详细对照
+      </Link>
+      <Link
         href={`/checklist?substance=${encodeURIComponent(substanceId)}`}
         className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-800 hover:bg-slate-50"
       >

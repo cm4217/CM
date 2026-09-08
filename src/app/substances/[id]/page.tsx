@@ -177,9 +177,17 @@ export default function SubstancePage({ params }: Props) {
       )}
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-slate-900">
-          专论引用 MonographRefs
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold text-slate-900">
+            专论引用 MonographRefs
+          </h2>
+          <Link
+            href={`/substances/${s.id}/compendial`}
+            className="rounded-lg border border-sky-500 bg-sky-50 px-2.5 py-1 text-xs font-medium text-sky-900 hover:bg-sky-100 no-underline"
+          >
+            多药典详细对照 →
+          </Link>
+        </div>
         <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
           <table className="prose-table min-w-[720px]">
             <thead>
