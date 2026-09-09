@@ -47,7 +47,7 @@ export default function RootLayout({
         <div className="print:hidden toast-host">
           <ToastHost />
         </div>
-        <main className="flex-1 mx-auto w-full max-w-6xl px-4 py-8 lg:max-w-7xl">{children}</main>
+        <main className="flex-1 mx-auto w-full max-w-7xl px-4 py-8 sm:py-10">{children}</main>
         <div className="print:hidden">
           <Footer />
         </div>

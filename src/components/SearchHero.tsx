@@ -28,18 +28,19 @@ export function SearchHero() {
   }
 
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 text-white shadow-lg">
-      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-300 via-transparent to-transparent" />
+    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-950 via-teal-800 to-slate-900 text-white shadow-lg ring-1 ring-teal-700/30">
+      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-300 via-transparent to-transparent" />
+      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-teal-400/10 blur-3xl" />
       <div className="relative px-6 py-12 sm:px-10 sm:py-16">
-        <p className="text-teal-200 text-sm font-medium tracking-wide">
+        <p className="text-teal-200/95 text-sm font-medium tracking-wide">
           药典索引 · 杂质发现层 · 示例数据
         </p>
         <h1 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
           以索引与对照连接多药典
         </h1>
         <p className="mt-3 max-w-2xl text-teal-50/90 text-sm sm:text-base leading-relaxed">
-          按药名 / INN / CAS / 杂质名 / 剂型检索。支持同义词、拼音首字母、剂型与盐型清洗、自动补全与 RxNorm
-          提示。限度与方法以现行官方药典为准。
+          按药名 / 中文商品名 / INN / CAS / UNII / 杂质名检索。支持同义词、拼音首字母、剂型与盐型清洗、自动补全。
+          限度与方法以现行官方药典为准。
         </p>
 
         <div className="mt-8 max-w-2xl">
@@ -55,13 +56,13 @@ export function SearchHero() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-teal-100/90">
-          {["阿司匹林", "阿司匹林片", "乙酰水杨酸", "NDMA", "aspl", "50-78-2"].map(
+          {["阿司匹林", "达菲", "立普妥", "阿司匹林片", "NDMA", "aspl", "50-78-2", "R16CO5Y76E"].map(
             (t) => (
               <button
                 key={t}
                 type="button"
                 onClick={() => go(t)}
-                className="rounded-full bg-white/10 px-3 py-1 hover:bg-white/20 transition font-latin"
+                className="rounded-full border border-white/10 bg-white/10 px-3 py-1 hover:bg-white/20 transition font-latin focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {t}
               </button>

@@ -43,9 +43,9 @@ export default function WorkbenchPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">工作台</h1>
-          <p className="mt-1 text-sm text-slate-500 font-latin">
+        <div className="ph-page-hero">
+          <h1>工作台</h1>
+          <p className="font-latin">
             Workbench · history · watchlist · shortcuts
           </p>
         </div>

@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="space-y-8 max-w-3xl">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">关于 / 数据来源</h1>
-        <p className="mt-1 text-sm text-slate-500 font-latin">
+      <div className="ph-page-hero">
+        <h1>关于 / 数据来源</h1>
+        <p className="font-latin">
           Legal model · official links · copyright posture
         </p>
         <div className="mt-3">
@@ -23,7 +23,7 @@ export default function AboutPage() {
 
       <DisclaimerBanner />
 
-      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="space-y-3 ph-card p-6">
         <h2 className="text-lg font-semibold">产品是什么</h2>
         <p className="text-sm text-slate-600 leading-relaxed">
           「药典对照层」是中文优先的 <strong>药典索引 + 杂质发现层</strong>
@@ -34,7 +34,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="space-y-3 ph-card p-6">
         <h2 className="text-lg font-semibold">法律与版权模型</h2>
         <p className="text-sm text-slate-600 leading-relaxed">{DISCLAIMER}</p>
         <ul className="space-y-3 text-sm text-slate-600">
@@ -53,7 +53,7 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="space-y-3 ph-card p-6">
         <h2 className="text-lg font-semibold">官方链接</h2>
         <ul className="divide-y divide-slate-100">
           {Object.entries(OFFICIAL_LINKS).map(([code, link]) => (
@@ -78,7 +78,7 @@ export default function AboutPage() {
       </section>
 
 
-      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="space-y-3 ph-card p-6">
         <h2 className="text-lg font-semibold">工具</h2>
         <ul className="text-sm text-slate-600 space-y-2">
           <li>
@@ -92,7 +92,7 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="space-y-3 ph-card p-6">
         <h2 className="text-lg font-semibold">演示数据说明</h2>
         <p className="text-sm text-slate-600 leading-relaxed">
           当前 MVP 使用本地 TypeScript 模块种子数据（阿司匹林、布洛芬及若干杂质，含亚硝胺风格示例 NDMA）。对照品目录号为虚构示例，不可用于订购或申报。
