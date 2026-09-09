@@ -912,7 +912,29 @@ function runOnce(
     });
   }
 
-  const ranked = rankDocs(docs, {
+  // Drop open fuzzy noise with no shared trigram vs query (keeps curated / strong tiers)
+  const qBlob = norm([parsed.raw, parsed.core, ...parsed.tokens].filter(Boolean).join(" "));
+  function trigrams(s: string) {
+    const t = new Set<string>();
+    const x = s.replace(/\s+/g, "");
+    for (let i = 0; i + 2 < x.length; i++) t.add(x.slice(i, i + 3));
+    return t;
+  }
+  const qTri = trigrams(qBlob);
+  const filteredDocs =
+    qTri.size >= 2
+      ? docs.filter((d) => {
+          if (d.indexLayer !== "open") return true;
+          if (d.matchedVia && d.matchedVia !== "fuzzy" && d.matchedVia !== "relaxed") return true;
+          const blob = norm([d.titleZh, d.titleEn, d.brandName || "", d.genericName || "", ...(d.synonyms || [])].join(" "));
+          const dt = trigrams(blob);
+          let hit = 0;
+          for (const g of Array.from(qTri)) if (dt.has(g)) hit++;
+          return hit >= 1;
+        })
+      : docs;
+
+  const ranked = rankDocs(filteredDocs, {
     parsed,
     synonymTerms,
     dosageMismatchPenalty: parsed.dosageForms.length > 0,
@@ -1054,11 +1076,36 @@ export function searchWithMeta(filters: SearchFilters): SearchResponse {
       ? strictHits
       : runOnce(filters, parsed, mode, synonymExtras);
 
+  // Precision gate: when strong curated/exact hits exist, collapse weak open fuzzy tails
+  const STRONG = new Set(["cas", "exact", "synonym"]);
+  const hasStrong = hits.some(
+    (h) =>
+      (h.indexLayer || "curated") !== "open" &&
+      h.matchTier &&
+      STRONG.has(h.matchTier)
+  );
+  let pruned = hits;
+  if (hasStrong && hits.length > 12) {
+    const kept: typeof hits = [];
+    let weakOpenTail = 0;
+    for (const h of hits) {
+      const weakOpen =
+        h.indexLayer === "open" &&
+        (!h.matchTier || h.matchTier === "fuzzy" || h.matchTier === "relaxed");
+      if (weakOpen) {
+        weakOpenTail++;
+        if (weakOpenTail > 2) continue; // keep a short sample of weak open hits
+      }
+      kept.push(h);
+    }
+    pruned = kept;
+  }
+
   // titleOnly：压缩摘要等字段（UI 侧也会处理；此处去掉 summary 以减轻）
   const outHits =
     filters.titleOnly === "1"
-      ? hits.map((h) => ({ ...h, summary: undefined, subtitle: undefined }))
-      : hits;
+      ? pruned.map((h) => ({ ...h, summary: undefined, subtitle: undefined }))
+      : pruned;
 
   const facets = buildFacets(outHits, parsed);
 

@@ -27,6 +27,7 @@ export type RankableDoc = {
   synonyms: string[];
   initials: string;
   cas?: string;
+  unii?: string;
   pharmacopoeias: string[];
   hasRS: boolean;
   hasVerifiedDocId: boolean;
@@ -99,11 +100,40 @@ function casExactHit(doc: RankableDoc, cas?: string): boolean {
   return norm(doc.cas) === norm(cas);
 }
 
+function uniiExactHit(doc: RankableDoc, raw: string): boolean {
+  const q = norm(raw);
+  if (!q || !doc.unii) return false;
+  // bare UNII (10 alnum) or "unii:XXXX"
+  const bare = q.replace(/^unii\s*[:=]?\s*/i, "").replace(/[\s-]/g, "");
+  if (!/^[a-z0-9]{10}$/i.test(bare)) return false;
+  return norm(doc.unii) === bare;
+}
+
+function brandOrInnExact(doc: RankableDoc, terms: string[]): "brand" | "inn" | null {
+  const brand = norm(doc.brandName || "");
+  const generic = norm(doc.genericName || "");
+  for (const t of terms) {
+    const n = norm(t);
+    if (!n) continue;
+    if (brand && brand === n) return "brand";
+    // Chinese brand often sits only in synonyms / titleZh for drugs
+    if (doc.kind === "drug") {
+      const zh = norm(doc.titleZh);
+      if (zh && zh === n && /[\u4e00-\u9fff]/.test(doc.titleZh)) return "brand";
+    }
+    if (generic && generic === n) return "inn";
+  }
+  return null;
+}
+
 export function classifyTier(
   doc: RankableDoc,
   ctx: RankContext
 ): MatchTier {
   if (casExactHit(doc, ctx.parsed.cas)) return "cas";
+  if (uniiExactHit(doc, ctx.parsed.raw) || uniiExactHit(doc, ctx.parsed.core)) {
+    return "exact";
+  }
   const terms = [
     ctx.parsed.raw,
     ctx.parsed.core,
@@ -111,6 +141,7 @@ export function classifyTier(
     ...ctx.parsed.enParts,
   ].filter(Boolean);
   if (exactNameHit(doc, terms)) return "exact";
+  if (brandOrInnExact(doc, terms)) return "exact";
   if (synonymHit(doc, ctx.synonymTerms)) return "synonym";
   if (
     pinyinHit(doc, ctx.parsed.raw) ||
@@ -139,6 +170,34 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
 } {
   const tier = doc.matchedVia || classifyTier(doc, ctx);
   let score = TIER_BASE[tier];
+  let reason = MATCH_REASON_ZH[tier];
+
+  const terms = [
+    ctx.parsed.raw,
+    ctx.parsed.core,
+    ...ctx.parsed.zhParts,
+    ...ctx.parsed.enParts,
+  ].filter(Boolean);
+
+  // Exact ID boosts — CAS / UNII / brand / INN
+  if (casExactHit(doc, ctx.parsed.cas)) {
+    score += 120;
+    reason = "CAS 精确";
+  }
+  if (uniiExactHit(doc, ctx.parsed.raw) || uniiExactHit(doc, ctx.parsed.core)) {
+    score += 130;
+    reason = "UNII 精确";
+  }
+  const brandInn = brandOrInnExact(doc, terms);
+  if (brandInn === "brand") {
+    score += 90;
+    reason = "商品名精确";
+  } else if (brandInn === "inn") {
+    score += 70;
+    reason = "INN/通用名精确";
+  } else if (exactNameHit(doc, terms) && tier === "exact") {
+    score += 55;
+  }
 
   // fuse：分数越低越好 → 转为加分
   if (typeof doc.fuseScore === "number") {
@@ -168,6 +227,27 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
   };
   score += layerBoost[doc.indexLayer || "curated"] ?? 0;
 
+  // Soft-penalize weak open-index fuzzy noise so curated / exact stay on top
+  if (doc.indexLayer === "open" && (tier === "fuzzy" || tier === "relaxed")) {
+    score -= 90;
+  }
+  if (doc.indexLayer === "open" && tier === "pinyin") {
+    score -= 25;
+  }
+  // Extra curated sticky boost on fuzzy so demo goldens beat open tails on typos
+  if ((doc.indexLayer || "curated") === "curated" && (tier === "fuzzy" || tier === "relaxed")) {
+    score += 40;
+  }
+
+  // Prefer substance over drug when query has no dosage and names collide
+  if (
+    ctx.parsed.dosageForms.length === 0 &&
+    doc.kind === "drug" &&
+    (tier === "synonym" || tier === "fuzzy" || tier === "relaxed")
+  ) {
+    score -= 12;
+  }
+
   if (ctx.parsed.dosageForms.length > 0) {
     if (doc.kind === "drug" && doc.dosageForm) {
       const df = doc.dosageForm.toLowerCase();
@@ -193,7 +273,7 @@ export function scoreDoc(doc: RankableDoc, ctx: RankContext): {
   return {
     score,
     tier,
-    reason: MATCH_REASON_ZH[tier],
+    reason,
   };
 }
 

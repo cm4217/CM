@@ -92,7 +92,7 @@ export function SearchResultsShell({
       {!showExternalOnly && heroDecision.reason === "ambiguous" && tabbed.length > 1 ? (
         <div
           role="status"
-          className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950"
+          className="rounded-xl border border-amber-300/80 bg-gradient-to-r from-amber-50 to-orange-50/60 px-4 py-3 text-sm text-amber-950 shadow-sm"
         >
           <strong className="font-semibold">多条接近，请选择</strong>
           <span className="ml-2 text-amber-900/80">
@@ -114,7 +114,7 @@ export function SearchResultsShell({
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-6 lg:items-start">
         <div className="min-w-0 space-y-4">
           {showExternalOnly ? (
-            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-600">
+            <div className="ph-empty">
               站外助手见页面下方「站外可查」卡片。本页不托管药典全文。
             </div>
           ) : (

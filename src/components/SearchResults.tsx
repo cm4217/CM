@@ -152,8 +152,11 @@ function ResultCard({
             </span>
           )}
           {!hero && hit.matchReason ? (
-            <span className="rounded-md bg-teal-50 px-2 py-0.5 text-xs text-teal-900">
-              匹配：{hl(hit.matchReason)}
+            <span className="rounded-full border border-teal-200 bg-teal-50 px-2 py-0.5 text-xs font-medium text-teal-900">
+              匹配 · {hl(hit.matchReason)}
+              {typeof hit.rankScore === "number" ? (
+                <span className="ml-1 font-latin text-teal-700/70">{hit.rankScore.toFixed(0)}</span>
+              ) : null}
             </span>
           ) : null}
         </div>

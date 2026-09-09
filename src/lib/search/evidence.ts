@@ -16,7 +16,10 @@ export type EvidenceReasonCode =
   | "unii"
   | "has_rs"
   | "deep_link"
-  | "formula";
+  | "formula"
+  | "brand"
+  | "inn"
+  | "confidence";
 
 export type EvidenceItem = {
   field: string;
@@ -61,6 +64,13 @@ export function buildEvidence(src: EvidenceSource): EvidenceItem[] {
       }`,
       reasonCode: "match_field",
     });
+  }
+
+  const mr = src.matchReason || "";
+  if (mr.includes("商品名")) {
+    out.push({ field: "商品名", value: mr, reasonCode: "brand" });
+  } else if (mr.includes("INN") || mr.includes("通用名")) {
+    out.push({ field: "INN", value: mr, reasonCode: "inn" });
   }
 
   if (src.cas) {

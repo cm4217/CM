@@ -5,6 +5,8 @@ import type { MatchTier } from "./rank";
 export const HERO_SCORE_MARGIN = 80;
 
 const ALWAYS_HERO: Set<MatchTier> = new Set(["cas", "exact"]);
+/** Synonym can still hero when margin is clear */
+const SYNONYM_HERO_MARGIN = 100;
 
 const TIER_BASE: Record<string, number> = {
   cas: 1000,
@@ -43,12 +45,29 @@ export function decideHero(hits: SearchHit[]): HeroDecision {
   const s2 = hits[1] ? deriveScore(hits[1]) : 0;
   const margin = hits[1] ? s1 - s2 : s1;
 
-  if (top.matchTier && ALWAYS_HERO.has(top.matchTier)) {
+  const reasonHint = (top.matchReason || "").toLowerCase();
+  const idExact =
+    (!!top.matchTier && ALWAYS_HERO.has(top.matchTier)) ||
+    reasonHint.includes("unii") ||
+    reasonHint.includes("cas") ||
+    reasonHint.includes("商品名") ||
+    reasonHint.includes("inn");
+
+  if (idExact) {
     return {
       showHero: true,
       margin,
       closeTop2: margin < HERO_SCORE_MARGIN,
       reason: "cas_exact",
+    };
+  }
+
+  if (top.matchTier === "synonym" && margin >= SYNONYM_HERO_MARGIN) {
+    return {
+      showHero: true,
+      margin,
+      closeTop2: false,
+      reason: "score_margin",
     };
   }
 

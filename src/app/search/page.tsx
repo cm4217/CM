@@ -88,10 +88,10 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <div className="space-y-6 search-page">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">检索结果</h1>
-          <p className="mt-1 text-sm text-slate-500 font-latin">
-            Search · evidence · knowledge panel · intent tabs · mini-compare
+        <div className="ph-page-hero">
+          <h1>检索结果</h1>
+          <p className="font-latin">
+            Search · evidence chips · confidence · intent tabs · mini-compare
           </p>
         </div>
         <SearchBackendChip />
@@ -131,8 +131,12 @@ export default async function SearchPage({ searchParams }: Props) {
           ) : null}
         </p>
         {hits.length > 0 ? (
-          <p className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm">
-            物质 {nSub} · 杂质 {nImp} · 对照品 {nRs} · 后端 {result.backend} · 主命中：
+          <p className="rounded-xl border border-slate-200/90 bg-white px-3.5 py-2.5 text-sm text-slate-700 shadow-sm">
+            <span className="ph-chip-teal mr-1.5">物质 {nSub}</span>
+            <span className="ph-chip mr-1.5">杂质 {nImp}</span>
+            <span className="ph-chip mr-1.5">对照品 {nRs}</span>
+            <span className="ph-chip mr-1.5 font-latin">backend {result.backend}</span>
+            · 主命中：
             <span className="font-medium text-slate-900">{topLabel}</span>
             {typeof topHit?.rankScore === "number" ? (
               <span className="ml-2 text-xs text-slate-400 font-latin">
@@ -140,6 +144,8 @@ export default async function SearchPage({ searchParams }: Props) {
               </span>
             ) : null}
           </p>
+        ) : q ? (
+          <div className="ph-empty">未命中本地索引。可尝试同义词、CAS/UNII，或使用下方站外助手。</div>
         ) : null}
       </div>
 
