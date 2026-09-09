@@ -27,7 +27,7 @@ const OUT_TS = join(ROOT, "src/data/openSubstances.generated.ts");
 const OUT_JSON = join(ROOT, "src/data/openSubstances.generated.json");
 const BUNDLED = join(INCOMING, "bundled-seed.csv");
 
-const LIMIT = Math.max(1, Number(process.env.OPEN_IMPORT_LIMIT || 8000) || 8000);
+const LIMIT = Math.max(1, Number(process.env.OPEN_IMPORT_LIMIT || 12000) || 8000);
 const REQUIRE_CAS = process.env.OPEN_IMPORT_REQUIRE_CAS === "1";
 const DOWNLOAD_URL = process.env.OPEN_IMPORT_URL || "";
 const STREAM = process.env.OPEN_IMPORT_STREAM !== "0";
@@ -292,7 +292,7 @@ function writeTs(records, meta) {
     requireCas: REQUIRE_CAS,
     stream: STREAM,
     files: meta.files || [],
-    expectedFullScale: "100k-200k+ UNII / NDC-derived rows before LIMIT; default LIMIT 8000 for local; git keeps high-value seed",
+    expectedFullScale: "100k-200k+ UNII / NDC-derived rows before LIMIT; default LIMIT 12000 for local; git keeps high-value seed",
   };
   writeFileSync(OUT_JSON, JSON.stringify(records), "utf8");
   const body =

@@ -37,7 +37,7 @@ const CN_ALIASES = join(ROOT, "data/incoming/open/cn-brand-aliases.json");
 const SUBSTANCE_TS = join(ROOT, "src/data/openSubstances.generated.ts");
 const SUBSTANCE_JSON = join(ROOT, "src/data/openSubstances.generated.json");
 
-const LIMIT = Math.max(1, Number(process.env.OPEN_DRUG_IMPORT_LIMIT || 4000) || 4000);
+const LIMIT = Math.max(1, Number(process.env.OPEN_DRUG_IMPORT_LIMIT || 6000) || 4000);
 const DOWNLOAD_URL =
   process.env.OPEN_DRUG_IMPORT_URL ||
   "https://download.open.fda.gov/drug/ndc/drug-ndc-0001-of-0001.json.zip";

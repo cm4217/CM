@@ -183,4 +183,4 @@ See package scripts test:search, synonym:gap, meili:index. Autocomplete groups, 
 版权姿态不变：仅元数据与外链索引，不托管法定专论全文。不部署本轮。
 
 ## Global libraries (API + finished drugs)
-import:open (OPEN_IMPORT_LIMIT default 8000), expand:ndc-substances, import:drugs (OPEN_DRUG_IMPORT_LIMIT default 4000). Docs: docs/open-identity.md. Search kind drug vs substance.
+import:open (OPEN_IMPORT_LIMIT default 12000), expand:ndc-substances, import:drugs (OPEN_DRUG_IMPORT_LIMIT default 6000). Docs: docs/open-identity.md. Search kind drug vs substance.

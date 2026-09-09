@@ -13,7 +13,7 @@ const ROOT = join(__dirname, "..");
 const NDC_DIR = join(ROOT, "data/incoming/ndc");
 const OUT_CSV = join(ROOT, "data/incoming/open/ndc-derived-substances.csv");
 const BUNDLED = join(ROOT, "data/incoming/open/bundled-seed.csv");
-const LIMIT = Math.max(100, Number(process.env.OPEN_NDC_SUBSTANCE_LIMIT || 8000) || 8000);
+const LIMIT = Math.max(100, Number(process.env.OPEN_NDC_SUBSTANCE_LIMIT || 12000) || 8000);
 
 mkdirSync(dirname(OUT_CSV), { recursive: true });
 

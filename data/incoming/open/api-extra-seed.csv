@@ -1,0 +1,463 @@
+nameEn,nameZh,cas,unii,synonyms
+Semaglutide,司美格鲁肽,,,Ozempic|Wegovy|Rybelsus|诺和泰
+Tirzepatide,替尔泊肽,,,Mounjaro|Zepbound
+Liraglutide,利拉鲁肽,,,Victoza|Saxenda|诺和力
+Dulaglutide,度拉糖肽,,,Trulicity|度易达
+Insulin degludec,德谷胰岛素,,,Tresiba|诺和佳
+Insulin detemir,地特胰岛素,,,Levemir|诺和平
+Insulin lispro,赖脯胰岛素,,,Humalog|优泌乐
+Insulin aspart,门冬胰岛素,,,NovoRapid|诺和锐
+Canagliflozin,卡格列净,,,Invokana
+Ertugliflozin,埃格列净,,,Steglatro|艾托格列净
+Saxagliptin,沙格列汀,,,Onglyza|安立泽
+Vildagliptin,维格列汀,,,Galvus|佳维乐
+Alogliptin,阿格列汀,,,Nesina
+Nateglinide,那格列奈,,,Starlix|唐力
+Voglibose,伏格列波糖,,,Basen
+Miglitol,米格列醇,,,Seibule
+Glibenclamide,格列本脲,,,Glyburide|Daonil|优降糖
+Sacubitril,沙库巴曲,,,Entresto
+Valsartan sacubitril,沙库巴曲缬沙坦,,,Entresto|诺欣妥
+Ivabradine,伊伐布雷定,,,Procoralan
+Ranolazine,雷诺嗪,,,Ranexa
+Ticagrelor,替格瑞洛,274693-27-5,GLH0314RVC,Brilinta|倍林达
+Prasugrel,普拉格雷,150322-43-3,34K66TBT99,Efient
+Cangrelor,坎格瑞洛,,,
+Vorapaxar,沃拉帕沙,,,
+Idarucizumab,依达赛珠单抗,,,Praxbind
+Andexanet alfa,安得贤,,,Andexxa
+Baloxavir marboxil,玛巴洛沙韦,,,Xofluza|速福达
+Molnupiravir,莫努匹韦,,,Lagevrio
+Nirmatrelvir,奈玛特韦,,,Paxlovid|帕罗韦德
+Ritonavir nirmatrelvir,奈玛特韦利托那韦,,,Paxlovid
+Sotrovimab,索托维单抗,,,Xevudy
+Casirivimab,卡西瑞单抗,,,Ronapreve
+Imdevimab,伊德维单抗,,,
+Baricitinib,巴瑞替尼,,,Olumiant
+Tofacitinib,托法替布,,,Xeljanz
+Upadacitinib,乌帕替尼,,,Rinvoq
+Filgotinib,非戈替尼,,,Jyseleca
+Dupilumab,度普利尤单抗,,,Dupixent
+Secukinumab,司库奇尤单抗,,,Cosentyx|可善挺
+Ustekinumab,乌司奴单抗,,,Stelara
+Guselkumab,古塞奇尤单抗,,,Tremfya
+Risankizumab,瑞莎珠单抗,,,Skyrizi
+Ixekizumab,依奇珠单抗,,,Taltz
+Brodalumab,布罗达单抗,,,Siliq
+Omalizumab,奥马珠单抗,,,Xolair
+Mepolizumab,美泊利单抗,,,Nucala
+Benralizumab,贝那利珠单抗,,,Fasenra
+Tezepelumab,替泽帕单抗,,,Tezspire
+Emicizumab,艾美赛珠单抗,,,Hemlibra
+Pembrolizumab,帕博利珠单抗,,,Keytruda
+Nivolumab,纳武利尤单抗,,,Opdivo
+Atezolizumab,阿替利珠单抗,,,Tecentriq
+Durvalumab,度伐利尤单抗,,,Imfinzi
+Avelumab,阿维鲁单抗,,,Bavencio
+Cemiplimab,西米普利单抗,,,Libtayo
+Ipilimumab,伊匹木单抗,,,Yervoy
+Osimertinib,奥希替尼,,,Tagrisso|多泽润
+Alectinib,阿来替尼,,,Alecensa
+Brigatinib,布格替尼,,,Alunbrig
+Lorlatinib,洛拉替尼,,,Lorbrena
+Crizotinib,克唑替尼,,,Xalkori
+Ceritinib,色瑞替尼,,,Zykadia
+Palbociclib,哌柏西利,,,Ibrance|爱博新
+Ribociclib,瑞博西利,,,Kisqali
+Abemaciclib,阿贝西利,,,Verzenio
+Olaparib,奥拉帕利,,,Lynparza
+Niraparib,尼拉帕利,,,Zejula
+Rucaparib,芦卡帕利,,,Rubraca
+Talazoparib,他拉唑帕利,,,Talzenna
+Ibrutinib,伊布替尼,,,Imbruvica
+Acalabrutinib,阿卡替尼,,,Calquence
+Zanubrutinib,泽布替尼,,,Brukinsa
+Venetoclax,维奈克拉,,,Venclexta
+Ivosidenib,艾伏尼布,,,Tibsovo
+Enasidenib,恩西地平,,,Idhifa
+Sotorasib,索托拉西布,,,Lumakras
+Adagrasib,阿达格拉西布,,,Krazati
+Lenvatinib,仑伐替尼,,,Lenvima
+Cabozantinib,卡博替尼,,,Cabometyx
+Axitinib,阿昔替尼,,,Inlyta
+Pazopanib,帕唑帕尼,,,Votrient
+Sunitinib,舒尼替尼,,,Sutent
+Sorafenib,索拉非尼,,,Nexavar
+Regorafenib,瑞戈非尼,,,Stivarga
+Nilotinib,尼洛替尼,,,Tasigna
+Dasatinib,达沙替尼,,,Sprycel
+Bosutinib,博舒替尼,,,Bosulif
+Ponatinib,帕纳替尼,,,Iclusig
+Asciminib,阿西米尼,,,Scemblix
+Everolimus,依维莫司,,,Afinitor
+Temsirolimus,坦西莫司,,,Torisel
+Lenalidomide,来那度胺,,,Revlimid
+Pomalidomide,泊马度胺,,,Pomalyst
+Thalidomide,沙利度胺,,,Thalomid
+Bortezomib,硼替佐米,,,Velcade
+Carfilzomib,卡非佐米,,,Kyprolis
+Ixazomib,伊沙佐米,,,Ninlaro
+Daratumumab,达雷妥尤单抗,,,Darzalex
+Isatuximab,伊沙妥昔单抗,,,Sarclisa
+Elotuzumab,埃罗妥珠单抗,,,Empliciti
+Belantamab mafodotin,贝兰他单抗,,,Blenrep
+Teclistamab,特立妥单抗,,,Tecvayli
+Abiraterone,阿比特龙,,,Zytiga|泽珂
+Enzalutamide,恩扎卢胺,,,Xtandi|安可坦
+Apalutamide,阿帕他胺,,,Erleada
+Darolutamide,达罗他胺,,,Nubeqa
+Relugolix,瑞卢戈利,,,Orgovyx
+Pertuzumab,帕妥珠单抗,,,Perjeta
+Trastuzumab emtansine,恩美曲妥珠单抗,,,Kadcyla
+Trastuzumab deruxtecan,德曲妥珠单抗,,,Enhertu
+Sacituzumab govitecan,戈沙妥珠单抗,,,Trodelvy
+Polatuzumab vedotin,维泊妥珠单抗,,,Polivy
+Brentuximab vedotin,维布妥昔单抗,,,Adcetris
+Enfortumab vedotin,维恩妥尤单抗,,,Padcev
+Mirvetuximab soravtansine,米维妥昔单抗,,,Elahere
+Oxaliplatin,奥沙利铂,61825-94-3,,Eloxatin|乐沙定
+Irinotecan,伊立替康,100286-90-6,,Camptosar
+Topotecan,拓扑替康,,,Hycamtin
+Etoposide,依托泊苷,33419-42-0,,Vepesid
+Vinorelbine,长春瑞滨,,,Navelbine
+Vincristine,长春新碱,57-22-7,,Oncovin
+Vinblastine,长春碱,865-21-4,,Velban
+Bleomycin,博来霉素,11056-06-7,,Blenoxane
+Mitomycin,丝裂霉素,50-07-7,,Mutamycin
+Ifosfamide,异环磷酰胺,3778-73-2,,Holoxan
+Melphalan,美法仑,148-82-3,,Alkeran
+Busulfan,白消安,55-98-1,,Myleran
+Chlorambucil,苯丁酸氮芥,305-03-3,,Leukeran
+Cytarabine,阿糖胞苷,147-94-4,,Cytosar
+Azacitidine,阿扎胞苷,320-67-2,,Vidaza
+Decitabine,地西他滨,2353-33-5,,Dacogen
+Fludarabine,氟达拉滨,21679-14-1,,Fludara
+Cladribine,克拉屈滨,4291-63-8,,Leustatin
+Nelarabine,奈拉滨,,,Arranon
+Pemetrexed,培美曲塞,137281-23-3,,Alimta
+Raltitrexed,雷替曲塞,,,Tomudex
+Hydroxyurea,羟基脲,127-07-1,,Hydrea
+Procarbazine,丙卡巴肼,671-16-9,,Matulane
+Dacarbazine,达卡巴嗪,4342-03-4,,DTIC
+Temozolomide,替莫唑胺,85622-93-1,,Temodar
+Lomustine,洛莫司汀,13010-47-4,,CeeNU
+Carmustine,卡莫司汀,154-93-8,,BiCNU
+Streptozocin,链脲佐菌素,18883-66-4,,Zanosar
+Pitavastatin,匹伐他汀,,,Livalo
+Fluvastatin,氟伐他汀,93957-54-1,,Lescol
+Bempedoic acid,贝派地酸,,,Nexletol
+Inclisiran,英克司兰,,,Leqvio
+Evolocumab,依洛尤单抗,,,Repatha
+Alirocumab,阿利西尤单抗,,,Praluent
+Icosapent ethyl,二十碳五烯酸乙酯,,,Vascepa
+Fenofibrate micronized,微粒化非诺贝特,,,Lipanthyl
+Perindopril,培哚普利,107133-36-8,,Coversyl|雅施达
+Fosinopril,福辛普利,98048-97-6,,Monopril|蒙诺
+Benazepril,贝那普利,86541-75-5,,Lotensin|洛汀新
+Cilazapril,西拉普利,92077-78-6,,Inhibace|抑平舒
+Quinapril,喹那普利,85441-61-8,,Accupril
+Trandolapril,群多普利,87679-37-6,,Mavik
+Moexipril,莫西普利,103775-10-6,,Univasc
+Lacidipine,拉西地平,103890-78-4,,Lacipil
+Lercanidipine,乐卡地平,100427-26-7,,Zanidip
+Felodipine,非洛地平,72509-76-3,,Plendil
+Nisoldipine,尼索地平,63675-72-9,,Sular
+Nicardipine,尼卡地平,55985-32-5,,Cardene
+Isradipine,伊拉地平,75695-93-1,,DynaCirc
+Barnidipine,巴尼地平,,,Hypoca
+Manidipine,马尼地平,,,Calslot
+Cilnidipine,西尼地平,,,Atelec
+Azelnidipine,阿折地平,,,Calblock
+Nebivolol,奈必洛尔,99200-09-6,,Nebilet
+Betaxolol,倍他洛尔,63659-18-7,,Kerlone
+Celiprolol,塞利洛尔,56980-93-9,,Selectol
+Acebutolol,醋丁洛尔,37517-30-9,,Sectral
+Labetalol,拉贝洛尔,36894-69-6,,Trandate
+Esmolol,艾司洛尔,81161-17-3,,Brevibloc
+Landiolol,兰地洛尔,,,Onoact
+Propafenone,普罗帕酮,54063-53-5,,Rytmonorm|心律平
+Flecainide,氟卡尼,54143-55-4,,Tambocor
+Mexiletine,美西律,31828-71-4,,Mexitil|慢心律
+Dronedarone,决奈达隆,141626-36-0,,Multaq
+Vernakalant,维纳卡兰,,,Brinavess
+Dofetilide,多非利特,115256-11-6,,Tikosyn
+Sotalol hydrochloride,盐酸索他洛尔,959-24-0,,
+Indapamide SR,吲达帕胺缓释,,,Natrilix SR|寿比山
+Toramide,托拉塞米,728710-00-0,,Demadex
+Bumetanide,布美他尼,28395-03-1,,Bumex
+Eplerenone,依普利酮,107724-20-9,,Inspra
+Finerenone,非奈利酮,,,Kerendia
+Tolvaptan,托伐普坦,150683-30-0,,Samsca
+Conivaptan,考尼伐坦,,,Vaprisol
+Desmopressin,去氨加压素,16679-58-6,,DDAVP|弥凝
+Terlipressin,特利加压素,,,Glypressin
+Octreotide,奥曲肽,83150-76-9,,Sandostatin
+Lanreotide,兰瑞肽,,,Somatuline
+Pasireotide,帕瑞肽,,,Signifor
+Pegvisomant,培维索孟,,,Somavert
+Cabergoline,卡麦角林,81409-90-7,,Dostinex
+Bromocriptine,溴隐亭,25614-03-3,,Parlodel
+Pramipexole,普拉克索,104632-26-0,,Sifrol|森福罗
+Ropinirole,罗匹尼罗,91374-21-9,,Requip|协良行
+Rotigotine,罗替戈汀,99755-59-6,,Neupro
+Rasagiline,雷沙吉兰,136236-51-6,,Azilect
+Selegiline,司来吉兰,14611-51-9,,Eldepryl
+Safinamide,沙芬酰胺,,,Xadago
+Opicapone,奥匹卡朋,,,Ongentys
+Entacapone,恩他卡朋,130929-57-6,,Comtan
+Tolcapone,托卡朋,134308-13-7,,Tasmar
+Donepezil,多奈哌齐,120014-06-4,,Aricept|安理申
+Rivastigmine,卡巴拉汀,123441-03-2,,Exelon|艾斯能
+Galantamine,加兰他敏,357-70-0,,Reminyl
+Memantine,美金刚,19982-08-2,,Ebixa|忆欣
+Ginkgo biloba extract,银杏叶提取物,,,EGb 761|金纳多
+Citicoline,胞磷胆碱,987-78-0,,Nicholin
+Piracetam,吡拉西坦,7491-74-9,,Nootropil
+Oxiracetam,奥拉西坦,62613-82-5,,Neuromet
+Aniracetam,阿尼西坦,72432-10-1,,Draganon
+Vinpocetine,长春西汀,42971-09-5,,Cavinton
+Nimodipine,尼莫地平,66085-59-4,,Nimotop
+Flunarizine,氟桂利嗪,52468-60-7,,Sibelium
+Cinnarizine,桂利嗪,298-57-7,,Stugeron
+Betahistine,倍他司汀,5638-76-6,,Serc
+Sumatriptan succinate,琥珀酸舒马普坦,103628-46-2,,
+Zolmitriptan,佐米曲普坦,139264-17-8,,Zomig
+Eletriptan,依来曲普坦,143322-58-1,,Relpax
+Frovatriptan,夫罗曲普坦,158747-02-5,,Frova
+Naratriptan,那拉曲普坦,121679-13-8,,Naramig
+Almotriptan,阿莫曲普坦,154323-57-6,,Almogran
+Rizatriptan benzoate,苯甲酸利扎曲普坦,145202-66-0,,
+Erenumab,厄瑞努单抗,,,Aimovig
+Fremanezumab,氟瑞奈珠单抗,,,Ajovy
+Galcanezumab,加卡奈珠单抗,,,Emgality
+Eptinezumab,依普奈珠单抗,,,Vyepti
+Rimegepant,瑞美吉泮,,,Nurtec
+Ubrogepant,乌布吉泮,,,Ubrelvy
+Atogepant,阿托吉泮,,,Qulipta
+Lasmiditan,拉司米地坦,,,Reyvow
+Esketamine,艾司氯胺酮,33643-46-8,,Spravato
+Brexpiprazole,依匹哌唑,,,Rexulti
+Cariprazine,卡利拉嗪,,,Vraylar
+Lurasidone,鲁拉西酮,367514-87-2,,Latuda
+Asenapine,阿塞那平,65576-45-6,,Saphris
+Iloperidone,伊潘立酮,133454-47-4,,Fanapt
+Paliperidone,帕利哌酮,144598-75-4,,Invega
+Amisulpride,氨磺必利,71675-85-9,,Solian
+Sulpiride,舒必利,15676-16-1,,Dogmatil
+Clozapine,氯氮平,5786-21-0,,Clozaril
+Olanzapine,奥氮平,132539-06-1,,Zyprexa|再普乐
+Quetiapine,喹硫平,111974-69-7,,Seroquel|思瑞康
+Risperidone,利培酮,106266-06-2,,Risperdal|维思通
+Aripiprazole,阿立哌唑,129722-12-9,,Abilify|安律凡
+Ziprasidone,齐拉西酮,146939-27-7,,Zeldox|卓乐定
+Haloperidol,氟哌啶醇,52-86-8,,Haldol
+Chlorpromazine,氯丙嗪,50-53-3,,Largactil
+Perphenazine,奋乃静,58-39-9,,Trilafon
+Fluphenazine,氟奋乃静,69-23-8,,Prolixin
+Trifluoperazine,三氟拉嗪,117-89-5,,Stelazine
+Paroxetine,帕罗西汀,61869-08-7,,Seroxat|赛乐特
+Fluvoxamine,氟伏沙明,54739-18-3,,Luvox
+Mirtazapine,米氮平,61337-67-5,,Remeron
+Trazodone,曲唑酮,19794-93-5,,Desyrel
+Agomelatine,阿戈美拉汀,138112-76-2,,Valdoxan
+Vortioxetine,伏硫西汀,508233-74-7,,Brintellix
+Vilazodone,维拉佐酮,163521-12-8,,Viibryd
+Bupropion hydrochloride,盐酸安非他酮,31677-93-7,,
+Atomoxetine,托莫西汀,82248-59-7,,Strattera
+Methylphenidate,哌甲酯,113-45-1,,Ritalin|专注达
+Lisdexamfetamine,赖右苯丙胺,,,Vyvanse
+Modafinil,莫达非尼,68693-11-8,,Provigil
+Armodafinil,阿莫达非尼,112111-43-4,,Nuvigil
+Zaleplon,扎来普隆,151319-34-5,,Sonata
+Eszopiclone,右佐匹克隆,138729-47-2,,Lunesta
+Suvorexant,苏沃雷生,,,Belsomra
+Lemborexant,莱博雷生,,,Dayvigo
+Daridorexant,达利雷生,,,Quviviq
+Ramelteon,雷美替胺,196597-26-9,,Rozerem
+Tasimelteon,他司美琼,,,Hetlioz
+Melatonin,褪黑素,73-31-4,,Circadin
+Baclofen,巴氯芬,1134-47-0,H789N3FKE8,Lioresal
+Tizanidine,替扎尼定,51322-75-9,6AI06C00H5,Zanaflex
+Eperisone,乙哌立松,64840-90-0,,Myonal
+Tolperisone,托哌酮,728-88-1,,Mydocalm
+Cyclobenzaprine,环苯扎林,303-53-7,0VE05JYS2P,Flexeril
+Carisoprodol,卡立普多,78-44-4,,Soma
+Orphenadrine,奥芬那君,83-98-7,X0A40G9S7P,Norflex
+Methocarbamol,美索巴莫,532-03-6,125OD7737X,Robaxin
+Dantrolene,丹曲林,7261-97-4,,Dantrium
+Sugammadex,舒更葡糖,343306-71-8,,Bridion
+Sugammadex sodium,舒更葡糖钠,,,
+Rocuronium bromide,罗库溴铵,119302-91-9,WRE5531XWN,Esmeron
+Vecuronium,维库溴铵,50700-72-6,,Norcuron
+Cisatracurium,顺阿曲库铵,96946-42-8,,Nimbex
+Atracurium besilate,苯磺酸阿曲库铵,64228-81-5,,
+Mivacurium,米库氯铵,106861-44-3,,Mivacron
+Pancuronium,泮库溴铵,15500-66-0,,Pavulon
+Suxamethonium,琥珀胆碱,306-40-1,J2R869A8YF,Anectine
+Neostigmine methylsulfate,甲基硫酸新斯的明,51-60-5,,
+Pyridostigmine,吡斯的明,101-26-8,,Mestinon
+Edrophonium,依酚氯铵,116-38-1,,Tensilon
+Atropine sulfate,硫酸阿托品,5908-99-6,,
+Glycopyrronium,格隆溴铵,596-51-0,V92HO2FOZ5,Robinul
+Scopolamine,东莨菪碱,51-34-3,,Buscopan|氢溴酸东莨菪碱
+Hyoscine butylbromide,丁溴东莨菪碱,149-64-4,,Buscopan
+Mosapride,莫沙必利,123482-22-4,,Gasmotin|加斯清
+Itopride,伊托必利,122898-67-3,,瑞琪
+Cinitapride,西尼必利,,,
+Trimebutine,曲美布汀,39133-31-8,,Debridat
+Pinaverium,匹维溴铵,59995-65-2,,Dicetel
+Otilonium,奥替溴铵,26095-59-0,,Spasmomen
+Mebeverine,美贝维林,3625-06-7,,Duspatalin
+Alverine,阿尔维林,150-59-4,,Spasmonal
+Diosmectite,蒙脱石,,,Smecta|思密达
+Racecadotril,消旋卡多曲,81110-73-8,,Tiorfan
+Loperamide oxide,洛哌丁胺氧化物,,,
+Macrogol 4000,聚乙二醇4000,,,Forlax|福松
+Lactitol,乳糖醇,585-86-4,,Importal
+Sodium picosulfate,匹可硫酸钠,10040-45-6,,Laxoberon
+Senna,番泻叶,,,Senokot
+Bisacodyl,比沙可啶,603-50-9,10X0709Y6I,Dulcolax|果导
+Hydrotalcite,铝碳酸镁,12304-65-3,,Talcid|达喜
+Sucralfate,硫糖铝,54182-58-0,,Ulcerlmin
+Rebamipide,瑞巴派特,90098-04-7,,Mucosta
+Teprenone,替普瑞酮,6809-52-5,,Selbex
+Gefarnate,吉法酯,51-77-4,,Gefanil
+Irsogladine,伊索拉定,57381-26-7,,Gaslon
+Misoprostol,米索前列醇,59122-46-2,,Cytotec
+Vonoprazan,伏诺拉生,,,Takecab|Vocinti
+Tegoprazan,替戈拉生,,,
+Revaprazan,瑞伐拉赞,,,
+Ilaprazole,艾普拉唑,,,
+Lafutidine,拉呋替丁,118288-08-7,,Protecadin
+Nizatidine,尼扎替丁,76963-41-2,,Axid
+Cimetidine,西咪替丁,51481-61-9,,Tagamet
+Roxatidine,罗沙替丁,78628-28-1,,Altat
+Bismuth potassium citrate,枸橼酸铋钾,,,德诺
+Colloidal bismuth pectin,胶体果胶铋,,,
+Bismuth subsalicylate,碱式水杨酸铋,14882-18-9,,Pepto-Bismol
+Ambroxol hydrochloride,盐酸氨溴索,80983-07-5,,Mucosolvan|沐舒坦
+Bromhexine,溴己新,3572-43-8,,Bisolvon
+Carbocisteine,羧甲司坦,638-23-3,,Mucodyne
+Acetylcysteine,乙酰半胱氨酸,616-91-1,,Fluimucil|富露施
+Erdosteine,厄多司坦,84611-23-4,,Asgen
+Fudosteine,福多司坦,13189-98-5,,
+Dornase alfa,阿法链道酶,,,Pulmozyme
+Nintedanib,尼达尼布,,,Ofev
+Pirfenidone,吡非尼酮,53179-13-8,,Esbriet
+Roflumilast,罗氟司特,162401-32-3,,Daxas
+Indacaterol,茚达特罗,312753-06-3,,Onbrez
+Olodaterol,奥达特罗,868049-49-4,,Striverdi
+Vilanterol,维兰特罗,,,Breo
+Umeclidinium,乌美溴铵,,,Incruse
+Aclidinium,阿地溴铵,320345-99-1,,Eklira
+Glycopyrronium bromide,格隆溴铵吸入,,,Seebri
+Beclometasone,倍氯米松,4419-39-0,5B307S63B2,Qvar
+Ciclesonide,环索奈德,141845-82-1,,Alvesco
+Mometasone furoate,糠酸莫米松,83919-23-7,,Nasonex|艾洛松
+Fluticasone furoate,糠酸氟替卡松,397864-44-7,,Avamys
+Fluticasone propionate,丙酸氟替卡松,80474-14-2,,Flixotide
+Budesonide formoterol,布地奈德福莫特罗,,,Symbicort|信必可
+Fluticasone salmeterol,氟替卡松沙美特罗,,,Seretide|舒利迭
+Montelukast sodium,孟鲁司特钠,151767-02-1,,Singulair|顺尔宁
+Zafirlukast,扎鲁司特,107753-78-6,,Accolate|安可来
+Pranlukast,普仑司特,103177-37-3,,Onon
+Bilastine,比拉斯汀,202189-78-4,,Bilaxten
+Ebastine,依巴斯汀,90729-43-4,,Kestine|开思亭
+Mizolastine,咪唑斯汀,108612-45-9,,Mizollen|皿治林
+Rupatadine,卢帕他定,158876-82-5,,Rupafin
+Olopatadine,奥洛他定,113806-05-6,,Patanol
+Azelastine,氮卓斯汀,58581-89-8,,Allergodil
+Levocabastine,左卡巴斯汀,79547-35-8,,Livostin
+Ketotifen,酮替芬,34580-14-8,,Zaditen
+Cromoglicate,色甘酸钠,15826-37-6,,Intal
+Nedocromil,奈多罗米,69049-73-6,,Tilade
+Tranexamic acid,氨甲环酸,1197-18-8,,Cyklokapron|妥塞敏
+Aminocaproic acid,氨基己酸,60-32-2,,Amicar
+Aprotinin,抑肽酶,9087-70-1,,Trasylol
+Etamsylate,酚磺乙胺,2624-44-4,,Dicynone
+Carbazochrome,卡巴克络,69-81-8,,Adona
+Vitamin K1,维生素K1,84-80-0,,Phytomenadione|康文
+Menadione,甲萘醌,58-27-5,,
+Protamine sulfate,硫酸鱼精蛋白,9009-65-8,,
+Heparin sodium,肝素钠,9041-08-1,,
+Heparin calcium,肝素钙,,,立迈青
+Nadroparin,那屈肝素,,,Fraxiparine|速碧林
+Dalteparin,达肝素,9041-08-1,,Fragmin
+Tinzaparin,亭扎肝素,,,Innohep
+Fondaparinux sodium,磺达肝癸钠,114870-03-0,J177FOW5JL,Arixtra
+Argatroban,阿加曲班,74863-84-6,,Novastan
+Bivalirudin,比伐卢定,128270-60-0,,Angiomax
+Desirudin,地西卢定,,,Revasc
+Lepirudin,来匹卢定,,,Refludan
+Alteplase,阿替普酶,105857-23-6,,Actilyse|爱通立
+Reteplase,瑞替普酶,,,Rapilysin
+Tenecteplase,替奈普酶,,,Metalyse
+Urokinase,尿激酶,9039-53-6,,
+Streptokinase,链激酶,9002-01-1,,
+Mecobalamin,甲钴胺,13422-55-4,,Methycobal|弥可保
+Cobamamide,腺苷钴胺,13870-90-1,,
+Adenosylcobalamin,腺苷钴胺,13870-90-1,,
+Thiamine hydrochloride,盐酸硫胺,67-03-8,,
+Riboflavin sodium phosphate,核黄素磷酸钠,130-40-5,,
+Pyridoxine hydrochloride,盐酸吡哆醇,58-56-0,,
+Nicotinamide,烟酰胺,98-92-0,,
+Calcium pantothenate,泛酸钙,137-08-6,,
+Biotin,生物素,58-85-5,6SO6U10H04,
+Ascorbic acid,抗坏血酸,50-81-7,PQ6CK8PD0R,Vitamin C
+Cholecalciferol,胆钙化醇,67-97-0,1C6V77QF38,Vitamin D3
+Alfacalcidol,阿法骨化醇,41294-56-8,,One-Alpha|阿法D3
+Calcitriol,骨化三醇,32222-06-3,FXC9231JVH,Rocaltrol|罗盖全
+Paricalcitol,帕立骨化醇,131918-61-1,,Zemplar
+Doxercalciferol,度骨化醇,54573-75-0,,Hectorol
+Ergocalciferol,麦角钙化醇,50-14-6,VS041H42XC,Vitamin D2
+Retinol palmitate,棕榈酸视黄醇,79-81-2,,
+Tocopherol,生育酚,59-02-9,,Vitamin E
+Phytomenadione,植物甲萘醌,84-80-0,,Vitamin K1
+Ferrous succinate,琥珀酸亚铁,10030-90-7,,速力菲
+Ferrous fumarate,富马酸亚铁,141-01-5,,
+Ferrous gluconate,葡萄糖酸亚铁,299-29-6,,
+Iron sucrose,蔗糖铁,8047-67-4,,Venofer
+Ferric carboxymaltose,羧基麦芽糖铁,,,Ferinject
+Iron isomaltoside,异麦芽糖酐铁,,,Monofer
+Zinc sulfate,硫酸锌,7733-02-0,,
+Zinc gluconate,葡萄糖酸锌,4468-02-4,,
+Potassium citrate,枸橼酸钾,866-84-2,,
+Sodium bicarbonate,碳酸氢钠,144-55-8,,
+Calcium acetate,醋酸钙,62-54-4,,
+Calcium gluconate,葡萄糖酸钙,299-28-5,,
+Calcium lactate,乳酸钙,814-80-2,,
+Magnesium oxide,氧化镁,1309-48-4,,
+Magnesium citrate,枸橼酸镁,3344-18-1,,
+Sevelamer,司维拉姆,527751-44-2,,Renagel
+Lanthanum carbonate,碳酸镧,54451-24-0,,Fosrenol
+Sucroferric oxyhydroxide,蔗糖羟基氧化铁,,,Velphoro
+Cinacalcet,西那卡塞,226256-56-0,,Sensipar
+Etelcalcetide,依特卡肽,,,Parsabiv
+Febuxostat,非布司他,144060-53-7,101V0R1N1P,Adenuric|优立通
+Benzbromarone,苯溴马隆,3562-84-3,,立加利仙
+Probenecid,丙磺舒,57-66-9,,Benemid
+Sulfinpyrazone,磺吡酮,57-96-5,,Anturan
+Rasburicase,拉布立酶,,,Fasturtec
+Pegloticase,聚乙二醇重组尿酸酶,,,Krystexxa
+Lesinurad,雷西纳德,,,Zurampic
+Allopurinol sodium,别嘌醇钠,,,
+Colchicine,秋水仙碱,64-86-8,SML2Y3J35T,
+Leflunomide,来氟米特,75706-12-6,,Arava
+Teriflunomide,特立氟胺,163451-81-8,,Aubagio
+Mycophenolate mofetil,霉酚酸酯,128794-94-5,,CellCept
+Mycophenolate sodium,霉酚酸钠,,,Myfortic
+Azathioprine,硫唑嘌呤,446-86-6,,Imuran
+Cyclosporine,环孢素,59865-13-3,83HN0GTJ6D,Sandimmun
+Tacrolimus,他克莫司,104987-11-3,WM0HAQ4WNM,Prograf|普特彼
+Sirolimus,西罗莫司,53123-88-9,,Rapamune
+Pimecrolimus,吡美莫司,137071-32-0,,Elidel|爱宁达
+Basiliximab,巴利昔单抗,,,Simulect
+Antithymocyte globulin,抗胸腺细胞球蛋白,,,Thymoglobulin
+Belimumab,贝利尤单抗,,,Benlysta
+Anifrolumab,阿尼鲁单抗,,,Saphnelo
+Voclosporin,伏环孢素,,,Lupkynis
+Apremilast,阿普米司特,,,Otezla
+Deucravacitinib,氘可来昔替尼,,,Sotyktu
+Tofacitinib citrate,枸橼酸托法替布,,,Xeljanz
+Baricitinib,巴瑞替尼,,,Olumiant
+Upadacitinib,乌帕替尼,,,Rinvoq

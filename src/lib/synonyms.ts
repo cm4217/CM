@@ -5,7 +5,7 @@
 
 /** 同义簇：任一成员命中则扩展查询到整簇 */
 export const SYNONYM_CLUSTERS: string[][] = [
-  ["阿司匹林", "乙酰水杨酸", "aspirin", "asa", "acetylsalicylic acid", "2-acetoxybenzoic acid"],
+  ["阿司匹林", "阿斯匹林", "乙酰水杨酸", "aspirin", "asprin", "asa", "acetylsalicylic acid", "2-acetoxybenzoic acid"],
   ["布洛芬", "异丁苯丙酸", "ibuprofen"],
   ["对乙酰氨基酚", "扑热息痛", "paracetamol", "acetaminophen", "apap", "对羟基乙酰苯胺"],
   ["奥美拉唑", "omeprazole", "omeprazolum"],
@@ -96,6 +96,27 @@ export const SYNONYM_CLUSTERS: string[][] = [
   ["克赛", "依诺肝素", "enoxaparin", "clexane"],
   ["福善美", "阿仑膦酸", "alendronate", "fosamax"],
   ["帕罗韦德", "奈玛特韦", "nirmatrelvir", "paxlovid"],
+  ["诺和力", "利拉鲁肽", "liraglutide", "victoza"],
+  ["度易达", "度拉糖肽", "dulaglutide", "trulicity"],
+  ["诺和佳", "德谷胰岛素", "insulin degludec", "tresiba"],
+  ["美卡素", "替米沙坦", "telmisartan", "micardis"],
+  ["安博维", "厄贝沙坦", "irbesartan", "aprovel", "avapro"],
+  ["必洛斯", "坎地沙坦", "candesartan", "blopress"],
+  ["傲坦", "奥美沙坦", "olmesartan", "olmetec"],
+  ["可达龙", "胺碘酮", "amiodarone", "cordarone"],
+  ["倍林达", "替格瑞洛", "ticagrelor", "brilinta", "brilique"],
+  ["莫比可", "美洛昔康", "meloxicam", "mobic"],
+  ["美林", "布洛芬", "ibuprofen", "motrin"],
+  ["必理通", "对乙酰氨基酚", "扑热息痛", "paracetamol", "acetaminophen", "panadol"],
+  ["思诺思", "唑吡坦", "zolpidem", "stilnox"],
+  ["来士普", "艾司西酞普兰", "escitalopram", "lexapro", "cipralex"],
+  ["喜普妙", "西酞普兰", "citalopram", "cipramil"],
+  ["开浦兰", "左乙拉西坦", "levetiracetam", "keppra"],
+  ["德巴金", "丙戊酸", "valproic acid", "depakine", "epilim"],
+  ["得理多", "卡马西平", "carbamazepine", "tegretol"],
+  ["金戈", "西地那非", "sildenafil", "viagra"],
+  ["哈乐", "坦索罗辛", "tamsulosin", "harnal", "flomax"],
+  ["保列治", "非那雄胺", "finasteride", "proscar"],
 ];
 
 /** 常见中文名 → 拼音首字母（手写轻量表；其余用 pinyin-pro 运行时生成） */
@@ -167,6 +188,19 @@ export const PINYIN_INITIALS: Record<string, string> = {
   开瑞坦: "krt",
   沐舒坦: "mst",
   吗丁啉: "mdl",
+  美卡素: "mks",
+  安博维: "abw",
+  倍林达: "bld2",
+  思诺思: "sns",
+  开浦兰: "kpl",
+  德巴金: "dbj",
+  必理通: "blt",
+  美林: "ml",
+  金戈: "jg",
+  哈乐: "hl",
+  保列治: "blz",
+  诺和力: "nhl",
+  度易达: "dyd",
 };
 
 export function expandQueryWithSynonyms(q: string): string[] {
