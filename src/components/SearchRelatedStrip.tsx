@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { SearchHit } from "@/lib/types";
 import { relatedByCooccur, recordCooccur } from "@/lib/sessionCooccur";
 import { logSearchClick } from "@/components/SearchLogBeacon";
+import { alsoSeeForHit } from "@/lib/entityLinksLite";
 
 type Props = {
   focus: SearchHit | null;
@@ -78,6 +79,49 @@ export function SearchRelatedStrip({ focus, hits, query }: Props) {
     const out: Item[] = [];
     const seen = new Set<string>([`${focus.kind}:${focus.id}`]);
 
+    for (const link of alsoSeeForHit(focus)) {
+      if (out.length >= 8) break;
+      if (seen.has(link.href)) continue;
+      seen.add(link.href);
+      out.push({ label: link.label, href: link.href, note: link.note || "ID 关联" });
+    }
+
+    // Same-page drugs sharing parent / UNII / INN with focus substance
+    if (focus.kind === "substance") {
+      for (const h of hits) {
+        if (out.length >= 8) break;
+        if (h.kind !== "drug") continue;
+        const sameParent = h.parentSubstanceId === focus.id;
+        const sameUnii =
+          !!(focus.unii && h.unii && focus.unii.toUpperCase() === h.unii.toUpperCase());
+        const sameInn =
+          !!(focus.inn && h.inn && focus.inn.toLowerCase() === h.inn.toLowerCase());
+        if (!(sameParent || sameUnii || sameInn)) continue;
+        const k = `drug:${h.id}`;
+        if (seen.has(k)) continue;
+        seen.add(k);
+        out.push({
+          label: h.titleZh || h.brandName || h.id,
+          href: `/search?q=${encodeURIComponent(h.inn || h.genericName || h.titleEn || "")}&type=drug`,
+          note: sameUnii ? "同 UNII 成药" : sameInn ? "同 INN 成药" : "关联成药",
+        });
+      }
+    }
+    if (focus.kind === "drug" && focus.parentSubstanceId) {
+      const parentHit = hits.find(
+        (h) => h.kind === "substance" && h.id === focus.parentSubstanceId
+      );
+      const href = `/substances/${focus.parentSubstanceId}`;
+      if (!seen.has(href)) {
+        seen.add(href);
+        out.push({
+          label: parentHit?.titleZh || "原料药详情",
+          href,
+          note: "成药→原料药",
+        });
+      }
+    }
+
     for (const it of serverItems) {
       if (out.length >= 8) break;
       const k = it.href;
@@ -141,7 +185,9 @@ export function SearchRelatedStrip({ focus, hits, query }: Props) {
               ? `/substances/${hit.id}`
               : hit.kind === "impurity"
                 ? `/impurities/${hit.id}`
-                : `/reference-standards#${hit.id}`,
+                : hit.kind === "drug"
+                  ? `/search?q=${encodeURIComponent(hit.inn || hit.genericName || hit.titleEn || "")}&type=drug`
+                  : `/reference-standards#${hit.id}`,
           note: "同会话相关",
         });
       }
@@ -161,13 +207,19 @@ export function SearchRelatedStrip({ focus, hits, query }: Props) {
             ? `/substances/${h.id}`
             : h.kind === "impurity"
               ? `/impurities/${h.id}`
-              : `/reference-standards#${h.id}`,
+              : h.kind === "drug"
+                ? (h.parentSubstanceId
+                    ? `/substances/${h.parentSubstanceId}`
+                    : `/search?q=${encodeURIComponent(h.inn || h.genericName || h.titleEn || "")}&type=drug`)
+                : `/reference-standards#${h.id}`,
         note:
           h.kind === "substance"
             ? "同页物质"
             : h.kind === "impurity"
               ? "同页杂质"
-              : "同页对照品",
+              : h.kind === "drug"
+                ? "同页成药"
+                : "同页对照品",
       });
     }
 

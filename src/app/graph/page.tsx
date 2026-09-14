@@ -1,13 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { substances, impurities } from "@/data";
 import { ImpurityGraph } from "@/components/ImpurityGraph";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 
-export default function GraphPage() {
+function GraphInner() {
+  const sp = useSearchParams();
   const [focus, setFocus] = useState<string>("");
+  useEffect(() => {
+    const f = (sp.get("focus") || sp.get("substance") || "").trim();
+    if (f) setFocus(f);
+  }, [sp]);
   const [gsrsNote, setGsrsNote] = useState<string | null>(null);
   const [gsrsBusy, setGsrsBusy] = useState(false);
 
@@ -84,11 +91,35 @@ export default function GraphPage() {
         </p>
       )}
 
+      {focusSub ? (
+        <p className="text-xs text-slate-600">
+          当前焦点：
+          <Link href={`/substances/${encodeURIComponent(focusSub.id)}`} className="mx-1 text-teal-800 hover:underline">
+            {focusSub.nameZh}
+          </Link>
+          <span className="font-latin text-slate-400">{focusSub.id}</span>
+          <Link href={`/substances/${encodeURIComponent(focusSub.id)}#entity-hub`} className="ml-2 text-teal-700 hover:underline">
+            实体枢纽 →
+          </Link>
+          <Link href={`/alerts?substance=${encodeURIComponent(focusSub.id)}`} className="ml-2 text-amber-800 hover:underline">
+            相关预警
+          </Link>
+        </p>
+      ) : null}
+
       <ImpurityGraph
         substances={substances}
         impurities={impurities}
         focusSubstanceId={focus || undefined}
       />
     </div>
+  );
+}
+
+export default function GraphPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载图谱…</p>}>
+      <GraphInner />
+    </Suspense>
   );
 }

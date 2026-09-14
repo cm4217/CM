@@ -7,6 +7,7 @@ import {
 } from "@/data";
 import { openSubstances } from "@/data/openSubstances.generated";
 import { openDrugProducts } from "@/data/openDrugProducts.generated";
+import { resolveDrugParentSubstanceId } from "@/lib/entityAssociation";
 import {
   loadDrafts,
   loadUserImports,
@@ -403,7 +404,7 @@ function buildDocs(): Doc[] {
       dosageForm: d.dosageForm,
       countryTags: d.countryTags,
       regionTags: regions,
-      parentSubstanceId: d.parentSubstanceId,
+      parentSubstanceId: resolveDrugParentSubstanceId(d) || d.parentSubstanceId,
     });
   }
   return docs;

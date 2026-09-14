@@ -46,6 +46,24 @@ export function SubstanceQuickActions({
       >
         核查清单
       </Link>
+      <Link
+        href={`/graph?focus=${encodeURIComponent(substanceId)}`}
+        className="rounded-lg border border-rose-300 bg-white px-2.5 py-1 text-xs font-medium text-rose-900 hover:bg-rose-50"
+      >
+        杂质图谱
+      </Link>
+      <Link
+        href={`/alerts?substance=${encodeURIComponent(substanceId)}`}
+        className="rounded-lg border border-amber-300 bg-white px-2.5 py-1 text-xs font-medium text-amber-950 hover:bg-amber-50"
+      >
+        预警
+      </Link>
+      <Link
+        href={`/workbench?focus=${encodeURIComponent(substanceId)}`}
+        className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-800 hover:bg-slate-50"
+      >
+        工作台
+      </Link>
       <span className="self-center text-[11px] text-slate-400">
         快捷键 c 复制「{nameZh}」
       </span>

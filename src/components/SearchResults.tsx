@@ -9,6 +9,8 @@ import { SearchCardActions } from "./SearchCardActions";
 import { CopyChip } from "./CopyChip";
 import { buildHighlightTerms, highlightText } from "@/lib/highlightText";
 import { EvidenceRow } from "./EvidenceRow";
+import { AlsoSeeStrip } from "./EntityHubPanel";
+import { alsoSeeForHit } from "@/lib/entityLinksLite";
 
 function hrefFor(hit: SearchHit) {
   if (hit.kind === "substance") return `/substances/${hit.id}`;
@@ -296,6 +298,16 @@ function ResultCard({
         {!titleOnly && !hit.summary && hit.subtitle && (
           <p className="mt-1 text-sm text-slate-500 font-latin">{hit.subtitle}</p>
         )}
+
+        {!titleOnly && (hit.kind === "drug" || hit.kind === "impurity") ? (
+          <div
+            className="mt-2"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+          >
+            <AlsoSeeStrip links={alsoSeeForHit(hit)} />
+          </div>
+        ) : null}
       </Link>
 
       {!titleOnly && hit.kind === "substance" && (
@@ -321,6 +333,7 @@ function ResultCard({
               ) : null}
             </>
           ) : null}
+          <AlsoSeeStrip links={alsoSeeForHit(hit)} />
           <SearchCardActions
             substanceId={hit.id}
             nameZh={hit.titleZh}

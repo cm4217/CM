@@ -12,20 +12,36 @@ const primary = [
   { href: "/alerts", label: "修订提醒" },
 ];
 
-const more = [
-  { href: "/checklist", label: "核查清单" },
-  { href: "/graph", label: "图谱" },
-  { href: "/structure", label: "结构检索" },
-  { href: "/reference-standards", label: "对照品" },
-  { href: "/limits", label: "限值" },
-  { href: "/watchlist", label: "关注" },
-  { href: "/notes", label: "备注" },
-  { href: "/ask", label: "问答" },
-  { href: "/tools/import", label: "扩库" },
-  { href: "/tools/bookmarklet", label: "工具" },
-  { href: "/about", label: "关于 / 数据来源" },
+const moreGroups: { title: string; items: { href: string; label: string }[] }[] = [
+  {
+    title: "关联浏览",
+    items: [
+      { href: "/graph", label: "杂质图谱" },
+      { href: "/reference-standards", label: "对照品" },
+      { href: "/limits", label: "限值" },
+      { href: "/watchlist", label: "关注" },
+    ],
+  },
+  {
+    title: "工作流",
+    items: [
+      { href: "/checklist", label: "核查清单" },
+      { href: "/structure", label: "结构检索" },
+      { href: "/notes", label: "备注" },
+      { href: "/ask", label: "问答" },
+    ],
+  },
+  {
+    title: "工具与关于",
+    items: [
+      { href: "/tools/import", label: "扩库" },
+      { href: "/tools/bookmarklet", label: "工具" },
+      { href: "/about", label: "关于 / 数据来源" },
+    ],
+  },
 ];
 
+const more = moreGroups.flatMap((g) => g.items);
 const allNav = [...primary, ...more];
 
 function isActive(pathname: string, href: string) {
@@ -88,22 +104,29 @@ export function Header() {
             {moreOpen ? (
               <div
                 role="menu"
-                className="absolute right-0 mt-1.5 w-44 rounded-xl border border-slate-200 bg-white py-1.5 shadow-lg z-50"
+                className="absolute right-0 mt-1.5 w-52 rounded-xl border border-slate-200 bg-white py-1.5 shadow-lg z-50 max-h-[70vh] overflow-y-auto"
               >
-                {more.map((item) => (
-                  <Link
-                    key={item.href}
-                    role="menuitem"
-                    href={item.href}
-                    onClick={() => setMoreOpen(false)}
-                    className={`block px-3 py-2 text-sm ${
-                      isActive(pathname, item.href)
-                        ? "bg-teal-50 text-teal-900 font-medium"
-                        : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
+                {moreGroups.map((g) => (
+                  <div key={g.title} className="py-1">
+                    <p className="px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                      {g.title}
+                    </p>
+                    {g.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        role="menuitem"
+                        href={item.href}
+                        onClick={() => setMoreOpen(false)}
+                        className={`block px-3 py-2 text-sm ${
+                          isActive(pathname, item.href)
+                            ? "bg-teal-50 text-teal-900 font-medium"
+                            : "text-slate-700 hover:bg-slate-50"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 ))}
               </div>
             ) : null}

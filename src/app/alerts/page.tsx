@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { alertSources } from "@/data";
 import type { ChangeEvent } from "@/lib/types";
 import { LS_ALERT_KEYWORDS, LS_ALERT_WATCH_TYPES } from "@/lib/storageKeys";
@@ -9,8 +11,15 @@ import { DisclaimerBanner } from "@/components/Disclaimer";
 import { DemoBadge } from "@/components/DemoBadge";
 import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
 import { WebhookDigestPanel } from "@/components/WebhookDigestPanel";
+import {
+  labelForImpurityId,
+  labelForSubstanceId,
+} from "@/lib/entityLinksLite";
 
-export default function AlertsPage() {
+function AlertsInner() {
+  const sp = useSearchParams();
+  const focusSubstance = (sp.get("substance") || "").trim();
+  const focusImpurity = (sp.get("impurity") || "").trim();
   const [source, setSource] = useState<string>("");
   const [apiSources, setApiSources] = useState<typeof alertSources | null>(null);
   const [apiEvents, setApiEvents] = useState<ChangeEvent[]>([]);
@@ -45,8 +54,17 @@ export default function AlertsPage() {
   const sources = apiSources || alertSources;
 
   const events = useMemo(() => {
-    return apiEvents.filter((e) => !watchTypes.length || watchTypes.includes(e.severity));
-  }, [apiEvents, watchTypes]);
+    return apiEvents.filter((e) => {
+      if (watchTypes.length && !watchTypes.includes(e.severity)) return false;
+      if (focusSubstance && !e.relatedSubstanceIds?.includes(focusSubstance)) {
+        return false;
+      }
+      if (focusImpurity && !e.relatedImpurityIds?.includes(focusImpurity)) {
+        return false;
+      }
+      return true;
+    });
+  }, [apiEvents, watchTypes, focusSubstance, focusImpurity]);
 
   const filterKeys = useMemo(() => {
     const keys = new Set<string>();
@@ -91,6 +109,25 @@ export default function AlertsPage() {
       </div>
 
       <DisclaimerBanner />
+
+      {(focusSubstance || focusImpurity) && (
+        <div className="ph-card flex flex-wrap items-center gap-2 border-amber-200 bg-amber-50/70 px-4 py-3 text-sm text-amber-950">
+          <span className="font-medium">实体过滤</span>
+          {focusSubstance ? (
+            <Link href={`/substances/${encodeURIComponent(focusSubstance)}`} className="text-teal-800 hover:underline">
+              物质 · {labelForSubstanceId(focusSubstance)}
+            </Link>
+          ) : null}
+          {focusImpurity ? (
+            <Link href={`/impurities/${encodeURIComponent(focusImpurity)}`} className="text-teal-800 hover:underline">
+              杂质 · {labelForImpurityId(focusImpurity)}
+            </Link>
+          ) : null}
+          <Link href="/alerts" className="ml-auto text-xs text-slate-600 hover:underline">
+            清除过滤
+          </Link>
+        </div>
+      )}
 
       <WebhookDigestPanel />
       <WatchlistDigestPanel />
@@ -166,10 +203,18 @@ export default function AlertsPage() {
         {events.map((e) => (
           <li key={e.id} className="relative">
             <span className="absolute -left-[1.9rem] top-5 h-3 w-3 rounded-full bg-teal-600 ring-4 ring-teal-50" />
-            <AlertCard event={e} />
+            <AlertCard event={e} highlightSubstanceId={focusSubstance || undefined} highlightImpurityId={focusImpurity || undefined} />
           </li>
         ))}
       </ol>
     </div>
+  );
+}
+
+export default function AlertsPage() {
+  return (
+    <Suspense fallback={<div className="text-sm text-slate-500">加载修订提醒…</div>}>
+      <AlertsInner />
+    </Suspense>
   );
 }

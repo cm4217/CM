@@ -12,6 +12,8 @@ import { DisclaimerBanner } from "@/components/Disclaimer";
 import { LiveEnrichment } from "@/components/LiveEnrichment";
 import { LimitCards } from "@/components/LimitCards";
 import { ImpurityNotes } from "@/components/SubstanceExtras";
+import { EntityHubPanel } from "@/components/EntityHubPanel";
+import { buildImpurityHubLinks } from "@/lib/entityAssociation";
 import { getLimitsForImpurityType } from "@/data";
 import type { Metadata } from "next";
 
@@ -64,6 +66,12 @@ export default function ImpurityPage({ params }: Props) {
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">{i.summaryZh}</p>
         <p className="text-xs text-slate-400 font-latin max-w-3xl">{i.summaryEn}</p>
+        <EntityHubPanel
+          title="关联模块 · 杂质枢纽"
+          subtitle="父物质 · 图谱 · 限度 · 预警 · 对照品"
+          links={buildImpurityHubLinks(i)}
+          entityIds={{ cas: i.cas, unii: i.unii }}
+        />
       </div>
 
       <DisclaimerBanner />

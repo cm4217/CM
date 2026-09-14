@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { PharmacopoeiaCode, SearchHit } from "@/lib/types";
 import { CopyChip } from "./CopyChip";
+import { AlsoSeeStrip } from "./EntityHubPanel";
+import { alsoSeeForHit } from "@/lib/entityLinksLite";
 
 const MATRIX: PharmacopoeiaCode[] = ["ChP", "USP", "EP", "JP", "BP", "Ph.Int."];
 
@@ -16,6 +18,39 @@ type Props = {
 /**
  * Sticky knowledge panel (lg+): PubChem PNG via server proxy, ID chips, coverage matrix.
  */
+
+function SubstanceModuleLinks({ hit }: { hit: SearchHit }) {
+  const q = encodeURIComponent(hit.inn || hit.titleEn || hit.titleZh || hit.id);
+  return (
+    <div className="flex flex-wrap gap-1.5 text-[11px]">
+      <Link
+        href={`/graph?focus=${encodeURIComponent(hit.id)}`}
+        className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-rose-900 no-underline hover:border-rose-400"
+      >
+        杂质图谱
+      </Link>
+      <Link
+        href={`/alerts?substance=${encodeURIComponent(hit.id)}`}
+        className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-amber-950 no-underline hover:border-amber-400"
+      >
+        预警影响
+      </Link>
+      <Link
+        href={`/workbench?focus=${encodeURIComponent(hit.id)}`}
+        className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-slate-800 no-underline hover:border-teal-300"
+      >
+        工作台
+      </Link>
+      <Link
+        href={`/search?q=${q}&type=drug`}
+        className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-indigo-900 no-underline hover:border-indigo-400"
+      >
+        成药同 INN
+      </Link>
+    </div>
+  );
+}
+
 export function SearchKnowledgePanel({ hit, defaultCollapsed = true }: Props) {
   const [open, setOpen] = useState(!defaultCollapsed);
   const [imgOk, setImgOk] = useState(true);
@@ -162,6 +197,14 @@ export function SearchKnowledgePanel({ hit, defaultCollapsed = true }: Props) {
           详细对照 · 多药典矩阵
         </Link>
       ) : null}
+
+      <div className="space-y-2 border-t border-slate-100 pt-3">
+        <p className="text-[11px] font-medium text-slate-600">关联跳转</p>
+        <AlsoSeeStrip links={alsoSeeForHit(hit)} />
+        {hit.kind === "substance" ? (
+          <SubstanceModuleLinks hit={hit} />
+        ) : null}
+      </div>
     </div>
   );
 

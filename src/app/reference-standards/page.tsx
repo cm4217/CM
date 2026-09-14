@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   referenceMaterials,
@@ -11,8 +12,13 @@ import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { RsImportNote } from "@/components/RsImportNote";
 
-export default function ReferenceStandardsPage() {
+function ReferenceStandardsInner() {
+  const sp = useSearchParams();
   const [q, setQ] = useState("");
+  useEffect(() => {
+    const qq = (sp.get("q") || "").trim();
+    if (qq) setQ(qq);
+  }, [sp]);
   const [issuer, setIssuer] = useState<string>("");
   const [hasCas, setHasCas] = useState<"" | "yes" | "no">("");
 
@@ -165,5 +171,13 @@ export default function ReferenceStandardsPage() {
         目录号均为示例虚构，非正式订购信息。请通过 USP / EDQM / BP 官方渠道核验。
       </p>
     </div>
+  );
+}
+
+export default function ReferenceStandardsPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载对照品…</p>}>
+      <ReferenceStandardsInner />
+    </Suspense>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { substances } from "@/data";
 import { CopyrightBadge } from "@/components/CopyrightBadge";
@@ -10,6 +11,7 @@ import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import type { Substance } from "@/lib/types";
 import {
   COMPARE_QUEUE_MAX,
+  addToCompareQueue,
   loadCompareQueue,
   removeFromCompareQueue,
   saveCompareQueue,
@@ -85,7 +87,9 @@ function CompareColumn({ s }: { s: Substance }) {
         </Link>
         <p className="text-sm text-slate-500 font-latin">{s.nameEn}</p>
         <p className="text-xs text-slate-400 font-latin mt-1">
-          {[s.inn, s.cas ? `CAS ${s.cas}` : null].filter(Boolean).join(" · ")}
+          {[s.id, s.inn, s.cas ? `CAS ${s.cas}` : null, s.unii ? `UNII ${s.unii}` : null]
+            .filter(Boolean)
+            .join(" · ")}
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <DemoBadge />
@@ -94,6 +98,24 @@ function CompareColumn({ s }: { s: Substance }) {
             className="rounded-lg border border-sky-500 bg-white px-2 py-0.5 text-[11px] font-medium text-sky-900 hover:bg-sky-50 no-underline"
           >
             详细对照
+          </Link>
+          <Link
+            href={`/substances/${s.id}#entity-hub`}
+            className="rounded-lg border border-teal-500 bg-white px-2 py-0.5 text-[11px] font-medium text-teal-900 hover:bg-teal-50 no-underline"
+          >
+            实体枢纽
+          </Link>
+          <Link
+            href={`/graph?focus=${encodeURIComponent(s.id)}`}
+            className="rounded-lg border border-rose-300 bg-white px-2 py-0.5 text-[11px] font-medium text-rose-900 hover:bg-rose-50 no-underline"
+          >
+            杂质图谱
+          </Link>
+          <Link
+            href={`/alerts?substance=${encodeURIComponent(s.id)}`}
+            className="rounded-lg border border-amber-300 bg-white px-2 py-0.5 text-[11px] font-medium text-amber-950 hover:bg-amber-50 no-underline"
+          >
+            预警
           </Link>
         </div>
       </div>
@@ -158,13 +180,18 @@ function CompareColumn({ s }: { s: Substance }) {
   );
 }
 
-export default function ComparePage() {
+function CompareInner() {
+  const sp = useSearchParams();
   const [queue, setQueue] = useState<string[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [a, setA] = useState("sub-aspirin");
   const [b, setB] = useState("sub-ibuprofen");
 
   useEffect(() => {
+    const addId = (sp.get("add") || sp.get("substance") || "").trim();
+    if (addId && substances.some((s) => s.id === addId)) {
+      addToCompareQueue(addId);
+    }
     const q = loadCompareQueue();
     setQueue(q);
     if (q.length >= 1) {
@@ -172,7 +199,7 @@ export default function ComparePage() {
       setA(q[0]);
       if (q[1]) setB(q[1]);
     }
-  }, []);
+  }, [sp]);
 
   const selectedSubs = useMemo(() => {
     const ids =
@@ -466,5 +493,13 @@ export default function ComparePage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载对比…</p>}>
+      <CompareInner />
+    </Suspense>
   );
 }

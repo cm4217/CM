@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { recentAlerts, substances } from "@/data";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
@@ -18,7 +19,9 @@ import {
   setClientBoostEnabled,
 } from "@/lib/clientBoost";
 
-export default function WorkbenchPage() {
+function WorkbenchInner() {
+  const sp = useSearchParams();
+  const focusId = (sp.get("focus") || sp.get("substance") || "").trim();
   const [history, setHistory] = useState<string[]>([]);
   const [watch, setWatch] = useState<WatchlistItem[]>([]);
   const [queue, setQueue] = useState<string[]>([]);
@@ -33,9 +36,19 @@ export default function WorkbenchPage() {
 
   const alerts = useMemo(() => recentAlerts(4), []);
 
-  const queueNames = queue.map((id) => {
+  const focusSub = useMemo(
+    () => (focusId ? substances.find((x) => x.id === focusId) : undefined),
+    [focusId]
+  );
+
+  const queueRows = queue.map((id) => {
     const s = substances.find((x) => x.id === id);
-    return s ? `${s.nameZh}` : id;
+    return {
+      id,
+      nameZh: s?.nameZh || id,
+      cas: s?.cas,
+      unii: s?.unii,
+    };
   });
 
   const matchedWatch = watch.filter((w) => w.resolved.status === "matched");
@@ -54,6 +67,29 @@ export default function WorkbenchPage() {
 
       <DisclaimerBanner compact />
 
+      {focusSub ? (
+        <section className="ph-card border-teal-200 bg-teal-50/50 p-4 space-y-2">
+          <h2 className="text-sm font-semibold text-teal-950">当前实体焦点</h2>
+          <p className="text-sm">
+            <Link href={`/substances/${focusSub.id}`} className="font-medium text-teal-900 hover:underline">
+              {focusSub.nameZh}
+            </Link>
+            <span className="ml-2 text-xs font-latin text-slate-500">
+              {focusSub.id}
+              {focusSub.cas ? ` · CAS ${focusSub.cas}` : ""}
+              {focusSub.unii ? ` · UNII ${focusSub.unii}` : ""}
+            </span>
+          </p>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <Link href={`/substances/${focusSub.id}#entity-hub`} className="ph-chip-teal no-underline">实体枢纽</Link>
+            <Link href={`/graph?focus=${encodeURIComponent(focusSub.id)}`} className="ph-chip no-underline">杂质图谱</Link>
+            <Link href={`/compare?add=${encodeURIComponent(focusSub.id)}`} className="ph-chip no-underline">加入对比</Link>
+            <Link href={`/alerts?substance=${encodeURIComponent(focusSub.id)}`} className="ph-chip no-underline">相关预警</Link>
+            <Link href={`/search?q=${encodeURIComponent(focusSub.inn || focusSub.nameEn)}&type=drug`} className="ph-chip no-underline">同 INN 成药</Link>
+          </div>
+        </section>
+      ) : null}
+
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { href: "/search", label: "检索", desc: "药名 / CAS / 杂质" },
@@ -62,6 +98,10 @@ export default function WorkbenchPage() {
           { href: "/tools/index", label: "索引缓存", desc: "草稿 · 晋升说明" },
           { href: "/checklist", label: "核查清单", desc: "市场勾选 · 打印" },
           { href: "/alerts", label: "修订提醒", desc: "影响分析" },
+          { href: "/graph", label: "杂质图谱", desc: "物质→杂质" },
+          { href: "/watchlist", label: "关注列表", desc: "本地订阅" },
+          { href: "/reference-standards", label: "对照品", desc: "RS 目录" },
+          { href: "/limits", label: "限度", desc: "ICH 示例" },
         ].map((c) => (
           <Link
             key={c.href}
@@ -213,7 +253,26 @@ export default function WorkbenchPage() {
               空。检索卡片点「加入对比」。
             </p>
           ) : (
-            <p className="text-sm text-slate-700">{queueNames.join(" · ")}</p>
+            <ul className="space-y-1.5">
+              {queueRows.map((row) => (
+                <li key={row.id} className="text-sm">
+                  <Link href={`/substances/${row.id}`} className="text-teal-800 hover:underline">
+                    {row.nameZh}
+                  </Link>
+                  <span className="ml-2 text-[11px] font-latin text-slate-400">
+                    {row.id}
+                    {row.cas ? ` · CAS ${row.cas}` : ""}
+                    {row.unii ? ` · UNII ${row.unii}` : ""}
+                  </span>
+                  <Link
+                    href={`/substances/${row.id}#entity-hub`}
+                    className="ml-2 text-[11px] text-teal-700 hover:underline"
+                  >
+                    枢纽
+                  </Link>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
 
@@ -230,12 +289,30 @@ export default function WorkbenchPage() {
                 <span className="text-xs text-slate-400 font-latin mr-2">
                   {e.date}
                 </span>
-                {e.titleZh}
+                <Link href="/alerts" className="text-slate-800 hover:text-teal-800 hover:underline">
+                  {e.titleZh}
+                </Link>
+                {e.relatedSubstanceIds?.[0] ? (
+                  <Link
+                    href={`/substances/${e.relatedSubstanceIds[0]}`}
+                    className="ml-2 text-[11px] text-teal-700 hover:underline"
+                  >
+                    相关物质 →
+                  </Link>
+                ) : null}
               </li>
             ))}
           </ul>
         </section>
       </div>
     </div>
+  );
+}
+
+export default function WorkbenchPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载工作台…</p>}>
+      <WorkbenchInner />
+    </Suspense>
   );
 }

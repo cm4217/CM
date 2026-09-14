@@ -16,6 +16,11 @@ import { SubstanceExtras } from "@/components/SubstanceExtras";
 import { ImpurityExportPanel } from "@/components/ImpurityExportPanel";
 import { IdStatusBadge, ProvenanceBadge } from "@/components/ProvenanceBadge";
 import { SubstanceQuickActions } from "@/components/SubstanceQuickActions";
+import { EntityHubPanel } from "@/components/EntityHubPanel";
+import {
+  buildSubstanceHubLinks,
+  findRelatedDrugsForSubstance,
+} from "@/lib/entityAssociation";
 import { RecentSubstanceBeacon } from "@/components/RecentSubstanceBeacon";
 import {
   fieldProvenanceOf,
@@ -72,6 +77,45 @@ export default function SubstancePage({ params }: Props) {
           <p className="text-xs text-slate-500">同义词：{light.synonyms.join(" · ")}</p>
         ) : null}
         <OfficialQueryLinks nameZh={light.nameZh} nameEn={light.nameEn} cas={light.cas} unii={light.unii} />
+        <EntityHubPanel
+          title="关联模块（开放/草稿身份）"
+          subtitle="成药检索 · 工作台 · 扩库（精选专论字段可能为空）"
+          links={[
+            {
+              key: "drugs",
+              label: "检索成药",
+              href: `/search?q=${encodeURIComponent(light.nameEn || light.nameZh)}&type=drug`,
+              tone: "indigo",
+            },
+            {
+              key: "search",
+              label: "检索本实体",
+              href: `/search?q=${encodeURIComponent(light.cas || light.unii || light.nameZh)}`,
+              tone: "slate",
+            },
+            {
+              key: "workbench",
+              label: "工作台",
+              href: "/workbench",
+              tone: "slate",
+            },
+            {
+              key: "import",
+              label: "扩库 / 索引",
+              href: "/tools/index",
+              tone: "teal",
+            },
+            {
+              key: "hhwyc",
+              label: "化学预测 · HHWYC",
+              href: "https://github.com/cm4217/HHWYC",
+              note: "独立仓库",
+              tone: "violet",
+            },
+          ]}
+          relatedDrugs={findRelatedDrugsForSubstance(light.id, 4)}
+          entityIds={{ cas: light.cas, unii: light.unii }}
+        />
         <p className="text-sm"><Link href="/tools/index" className="text-teal-800 hover:underline">索引缓存 / 晋升说明</Link></p>
       </div>
     );
@@ -104,6 +148,11 @@ export default function SubstancePage({ params }: Props) {
           </span>
         </h1>
         <SubstanceQuickActions substanceId={s.id} nameZh={s.nameZh} />
+        <EntityHubPanel
+          links={buildSubstanceHubLinks(s)}
+          relatedDrugs={findRelatedDrugsForSubstance(s.id, 6)}
+          entityIds={{ cas: s.cas, unii: s.unii, inn: s.inn }}
+        />
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">{s.summaryZh}</p>
         <p className="text-xs text-slate-400 font-latin max-w-3xl">{s.summaryEn}</p>
         <div className="pt-2 max-w-4xl">
