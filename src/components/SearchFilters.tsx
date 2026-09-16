@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { PHARMACOPOEIA_FILTERS } from "@/lib/constants";
 import { SearchAutocomplete } from "./SearchAutocomplete";
+import { syncTypeTabParams } from "@/lib/searchTabSync";
 
 export function SearchFilters() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export function SearchFilters() {
       "impurityType",
       "parentId",
       "dosageForm",
+      "region",
       "molecularFormula",
       "pharmaVersion",
       "efficacy",
@@ -34,10 +36,13 @@ export function SearchFilters() {
       "relax",
       "strict",
       "indexSource",
+      "tab",
     ]) {
       const v = sp.get(key);
       if (v) params.set(key, v);
     }
+    // type= 与 tab= 对齐：有 type 时以 type 为准改写 tab，避免互相打架
+    syncTypeTabParams(params);
     router.push(`/search?${params.toString()}`);
   }
 

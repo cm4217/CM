@@ -4,7 +4,6 @@ import { openSubstances } from "@/data/openSubstances.generated";
 import { openDrugProducts } from "@/data/openDrugProducts.generated";
 import { SYNONYM_CLUSTERS } from "@/lib/synonyms";
 import { cachedFetch, ONE_HOUR } from "@/lib/cache";
-import { resolveDrugParentSubstanceId } from "@/lib/entityAssociation";
 
 export const revalidate = 3600;
 
@@ -133,10 +132,7 @@ function localBuckets(q: string, limitPer = 6) {
       .join(" ")
       .toLowerCase();
     if (!blob.includes(n)) continue;
-    const parent = resolveDrugParentSubstanceId(d);
-    const href = parent
-      ? `/substances/${parent}`
-      : `/search?q=${encodeURIComponent(d.genericName || d.brandName || d.inn || "")}&type=drug&tab=drug`;
+    const href = `/drugs/${encodeURIComponent(d.id)}`;
     push(drugOut, {
       source: "local",
       kind: "drug",

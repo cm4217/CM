@@ -166,6 +166,49 @@ function loadOpenSubstanceIndex() {
 }
 
 
+
+function loadCuratedSubstanceIndex() {
+  const byUnii = new Map();
+  const byName = new Map();
+  const path = join(ROOT, "src/data/substances.ts");
+  if (!existsSync(path)) return { byUnii, byName };
+  try {
+    const raw = readFileSync(path, "utf8");
+    for (const b of raw.split(/\{\s*id:/).slice(1)) {
+      const id = (b.match(/^\s*"([^"]+)"/) || [])[1];
+      if (!id || !id.startsWith("sub-")) continue;
+      const unii = (b.match(/unii:\s*"([^"]+)"/) || [])[1];
+      const inn = (b.match(/inn:\s*"([^"]+)"/) || [])[1];
+      const nameEn = (b.match(/nameEn:\s*"([^"]+)"/) || [])[1];
+      const nameZh = (b.match(/nameZh:\s*"([^"]+)"/) || [])[1];
+      if (unii) byUnii.set(String(unii).toUpperCase(), id);
+      for (const n of [inn, nameEn, nameZh]) {
+        const k = String(n || "").toLowerCase().trim();
+        if (k && !byName.has(k)) byName.set(k, id);
+      }
+    }
+    console.log("Indexed curated substances", byUnii.size, "UNII /", byName.size, "names");
+  } catch (e) {
+    console.warn("Could not index curated substances:", e.message || e);
+  }
+  return { byUnii, byName };
+}
+
+function resolveParentId(unii, inn, generic, curatedIdx, openIdx) {
+  const u = unii ? String(unii).toUpperCase() : "";
+  if (u && curatedIdx.byUnii.has(u)) return curatedIdx.byUnii.get(u);
+  for (const n of [inn, generic]) {
+    const k = String(n || "").toLowerCase().trim();
+    if (k && curatedIdx.byName.has(k)) return curatedIdx.byName.get(k);
+  }
+  if (u && openIdx.byUnii.has(u)) return openIdx.byUnii.get(u);
+  for (const n of [inn, generic]) {
+    const k = String(n || "").toLowerCase().trim();
+    if (k && openIdx.byName.has(k)) return openIdx.byName.get(k);
+  }
+  return undefined;
+}
+
 function scoreProduct(r) {
   let s = 0;
   if (r.finished) s += 5;
@@ -195,18 +238,14 @@ function normalizeProduct(r, idx, substanceIdx) {
   const route = Array.isArray(r.route) ? r.route.join("/") : r.route || undefined;
   const uniis = (r.openfda?.unii || []).map((u) => String(u).toUpperCase());
   const primaryUnii = uniis[0];
-  let parentSubstanceId;
-  if (primaryUnii && substanceIdx.byUnii.has(primaryUnii)) {
-    parentSubstanceId = substanceIdx.byUnii.get(primaryUnii);
-  } else {
-    const g0 = (ingredients[0]?.name || generic || "").toLowerCase();
-    if (g0 && substanceIdx.byName.has(g0)) parentSubstanceId = substanceIdx.byName.get(g0);
-    else {
-      // try first token of generic
-      const token = g0.split(/[^a-z0-9]+/)[0];
-      if (token && substanceIdx.byName.has(token)) parentSubstanceId = substanceIdx.byName.get(token);
-    }
-  }
+  const innGuess = generic ? titleCase(generic.split(/[,;]/)[0].trim()) : undefined;
+  const parentSubstanceId = resolveParentId(
+    primaryUnii,
+    innGuess,
+    ingredients[0]?.name || generic,
+    substanceIdx.curated || { byUnii: new Map(), byName: new Map() },
+    substanceIdx
+  );
   const productNdc = r.product_ndc || r.product_id || "";
   const id = slugId([productNdc || brand || generic, dosageForm, strength.slice(0, 20)], idx);
   const synonyms = [];
@@ -473,7 +512,9 @@ async function main() {
     }
   }
 
-  const substanceIdx = loadOpenSubstanceIndex();
+  const openIdx = loadOpenSubstanceIndex();
+  const curatedIdx = loadCuratedSubstanceIndex();
+  const substanceIdx = { ...openIdx, curated: curatedIdx };
   let provenance = "openfda-ndc";
   let usedFiles = [];
   let rawRows = [];
@@ -557,6 +598,24 @@ async function main() {
     "substances enriched:",
     substTouched
   );
+
+  // Re-resolve parents: curated sub-* via UNII/INN first, else open-*, else drop mismatches
+  let parentFixed = 0;
+  for (const p of merged) {
+    const next = resolveParentId(
+      p.parentUnii || p.unii,
+      p.inn,
+      p.genericName,
+      curatedIdx,
+      openIdx
+    );
+    if (next !== p.parentSubstanceId) {
+      parentFixed++;
+      if (next) p.parentSubstanceId = next;
+      else delete p.parentSubstanceId;
+    }
+  }
+  console.log("Parent substance IDs re-resolved:", parentFixed);
 
   const provParts = Array.from(new Set(merged.map((r) => r.provenance).filter(Boolean)));
   const finalProv = provParts.join("+") || provenance;

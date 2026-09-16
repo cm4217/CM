@@ -29,3 +29,15 @@ Merged into product and substance synonyms; also `src/lib/synonyms.ts`.
 npm run seed:global-drugs
 OPEN_DRUG_SKIP_DOWNLOAD=1 OPEN_DRUG_IMPORT_LIMIT=6000 npm run import:drugs
 ```
+
+## Parent substance IDs
+
+Prefer curated `sub-*` via UNII / exact INN / genericName; else matching `open-*`; else omit.
+
+```bash
+npm run patch:drug-parents
+# or after import:
+OPEN_DRUG_SKIP_DOWNLOAD=1 npm run import:drugs
+```
+
+See `OPEN_DRUG_PRODUCTS_META.parentPatch` for last patch counts.

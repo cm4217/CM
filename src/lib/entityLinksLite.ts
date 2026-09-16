@@ -84,7 +84,7 @@ export function alsoSeeForHit(hit: {
     out.push({
       key: "drugs",
       label: "另见成药",
-      href: `/search?q=${q}&type=drug`,
+      href: `/search?q=${q}&type=drug&tab=drug`,
       note: "同 INN/名称",
       tone: "indigo",
     });
@@ -122,7 +122,7 @@ export function alsoSeeForHit(hit: {
       out.push({
         key: "search-api",
         label: "检索原料药",
-        href: `/search?q=${q}&type=API`,
+        href: `/search?q=${q}&type=API&tab=substance`,
         tone: "slate",
       });
     }

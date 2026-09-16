@@ -18,7 +18,8 @@
     "expand:ndc-substances": "node scripts/expand-substances-from-ndc.mjs",
     "seed:open": "node scripts/generate-open-seed.mjs",
     "seed:global-drugs": "node scripts/generate-global-drug-seed.mjs",
-    "import:drugs:full": "node scripts/import-open-drug-products.mjs"
+    "import:drugs:full": "node scripts/import-open-drug-products.mjs",
+    "patch:drug-parents": "node scripts/patch-drug-parents.mjs"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",

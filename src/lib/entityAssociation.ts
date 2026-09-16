@@ -83,12 +83,8 @@ export function resolveDrugParentSubstanceId(
   const u = normUnii(drug.parentUnii || drug.unii);
   if (u && _byUnii!.has(u)) return _byUnii!.get(u)!.id;
 
-  for (const n of [
-    drug.inn,
-    drug.genericName,
-    drug.brandName,
-    ...(drug.synonyms || []),
-  ]) {
+  // Name match: INN / generic only — brand & free synonyms are too noisy
+  for (const n of [drug.inn, drug.genericName]) {
     const k = norm(n);
     if (k && _byName!.has(k)) return _byName!.get(k)!.id;
   }
@@ -254,7 +250,7 @@ export function buildSubstanceHubLinks(
     {
       key: "watch",
       label: "关注",
-      href: `/watchlist`,
+      href: `/watchlist?substance=${id}`,
       note: "本地列表",
       tone: "teal",
     },
@@ -295,13 +291,13 @@ export function buildSubstanceHubLinks(
     {
       key: "notes",
       label: "备注",
-      href: `/notes`,
+      href: `/notes?substance=${id}`,
       tone: "slate",
     },
     {
       key: "drugs",
       label: drugCount ? `成药同 INN（${drugCount}）` : "成药同 INN",
-      href: `/search?q=${innQ}&type=drug`,
+      href: `/search?q=${innQ}&type=drug&tab=drug`,
       note: s.inn || s.nameEn,
       tone: "indigo",
     },
@@ -367,7 +363,7 @@ export function buildImpurityHubLinks(i: ImpurityNode): HubLink[] {
     {
       key: "watch",
       label: "关注",
-      href: `/watchlist`,
+      href: `/watchlist?impurity=${id}`,
       tone: "teal",
     },
     {
@@ -409,7 +405,7 @@ export function alsoSeeForHit(hit: {
       out.push({
         key: "drugs",
         label: `另见成药 ${n}`,
-        href: `/search?q=${q}&type=drug`,
+        href: `/search?q=${q}&type=drug&tab=drug`,
         note: "同 INN/UNII",
         tone: "indigo",
       });
@@ -452,7 +448,7 @@ export function alsoSeeForHit(hit: {
       out.push({
         key: "search-api",
         label: "检索原料药",
-        href: `/search?q=${q}&type=API`,
+        href: `/search?q=${q}&type=API&tab=substance`,
         tone: "slate",
       });
     }

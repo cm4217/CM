@@ -16,13 +16,7 @@ function hrefFor(hit: SearchHit) {
   if (hit.kind === "substance") return `/substances/${hit.id}`;
   if (hit.kind === "impurity") return `/impurities/${hit.id}`;
   if (hit.kind === "drug") {
-    // Prefer curated sub-* parents only (open-* seed parents are often wrong)
-    const parent = hit.parentSubstanceId;
-    if (parent && (parent.startsWith("sub-") || !parent.startsWith("open-"))) {
-      return `/substances/${parent}`;
-    }
-    const q = hit.genericName || hit.brandName || hit.titleEn || hit.titleZh;
-    return `/search?q=${encodeURIComponent(q || "")}&type=API`;
+    return `/drugs/${encodeURIComponent(hit.id)}`;
   }
   return `/reference-standards#${hit.id}`;
 }

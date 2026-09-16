@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   exportNotesJson,
   importNotesJson,
@@ -10,11 +11,36 @@ import {
 } from "@/lib/notesStorage";
 import { DemoBadge } from "@/components/DemoBadge";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { NotesPanel } from "@/components/NotesPanel";
+import { substances, impurities } from "@/data";
 
-export default function NotesPage() {
+function NotesInner() {
+  const sp = useSearchParams();
   const [store, setStore] = useState<NotesStore>({});
   const [importText, setImportText] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
+
+  const focus = useMemo(() => {
+    const sid = sp.get("substance");
+    const iid = sp.get("impurity");
+    if (sid) {
+      const s = substances.find((x) => x.id === sid);
+      return {
+        kind: "substance" as const,
+        id: sid,
+        titleZh: s?.nameZh || sid,
+      };
+    }
+    if (iid) {
+      const i = impurities.find((x) => x.id === iid);
+      return {
+        kind: "impurity" as const,
+        id: iid,
+        titleZh: i?.nameZh || iid,
+      };
+    }
+    return null;
+  }, [sp]);
 
   function refresh() {
     setStore(loadNotes());
@@ -69,6 +95,19 @@ export default function NotesPage() {
         备注仅存于本机浏览器。团队同步、权限与审计需要后续账号体系，本 MVP 不做服务端鉴权。
       </aside>
 
+      {focus ? (
+        <div className="space-y-2">
+          <p className="text-sm text-teal-900">
+            已从链接定位到{" "}
+            <span className="font-medium">{focus.titleZh}</span>
+            <span className="ml-2 font-latin text-xs text-slate-500">
+              {focus.kind}:{focus.id}
+            </span>
+          </p>
+          <NotesPanel kind={focus.kind} targetId={focus.id} titleZh={focus.titleZh} />
+        </div>
+      ) : null}
+
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
@@ -93,7 +132,7 @@ export default function NotesPage() {
           onChange={(e) => setImportText(e.target.value)}
           rows={4}
           className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs font-latin"
-          placeholder='粘贴导出的 JSON…'
+          placeholder="粘贴导出的 JSON…"
         />
         <button
           type="button"
@@ -107,7 +146,8 @@ export default function NotesPage() {
 
       {entries.length === 0 ? (
         <p className="text-sm text-slate-500">
-          暂无备注。请到物质/杂质详情页的「备注面板」添加。
+          暂无备注。请到物质/杂质详情页的「备注面板」添加，或使用{" "}
+          <code className="font-latin text-xs">/notes?substance=sub-aspirin</code>。
         </p>
       ) : (
         <ul className="space-y-3">
@@ -139,5 +179,13 @@ export default function NotesPage() {
         </ul>
       )}
     </div>
+  );
+}
+
+export default function NotesPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载备注…</p>}>
+      <NotesInner />
+    </Suspense>
   );
 }

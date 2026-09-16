@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { SearchHit } from "@/lib/types";
 import { SearchResults } from "./SearchResults";
@@ -15,6 +16,7 @@ import {
   loadBoostIdSets,
   preferStableBoost,
 } from "@/lib/clientBoost";
+import { effectiveSearchTab } from "@/lib/searchTabSync";
 
 type Props = {
   hits: SearchHit[];
@@ -25,6 +27,14 @@ type Props = {
   tokens?: string[];
   cas?: string;
   fewLocal?: boolean;
+};
+
+const TAB_LABEL: Record<string, string> = {
+  substance: "原料药",
+  drug: "成药",
+  impurity: "杂质",
+  rs: "对照品",
+  external: "站外",
 };
 
 export function SearchResultsShell({
@@ -38,7 +48,9 @@ export function SearchResultsShell({
   fewLocal = false,
 }: Props) {
   const sp = useSearchParams();
-  const tab = sp.get("tab");
+  const type = sp.get("type");
+  const rawTab = sp.get("tab");
+  const tab = effectiveSearchTab(type, rawTab);
   const [boosted, setBoosted] = useState(ssrHits);
   const [watchIds, setWatchIds] = useState<Set<string>>(new Set());
   const [boostOn, setBoostOn] = useState(true);
@@ -57,8 +69,8 @@ export function SearchResultsShell({
   }, [ssrHits]);
 
   const tabbed = useMemo(
-    () => filterHitsByTab(boosted, tab),
-    [boosted, tab]
+    () => filterHitsByTab(boosted, rawTab, type),
+    [boosted, rawTab, type]
   );
 
   const heroDecision = useMemo(() => decideHero(tabbed), [tabbed]);
@@ -68,13 +80,27 @@ export function SearchResultsShell({
       const found = tabbed.find((h) => `${h.kind}:${h.id}` === selectedKey);
       if (found) return found;
     }
-    // Prefer best match / first substance for knowledge panel
     const sub = tabbed.find((h) => h.kind === "substance");
     return sub || tabbed[0] || null;
   }, [tabbed, selectedKey]);
 
-  // external tab: still show shell chrome but empty results hint via SearchResults
   const showExternalOnly = tab === "external";
+  const tabEmpty =
+    !showExternalOnly &&
+    tab !== "all" &&
+    tabbed.length === 0 &&
+    boosted.length > 0;
+  const serverEmpty = boosted.length === 0;
+
+  const clearTabHref = () => {
+    const p = new URLSearchParams(sp.toString());
+    p.delete("tab");
+    if (type && ["drug", "product", "API", "api", "excipient", "impurity", "rs"].includes(type)) {
+      p.delete("type");
+    }
+    const s = p.toString();
+    return s ? `/search?${s}` : "/search";
+  };
 
   return (
     <div className="space-y-4">
@@ -89,7 +115,29 @@ export function SearchResultsShell({
           : `共 ${tabbed.length} 条结果${q ? `，关键词 ${q}` : ""}`}
       </p>
 
-      {!showExternalOnly && heroDecision.reason === "ambiguous" && tabbed.length > 1 ? (
+      {tabEmpty ? (
+        <div
+          role="status"
+          className="rounded-xl border border-dashed border-amber-300 bg-amber-50/70 px-6 py-10 text-center text-sm text-amber-950"
+        >
+          <p className="font-medium">
+            当前「{TAB_LABEL[tab] || tab}」分类下无命中
+          </p>
+          <p className="mt-2 text-amber-900/80">
+            本次检索共有 {boosted.length} 条站内结果，但不在本分类中。可切换到「全部」或其他意图页签查看。
+          </p>
+          <p className="mt-3">
+            <Link
+              href={clearTabHref()}
+              className="text-teal-800 underline hover:text-teal-950"
+            >
+              查看全部结果 →
+            </Link>
+          </p>
+        </div>
+      ) : null}
+
+      {!showExternalOnly && !tabEmpty && heroDecision.reason === "ambiguous" && tabbed.length > 1 ? (
         <div
           role="status"
           className="rounded-xl border border-amber-300/80 bg-gradient-to-r from-amber-50 to-orange-50/60 px-4 py-3 text-sm text-amber-950 shadow-sm"
@@ -102,7 +150,7 @@ export function SearchResultsShell({
         </div>
       ) : null}
 
-      {!showExternalOnly ? (
+      {!showExternalOnly && !tabEmpty ? (
         <SearchMiniCompare
           hits={tabbed}
           force={heroDecision.reason === "ambiguous"}
@@ -117,7 +165,7 @@ export function SearchResultsShell({
             <div className="ph-empty">
               站外助手见页面下方「站外可查」卡片。本页不托管药典全文。
             </div>
-          ) : (
+          ) : tabEmpty ? null : (
             <SearchResults
               hits={tabbed}
               titleOnly={titleOnly}
@@ -133,6 +181,11 @@ export function SearchResultsShell({
               clientBoostActive={boostOn}
             />
           )}
+          {serverEmpty && !showExternalOnly ? (
+            <p className="text-xs text-slate-400 text-center">
+              服务端索引 0 命中（非页签过滤）。可尝试同义词、CAS/UNII 或站外助手。
+            </p>
+          ) : null}
         </div>
         <div className="mt-4 space-y-3 lg:mt-0">
           <SearchKnowledgePanel hit={selected} />

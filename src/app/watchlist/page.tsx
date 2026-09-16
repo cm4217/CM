@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { substances, impurities } from "@/data";
 import { OfficialQueryLinks } from "@/components/OfficialQueryLinks";
 import { DemoBadge } from "@/components/DemoBadge";
@@ -74,14 +75,55 @@ function resolveLine(raw: string): WatchlistItem["resolved"] {
   };
 }
 
-export default function WatchlistPage() {
+function WatchlistInner() {
+  const sp = useSearchParams();
   const [text, setText] = useState("阿司匹林\n50-78-2\n布洛芬\nparacetamol\n62-75-9\n");
   const [items, setItems] = useState<WatchlistItem[]>([]);
   const [busy, setBusy] = useState(false);
+  const [deepFillNote, setDeepFillNote] = useState<string | null>(null);
 
   useEffect(() => {
     setItems(loadWatchlist());
   }, []);
+
+  const substanceParam = sp.get("substance");
+  const impurityParam = sp.get("impurity");
+  const qParam = sp.get("q");
+
+  // Deep-fill from ?substance= / ?impurity= / ?q=
+  useEffect(() => {
+    const seeds: string[] = [];
+    if (substanceParam) {
+      const s = substances.find((x) => x.id === substanceParam);
+      seeds.push(s ? s.nameZh || s.nameEn || s.cas || substanceParam : substanceParam);
+    }
+    if (impurityParam) {
+      const i = impurities.find((x) => x.id === impurityParam);
+      seeds.push(i ? i.nameZh || i.nameEn || i.cas || impurityParam : impurityParam);
+    }
+    if (qParam?.trim()) seeds.push(qParam.trim());
+    if (!seeds.length) return;
+
+    const now = new Date().toISOString();
+    const existing = loadWatchlist();
+    const keys = new Set(existing.map((it) => it.query.trim().toLowerCase()));
+    const added: WatchlistItem[] = [];
+    for (const line of seeds) {
+      const q = line.trim();
+      if (!q || keys.has(q.toLowerCase())) continue;
+      keys.add(q.toLowerCase());
+      added.push({ query: q, resolved: resolveLine(q), addedAt: now });
+    }
+    if (added.length) {
+      const next = [...added, ...existing];
+      saveWatchlist(next);
+      setItems(next);
+      setDeepFillNote(`已从链接预填并加入 ${added.length} 项`);
+    } else {
+      setDeepFillNote("链接目标已在关注列表中");
+    }
+    setText(seeds.join("\n"));
+  }, [substanceParam, impurityParam, qParam]);
 
   function persist(next: WatchlistItem[]) {
     setItems(next);
@@ -231,6 +273,12 @@ export default function WatchlistPage() {
       </div>
 
       <DisclaimerBanner compact />
+
+      {deepFillNote ? (
+        <p role="status" className="rounded-lg border border-teal-200 bg-teal-50 px-3 py-2 text-sm text-teal-950">
+          {deepFillNote}
+        </p>
+      ) : null}
 
       <WatchlistDigestPanel items={items} />
       <WebhookDigestPanel items={items} />
@@ -415,5 +463,13 @@ export default function WatchlistPage() {
         </table>
       </div>
     </div>
+  );
+}
+
+export default function WatchlistPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-500">加载关注列表…</p>}>
+      <WatchlistInner />
+    </Suspense>
   );
 }
