@@ -35,7 +35,7 @@ npm run dev
 - /tools/bookmarklet 书签与浏览器扩展说明
 - /tools/sheets Excel / 加载项
 - /tools/index 索引缓存
-- /tools/import CSV 导入
+- /tools/import CSV / Excel 导入
 
 ## 本版能力
 
@@ -81,9 +81,9 @@ Meilisearch optional via docker compose + MEILI_HOST; offline alerts seed
 - 管理页：/tools/index
 - 检索徽章「缓存草稿」
 
-### 3. CSV 批量导入
+### 3. CSV / Excel 批量导入
 
-- 页面：/tools/import（上传或粘贴，校验 CAS，下载模板）
+- 页面：/tools/import（上传 .csv/.xlsx/.xls 或粘贴 CSV，校验 CAS，下载模板）
 - 合并至 data/cache/user-import.json
 - 检索徽章「用户导入」
 

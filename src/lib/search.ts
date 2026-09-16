@@ -404,7 +404,8 @@ function buildDocs(): Doc[] {
       dosageForm: d.dosageForm,
       countryTags: d.countryTags,
       regionTags: regions,
-      parentSubstanceId: resolveDrugParentSubstanceId(d) || d.parentSubstanceId,
+      // Only curated / resolvable parents — raw open-* seed IDs are often mismatched
+      parentSubstanceId: resolveDrugParentSubstanceId(d),
     });
   }
   return docs;

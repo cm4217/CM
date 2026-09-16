@@ -107,7 +107,12 @@ export function SearchRelatedStrip({ focus, hits, query }: Props) {
         });
       }
     }
-    if (focus.kind === "drug" && focus.parentSubstanceId) {
+    if (
+      focus.kind === "drug" &&
+      focus.parentSubstanceId &&
+      (focus.parentSubstanceId.startsWith("sub-") ||
+        !focus.parentSubstanceId.startsWith("open-"))
+    ) {
       const parentHit = hits.find(
         (h) => h.kind === "substance" && h.id === focus.parentSubstanceId
       );
@@ -208,9 +213,11 @@ export function SearchRelatedStrip({ focus, hits, query }: Props) {
             : h.kind === "impurity"
               ? `/impurities/${h.id}`
               : h.kind === "drug"
-                ? (h.parentSubstanceId
+                ? (h.parentSubstanceId &&
+                  (h.parentSubstanceId.startsWith("sub-") ||
+                    !h.parentSubstanceId.startsWith("open-"))
                     ? `/substances/${h.parentSubstanceId}`
-                    : `/search?q=${encodeURIComponent(h.inn || h.genericName || h.titleEn || "")}&type=drug`)
+                    : `/search?q=${encodeURIComponent(h.inn || h.genericName || h.titleEn || "")}&type=drug&tab=drug`)
                 : `/reference-standards#${h.id}`,
         note:
           h.kind === "substance"

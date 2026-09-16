@@ -60,7 +60,7 @@ export function resolveLightIdentity(id: string): LightIdentity | null {
         unii: user.unii,
         synonyms: user.synonyms || [],
         indexLayer: "user",
-        sourceNote: "用户 CSV 导入 · 身份层",
+        sourceNote: "用户 CSV/Excel 导入 · 身份层",
       };
     }
   } catch { /* ignore */ }

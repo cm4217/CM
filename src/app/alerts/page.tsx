@@ -12,6 +12,7 @@ import { DemoBadge } from "@/components/DemoBadge";
 import { WatchlistDigestPanel } from "@/components/WatchlistDigestPanel";
 import { WebhookDigestPanel } from "@/components/WebhookDigestPanel";
 import {
+  alertRelatedToSubstance,
   labelForImpurityId,
   labelForSubstanceId,
 } from "@/lib/entityLinksLite";
@@ -56,7 +57,7 @@ function AlertsInner() {
   const events = useMemo(() => {
     return apiEvents.filter((e) => {
       if (watchTypes.length && !watchTypes.includes(e.severity)) return false;
-      if (focusSubstance && !e.relatedSubstanceIds?.includes(focusSubstance)) {
+      if (focusSubstance && !alertRelatedToSubstance(e, focusSubstance)) {
         return false;
       }
       if (focusImpurity && !e.relatedImpurityIds?.includes(focusImpurity)) {

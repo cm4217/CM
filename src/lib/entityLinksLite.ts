@@ -50,6 +50,19 @@ function resolveCuratedParent(hit: {
   return undefined;
 }
 
+
+/** True if alert is linked to substance directly or via impurity parent. */
+export function alertRelatedToSubstance(
+  e: { relatedSubstanceIds?: string[]; relatedImpurityIds?: string[] },
+  substanceId: string
+): boolean {
+  if (e.relatedSubstanceIds?.includes(substanceId)) return true;
+  return (e.relatedImpurityIds || []).some((iid) => {
+    const i = impurities.find((x) => x.id === iid);
+    return !!i?.parentSubstanceIds.includes(substanceId);
+  });
+}
+
 /** SERP “另见” — hit fields + curated seed only. */
 export function alsoSeeForHit(hit: {
   kind: string;

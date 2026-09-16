@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { substances, impurities } from "@/data";
 import { ImpurityGraph } from "@/components/ImpurityGraph";
@@ -10,11 +10,22 @@ import { DisclaimerBanner } from "@/components/Disclaimer";
 
 function GraphInner() {
   const sp = useSearchParams();
+  const router = useRouter();
   const [focus, setFocus] = useState<string>("");
   useEffect(() => {
     const f = (sp.get("focus") || sp.get("substance") || "").trim();
     if (f) setFocus(f);
   }, [sp]);
+
+  function onFocusChange(id: string) {
+    setFocus(id);
+    const p = new URLSearchParams(sp.toString());
+    if (id) p.set("focus", id);
+    else p.delete("focus");
+    p.delete("substance");
+    const qs = p.toString();
+    router.replace(qs ? `/graph?${qs}` : "/graph", { scroll: false });
+  }
   const [gsrsNote, setGsrsNote] = useState<string | null>(null);
   const [gsrsBusy, setGsrsBusy] = useState(false);
 
@@ -65,8 +76,9 @@ function GraphInner() {
           <span className="text-slate-600">聚焦物质</span>
           <select
             value={focus}
-            onChange={(e) => setFocus(e.target.value)}
+            onChange={(e) => onFocusChange(e.target.value)}
             className="rounded-lg border border-slate-200 px-2 py-1.5"
+            aria-label="聚焦物质"
           >
             <option value="">全部</option>
             {substances.map((s) => (

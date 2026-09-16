@@ -20,6 +20,7 @@ import { EntityHubPanel } from "@/components/EntityHubPanel";
 import {
   buildSubstanceHubLinks,
   findRelatedDrugsForSubstance,
+  resolveCuratedSubstanceByIds,
 } from "@/lib/entityAssociation";
 import { RecentSubstanceBeacon } from "@/components/RecentSubstanceBeacon";
 import {
@@ -57,6 +58,12 @@ export default function SubstancePage({ params }: Props) {
         : light.indexLayer === "draft"
           ? "缓存草稿"
           : "用户导入";
+    const curatedTwin = resolveCuratedSubstanceByIds({
+      cas: light.cas,
+      unii: light.unii,
+      names: [light.nameEn, light.nameZh, ...(light.synonyms || [])],
+    });
+    const drugKey = curatedTwin?.id || light.id;
     return (
       <div className="space-y-6">
         <div className="flex flex-wrap gap-2 items-center">
@@ -68,6 +75,24 @@ export default function SubstancePage({ params }: Props) {
           <span className="text-xl font-normal text-slate-500 font-latin">{light.nameEn}</span>
         </h1>
         <p className="text-sm text-slate-600">{light.sourceNote}。本页仅身份元数据，不含药典全文。</p>
+        {curatedTwin && curatedTwin.id !== light.id ? (
+          <p
+            role="status"
+            className="rounded-lg border border-teal-200 bg-teal-50/80 px-3 py-2 text-sm text-teal-950"
+          >
+            站内有精选条目：
+            <Link
+              href={`/substances/${encodeURIComponent(curatedTwin.id)}`}
+              className="mx-1 font-medium text-teal-900 underline"
+            >
+              {curatedTwin.nameZh}
+            </Link>
+            <span className="font-latin text-teal-800/80">
+              {curatedTwin.inn || curatedTwin.nameEn}
+            </span>
+            — 含专论索引、杂质与实体枢纽。
+          </p>
+        ) : null}
         <dl className="grid gap-2 sm:grid-cols-2 text-sm">
           {light.cas ? (<div><dt className="text-slate-500">CAS</dt><dd className="font-latin">{light.cas}</dd></div>) : null}
           {light.unii ? (<div><dt className="text-slate-500">UNII</dt><dd className="font-latin">{light.unii}</dd></div>) : null}
@@ -81,10 +106,21 @@ export default function SubstancePage({ params }: Props) {
           title="关联模块（开放/草稿身份）"
           subtitle="成药检索 · 工作台 · 扩库（精选专论字段可能为空）"
           links={[
+            ...(curatedTwin
+              ? [
+                  {
+                    key: "curated",
+                    label: `精选 · ${curatedTwin.nameZh}`,
+                    href: `/substances/${encodeURIComponent(curatedTwin.id)}`,
+                    note: "专论索引",
+                    tone: "teal" as const,
+                  },
+                ]
+              : []),
             {
               key: "drugs",
               label: "检索成药",
-              href: `/search?q=${encodeURIComponent(light.nameEn || light.nameZh)}&type=drug`,
+              href: `/search?q=${encodeURIComponent(light.nameEn || light.nameZh)}&type=drug&tab=drug`,
               tone: "indigo",
             },
             {
@@ -113,7 +149,7 @@ export default function SubstancePage({ params }: Props) {
               tone: "violet",
             },
           ]}
-          relatedDrugs={findRelatedDrugsForSubstance(light.id, 4)}
+          relatedDrugs={findRelatedDrugsForSubstance(drugKey, 4)}
           entityIds={{ cas: light.cas, unii: light.unii }}
         />
         <p className="text-sm"><Link href="/tools/index" className="text-teal-800 hover:underline">索引缓存 / 晋升说明</Link></p>

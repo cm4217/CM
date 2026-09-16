@@ -170,7 +170,13 @@ function ensureDrugIndexes() {
         via = "inn";
       pushUnique(_drugsBySubstanceId, curated, toSummary(d, via, curated));
     }
-    if (d.parentSubstanceId && d.parentSubstanceId !== curated) {
+    // Do not index under raw open-* seed parents — many are seed mismatches
+    // (e.g. Aspirin → open-embelia-ribes-whole). Only curated ids.
+    if (
+      d.parentSubstanceId &&
+      d.parentSubstanceId !== curated &&
+      getSubstance(d.parentSubstanceId)
+    ) {
       pushUnique(
         _drugsBySubstanceId,
         d.parentSubstanceId,

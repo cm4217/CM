@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const primary = [
   { href: "/", label: "首页" },
@@ -53,7 +53,26 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
   const moreActive = more.some((item) => isActive(pathname, item.href));
+
+  useEffect(() => {
+    if (!moreOpen) return;
+    function onDoc(e: MouseEvent) {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMoreOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [moreOpen]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/75">
@@ -87,7 +106,7 @@ export function Header() {
               </Link>
             );
           })}
-          <div className="relative">
+          <div className="relative" ref={moreRef}>
             <button
               type="button"
               className={`rounded-lg px-2.5 py-1.5 text-sm transition ph-focus-ring ${
